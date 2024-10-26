@@ -7,6 +7,7 @@ const errorMessage = ref('')
 
 const handleUpLoading = (event) => {
   const file = event.target.files[0]
+  console.log('file.size in bytes: ', file.size)
 
   if (file.size > 3 * 1024 * 1024) {
     errorMessage.value = 'File size is too large - max 3Mb'
