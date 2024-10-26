@@ -1,33 +1,39 @@
 <script setup>
-import { ref } from 'vue'
 import FavoritePlace from '../FavoritePlace/FavoritePlace.vue'
 import IButton from '../IButton/IButton.vue'
-import IInput from '../IInput/IInput.vue'
 
-const counter = ref(0) // { value: 0 }
-const buttonVariant = ref('gradient')
+const props = defineProps({
+  items: {
+    required: true,
+    type: Array
+  },
+  activeId: {
+    required: true,
+    type: [Number, null]
+  }
+})
 
-const changeButtonVariant = () => {
-  buttonVariant.value = buttonVariant.value === 'gradient' ? 'outlined' : 'gradient'
-}
-
-const increment = () => {
-  counter.value += 1
-  console.log(counter.value)
-}
+const emit = defineEmits(['place-clicked'])
 </script>
 
 <template>
   <div class="px-6">
-    <div class="text-grey mb-4">Added markers ({{ counter }}) style: ({{ buttonVariant }})</div>
+    <div class="text-grey mb-4">Added markers</div>
 
+    <slot name="label"></slot>
     <slot name="list">
-      <FavoritePlace v-for="n in 4" :key="n" />
+      <FavoritePlace
+        v-for="place in props.items"
+        :key="place.id"
+        :title="place.title"
+        :description="place.description"
+        :img="place.img"
+        :is-active="place.id === props.activeId"
+        @click="emit('place-clicked', place.id)"
+      />
     </slot>
-    <IButton class="w-full mt-1" :variant="buttonVariant" @click="changeButtonVariant"
-      >Change Btn Style</IButton
-    >
 
-    <IButton class="w-full mt-10" variant="gradient" @click="increment">Add new marker</IButton>
+    <slot></slot>
+    <IButton class="w-full mt-10" variant="gradient">Add new marker</IButton>
   </div>
 </template>
