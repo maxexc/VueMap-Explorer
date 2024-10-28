@@ -1,6 +1,6 @@
 <script setup>
 import BaseLayout from '@/layouts/BaseLayout.vue'
-import IButton from '../components/IButton/IButton.vue'
+import IButton from '@/components/IButton/IButton.vue'
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import IButton from '../components/IButton/IButton.vue'
         A simple and easy-to-use web application that lets you mark your favorite places, as well as
         those you'd love to visit. So don't wait — give it a try!
       </p>
-      <IButton to="/auth/registration">Get Started</IButton>
+      <IButton to="/VueMap-Explorer/auth/registration">Get Started</IButton>
     </div>
   </BaseLayout>
 </template>

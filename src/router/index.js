@@ -1,11 +1,11 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 
 // ** Lazy Loading **
-const GeeringPage = () => import('@/views/GreetingView.vue')
-const HomePage = () => import('@/views/HomepageView.vue')
-const AuthPage = () => import('@/views/AuthView.vue')
-const LoginPage = () => import('@/views/LoginView.vue')
-const RegistrationPage = () => import('@/views/Registration.vue')
+const GeeringPage = () => import('/VueMap-Explorer/src/views/GreetingView.vue')
+const HomePage = () => import('/VueMap-Explorer/src/views/HomepageView.vue')
+const AuthPage = () => import('/VueMap-Explorer/src/views/AuthView.vue')
+const LoginPage = () => import('/VueMap-Explorer/src/views/LoginView.vue')
+const RegistrationPage = () => import('/VueMap-Explorer/src/views/Registration.vue')
 
 const BASE = import.meta.env.VITE_BASE_URL
 console.log('BASE: ', BASE);
