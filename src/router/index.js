@@ -14,6 +14,7 @@ console.log('BASE: ', BASE);
 const routes = [
     { path: '/VueMap-Explorer/', component: GeeringPage },
     { path: '/VueMap-Explorer/map', component: HomePage },
+    { path: '/VueMap-Explorer/auth', component: AuthPage }
     // {
     //     path: '/VueMap-Explorer/auth',
     //     component: AuthPage,

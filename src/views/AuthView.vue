@@ -6,7 +6,8 @@ import BaseLayout from '@/layouts/BaseLayout.vue'
 <template>
   <BaseLayout>
     <section class="max-w-[500px] w-full bg-white p-10 rounded-2xl">
-      <nav class="flex gap-11 justify-center mb-10 font-bold text-base">
+      <h2 class=" text-center text-green-600">It`s AUTH PAGE</h2>
+      <!-- <nav class="flex gap-11 justify-center mb-10 font-bold text-base">
         <RouterLink class="text-grey" exact-active-class="text-primary" to="registration">
           Create an account
         </RouterLink>
@@ -14,7 +15,7 @@ import BaseLayout from '@/layouts/BaseLayout.vue'
           Sign In
         </RouterLink>
       </nav>
-      <RouterView></RouterView>
+      <RouterView></RouterView> -->
     </section>
   </BaseLayout>
 </template>
