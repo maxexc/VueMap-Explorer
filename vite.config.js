@@ -6,7 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: mode === 'production' ? '/VueMap-Explorer/' : '/',
+  base: '/VueMap-Explorer/',
   plugins: [
     vue(),
     vueDevTools(),
