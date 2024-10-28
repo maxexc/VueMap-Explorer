@@ -12,10 +12,10 @@ console.log('BASE: ', BASE);
 
 
 const routes = [
-    { path: `/`, component: GeeringPage },
-    { path: `/map`, component: HomePage },
+    { path: '/VueMap-Explorer/', component: GeeringPage },
+    { path: '/VueMap-Explorer/map', component: HomePage },
     {
-        path: `/auth`, component: AuthPage, redirect: `/auth/login`, children: [
+        path: '/VueMap-Explorer/auth', component: AuthPage, redirect: '/VueMap-Explorer/auth/login', children: [
             { path: 'login', component: LoginPage },
             { path: 'registration', component: RegistrationPage }
         ]
@@ -23,8 +23,6 @@ const routes = [
 ]
 
 export const router = createRouter({
-    history: createWebHistory(import.meta.env.VITE_BASE_URL || '/'),
-    // history: createWebHistory(),
+    history: createWebHistory(),
     routes,
-    // base: BASE
 })
