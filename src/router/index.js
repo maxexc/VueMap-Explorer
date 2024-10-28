@@ -14,15 +14,15 @@ console.log('BASE: ', BASE);
 const routes = [
     { path: '/VueMap-Explorer/', component: GeeringPage },
     { path: '/VueMap-Explorer/map', component: HomePage },
-    {
-        path: '/VueMap-Explorer/auth',
-        component: AuthPage,
-        redirect: '/VueMap-Explorer/auth/login',
-        children: [
-            { path: '/VueMap-Explorer/auth/login', component: LoginPage },
-            { path: '/VueMap-Explorer/auth/registration', component: RegistrationPage }
-        ]
-    }
+    // {
+    //     path: '/VueMap-Explorer/auth',
+    //     component: AuthPage,
+    //     redirect: '/VueMap-Explorer/auth/login',
+    //     children: [
+    //         { path: '/VueMap-Explorer/auth/login', component: LoginPage },
+    //         { path: '/VueMap-Explorer/auth/registration', component: RegistrationPage }
+    //     ]
+    // }
 ]
 
 export const router = createRouter({
