@@ -18,17 +18,11 @@ const routes = [
         path: '/VueMap-Explorer/auth/',
         component: AuthPage,
         redirect: '/VueMap-Explorer/auth/login',
-        children: [
-            { path: 'login', component: LoginPage },
-            { path: 'registration', component: RegistrationPage }
-        ]
+        // children: [
+        //     { path: 'login', component: LoginPage },
+        //     { path: 'registration', component: RegistrationPage }
+        // ]
     }
-    // {
-    //     path: '/VueMap-Explorer/auth', component: AuthPage, redirect: '/VueMap-Explorer/auth/login', children: [
-    //         { path: 'login', component: LoginPage },
-    //         { path: 'registration', component: RegistrationPage }
-    //     ]
-    // },
 ]
 
 export const router = createRouter({
