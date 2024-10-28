@@ -17,10 +17,10 @@ const routes = [
     {
         path: '/VueMap-Explorer/auth',
         component: AuthPage,
-        // redirect: '/VueMap-Explorer/auth/login',
+        redirect: '/VueMap-Explorer/auth/login',
         children: [
-            // { path: 'login', component: LoginPage },
-            { path: 'registration', component: RegistrationPage }
+            { path: '/VueMap-Explorer/auth/login', component: LoginPage },
+            { path: '/VueMap-Explorer/auth/registration', component: RegistrationPage }
         ]
     }
 ]
