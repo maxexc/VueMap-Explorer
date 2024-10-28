@@ -1,3 +1,4 @@
+import AuthView from '@/views/AuthView.vue';
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 
 // ** Lazy Loading **
@@ -14,7 +15,7 @@ console.log('BASE: ', BASE);
 const routes = [
     { path: '/VueMap-Explorer/', component: GreetingPage },
     { path: '/VueMap-Explorer/map', component: HomePage },
-    // { path: '/VueMap-Explorer/auth', component: AuthPage },
+    { path: '/VueMap-Explorer/auth', component: AuthView },
     // {
     //     path: '/VueMap-Explorer/auth',
     //     component: AuthPage,
