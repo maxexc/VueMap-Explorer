@@ -4,8 +4,8 @@ import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router
 const GeeringPage = () => import('@/views/GreetingView.vue')
 const HomePage = () => import('@/views/HomepageView.vue')
 const AuthPage = () => import('@/views/AuthView.vue')
-const LoginPage = () => import('@/views/LoginView.vue')
-const RegistrationPage = () => import('@/views/Registration.vue')
+// const LoginPage = () => import('@/views/LoginView.vue')
+// const RegistrationPage = () => import('@/views/Registration.vue')
 
 const BASE = import.meta.env.VITE_BASE_URL
 console.log('BASE: ', BASE);

@@ -19,6 +19,17 @@ export default defineConfig({
       views: fileURLToPath(new URL('./src/views', import.meta.url)),
       assets: fileURLToPath(new URL('./src/assets', import.meta.url))
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('_plugin-vue_export-helper')) {
+            return 'vue-export-helper';
+          }
+        }
+      }
+    }
   }
 })
 
