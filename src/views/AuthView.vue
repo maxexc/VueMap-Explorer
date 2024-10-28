@@ -7,9 +7,9 @@ import BaseLayout from '@/layouts/BaseLayout.vue'
   <BaseLayout>
     <section class="max-w-[500px] w-full bg-white p-10 rounded-2xl">
       <nav class="flex gap-11 justify-center mb-10 font-bold text-base">
-        <router-link class="text-grey" exact-active-class="text-primary" to="registration">
+        <RouterLink class="text-grey" exact-active-class="text-primary" to="registration">
           Create an account
-        </router-link>
+        </RouterLink>
         <RouterLink class="text-grey" to="login" exact-active-class="text-primary">
           Sign In
         </RouterLink>
