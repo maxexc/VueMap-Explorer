@@ -22,6 +22,7 @@ coverage
 !.vscode/extensions.json
 .idea
 .env
+.env.production
 *.suo
 *.ntvs*
 *.njsproj
