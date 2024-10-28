@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-// import AuthView from './views/AuthView.vue'
+import AuthView from './views/AuthView.vue'
 </script>
 
 <template>
@@ -15,10 +15,10 @@ import { RouterLink, RouterView } from 'vue-router'
       >
     </nav>
   </section>
-  <main>
+  <!-- <main>
     <RouterView />
-  </main>
-  <!-- <AuthView /> -->
+  </main> -->
+  <AuthView />
 
   <footer class="fixed bottom-1 left-0 right-0 text-gray-600 text-center mt-12 pointer-events-none">
     <p class="text-sm">&copy; Created by maxexc</p>
