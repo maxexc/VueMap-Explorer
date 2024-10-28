@@ -14,7 +14,7 @@ import BaseLayout from '@/layouts/BaseLayout.vue'
           Sign In
         </RouterLink>
       </nav>
-      <RouterView></RouterView>
+      <!-- <RouterView></RouterView> -->
     </section>
   </BaseLayout>
 </template>

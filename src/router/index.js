@@ -15,9 +15,9 @@ const routes = [
     { path: '/VueMap-Explorer/', component: GeeringPage },
     { path: '/VueMap-Explorer/map', component: HomePage },
     {
-        path: '/VueMap-Explorer/auth/',
+        path: '/VueMap-Explorer/auth',
         component: AuthPage,
-        redirect: '/VueMap-Explorer/auth/login',
+        // redirect: '/VueMap-Explorer/auth/login',
         children: [
             // { path: 'login', component: LoginPage },
             { path: 'registration', component: RegistrationPage }
