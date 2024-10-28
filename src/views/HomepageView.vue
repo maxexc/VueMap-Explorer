@@ -71,7 +71,7 @@ const favoritePlaces = [
     title: 'Berlin',
     description:
       'Currently known as the largest and the most populated city of the European Union, Berlin is the capital city of Germany',
-    img: 'img/Berlin.jpg',
+    img: new URL('@/assets/img/Berlin.jpg', import.meta.url).href,
     lngLat: [13.404954, 52.520008]
   },
   {
@@ -79,7 +79,7 @@ const favoritePlaces = [
     title: 'Rome',
     description:
       'Rome, or the Metropolitan City of Rome, is the capital, the largest and the most important city of Italy',
-    img: 'img/Rome.jpg',
+    img: new URL('@/assets/img/Rome.jpg', import.meta.url).href,
     lngLat: [12.496366, 41.902782]
   },
   {
@@ -87,7 +87,7 @@ const favoritePlaces = [
     title: 'Venice',
     description:
       'Venice (Venezia) is an amazingly beautiful old city and the center of the Metropolitan City of Venice',
-    img: 'img/marking_point.jpg',
+    img: new URL('@/assets/img/marking_point.jpg', import.meta.url).href,
     lngLat: [12.327145, 45.438759]
   }
 ]
