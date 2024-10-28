@@ -20,16 +20,16 @@ export default defineConfig({
       assets: fileURLToPath(new URL('./src/assets', import.meta.url))
     }
   },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('_plugin-vue_export-helper')) {
-            return 'vue-export-helper';
-          }
-        }
-      }
-    }
-  }
+  // build: {
+  //   rollupOptions: {
+  //     output: {
+  //       manualChunks(id) {
+  //         if (id.includes('_plugin-vue_export-helper')) {
+  //           return 'vue-export-helper';
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 })
 
