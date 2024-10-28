@@ -14,6 +14,7 @@ jobs:
       - name: Install and build 🔧
         env:
           VITE_TOKEN_MAPBOX: ${{ secrets.VITE_TOKEN_MAPBOX }}
+          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
         run: |
           npm install
           npm run build
