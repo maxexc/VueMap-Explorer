@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 
 // ** Lazy Loading **
-const GeeringPage = () => import('@/views/GreetingView.vue')
+const GreetingPage = () => import('@/views/GreetingView.vue')
 const HomePage = () => import('@/views/HomepageView.vue')
 const AuthPage = () => import('@/views/AuthView.vue')
 // const LoginPage = () => import('@/views/LoginView.vue')
@@ -12,9 +12,9 @@ console.log('BASE: ', BASE);
 
 
 const routes = [
-    { path: '/VueMap-Explorer/', component: GeeringPage },
+    { path: '/VueMap-Explorer/', component: GreetingPage },
     { path: '/VueMap-Explorer/map', component: HomePage },
-    { path: '/VueMap-Explorer/auth', component: AuthPage }
+    { path: '/VueMap-Explorer/auth', component: AuthPage },
     // {
     //     path: '/VueMap-Explorer/auth',
     //     component: AuthPage,
