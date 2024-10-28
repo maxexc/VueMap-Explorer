@@ -1,8 +1,9 @@
 <script setup>
+import { reactive, ref, toRaw } from 'vue'
 import IButton from '@/components/IButton/IButton.vue'
+import EyeIcon from '@/components/icons/EyeIcon.vue'
+import EyeOffIcon from '@/components/icons/EyeOffIcon.vue'
 import IInput from '@/components/IInput/IInput.vue'
-import { reactive, toRaw } from 'vue'
-import FormContainer from '../FormContainer.vue'
 
 const emit = defineEmits(['submit'])
 const userData = reactive({
@@ -10,10 +11,14 @@ const userData = reactive({
   email: '',
   password: ''
 })
+const showPassword = ref(false)
+const togglePasswordVisibility = () => {
+  showPassword.value = !showPassword.value
+}
 </script>
 
 <template>
-  <FormContainer @submit.prevent="emit('submit', toRaw(userData))">
+  <form @submit.prevent="emit('submit', toRaw(userData))">
     <IInput class="mb-4" label="Full Name" v-model="userData.name" required />
     <IInput
       class="mb-4"
@@ -24,13 +29,23 @@ const userData = reactive({
       autocomplete="email"
       required
     />
-    <IInput
-      label="Password"
-      type="password"
-      v-model="userData.password"
-      autocomplete="current-password"
-      required
-    />
+    <div class="relative">
+      <IInput
+        label="Password"
+        :type="showPassword ? 'text' : 'password'"
+        v-model="userData.password"
+        autocomplete="current-password"
+        required
+      />
+      <button
+        @click="togglePasswordVisibility"
+        type="button"
+        class="absolute bottom-2 right-0 pr-3 flex items-center transition-opacity"
+        :class="showPassword ? 'opacity-100' : 'opacity-50'"
+      >
+        <component :is="showPassword ? EyeIcon : EyeOffIcon" />
+      </button>
+    </div>
     <IButton class="mt-10 w-full" variant="gradient" type="submit">Create Account</IButton>
-  </FormContainer>
+  </form>
 </template>

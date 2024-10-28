@@ -13,12 +13,12 @@ const toggle3D = () => {
 <template>
   <button
     @click="toggle3D"
-    class="absolute top-[10px] right-[10px] bg-transparent border-none cursor-pointer flex flex-col items-center gap-2"
+    class="absolute top-[10px] right-[10px] bg-transparent rounded border-none cursor-pointer flex flex-col items-center gap-2 hover:bg-white"
   >
     <div
       class="icon"
       :class="[
-        'w-[42px] h-[42px] p-[2.5px] rounded border shadow-md',
+        'w-[40px] h-[40px] p-[2.5px] rounded border shadow-md',
         is3DEnabled ? 'border-orange-300' : 'border-gray-200'
       ]"
       style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.88)"
