@@ -6,7 +6,7 @@ import IButton from '@/components/IButton/IButton.vue'
 <template>
   <BaseLayout>
     <div class="text-center">
-      <img class="inline mb-6" src="../assets/img/map-pin.svg" alt="" />
+      <img class="inline mb-6" src="assets/img/map-pin.svg" alt="" />
       <h1 class="font-bold text-4xl mb-7">IT traveler</h1>
       <p class="leading-6 mb-11 text-lg">
         A simple and easy-to-use web application that lets you mark your favorite places, as well as
