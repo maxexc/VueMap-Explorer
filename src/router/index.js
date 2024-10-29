@@ -13,31 +13,47 @@ const HomePage = () => import('@/views/HomepageView.vue')
 const BASE = import.meta.env.VITE_BASE_URL
 console.log('BASE: ', BASE);
 
-
 const routes = [
-    { path: '/VueMap-Explorer/', component: GreetingPage },
-    { path: '/VueMap-Explorer/map', component: HomePage },
+    { path: '/', component: GreetingPage },
+    { path: '/map', component: HomePage },
     {
-        path: '/VueMap-Explorer/auth',
+        path: '/auth',
         component: AuthView,
-        redirect: '/VueMap-Explorer/auth/login',
+        redirect: '/auth/login',
         children: [
-            { path: '/VueMap-Explorer/auth/login', component: LoginView },
-            { path: '/VueMap-Explorer/auth/registration', component: Registration }
+            { path: 'login', component: LoginView }, // относительный путь
+            { path: 'registration', component: Registration } // относительный путь
         ]
     },
-    // {
-    //     path: '/VueMap-Explorer/auth',
-    //     component: AuthPage,
-    //     redirect: '/VueMap-Explorer/auth/login',
-    //     children: [
-    //         { path: '/VueMap-Explorer/auth/login', component: LoginPage },
-    //         { path: '/VueMap-Explorer/auth/registration', component: RegistrationPage }
-    //     ]
-    // }
 ]
 
 export const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory(import.meta.env.VITE_BASE_URL),
     routes,
 })
+
+
+
+// const routes = [
+//     { path: '/VueMap-Explorer/', component: GreetingPage },
+//     { path: '/VueMap-Explorer/map', component: HomePage },
+//     {
+//         path: '/VueMap-Explorer/auth',
+//         component: AuthView,
+//         redirect: '/VueMap-Explorer/auth/login',
+//         children: [
+//             { path: '/VueMap-Explorer/auth/login', component: LoginView },
+//             { path: '/VueMap-Explorer/auth/registration', component: Registration }
+//         ]
+//     },
+// ]
+
+// {
+//     path: '/VueMap-Explorer/auth',
+//     component: AuthPage,
+//     redirect: '/VueMap-Explorer/auth/login',
+//     children: [
+//         { path: '/VueMap-Explorer/auth/login', component: LoginPage },
+//         { path: '/VueMap-Explorer/auth/registration', component: RegistrationPage }
+//     ]
+// }
