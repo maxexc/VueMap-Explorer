@@ -7,10 +7,10 @@ import { RouterLink, RouterView } from 'vue-router'
   <section class="fixed top-0 left-1">
     <nav class="flex gap-4">
       <strong>Current route path:</strong> {{ $route.fullPath }}
-      <RouterLink class="underline" exact-active-class="text-blue-600" to="/VueMap-Explorer/"
+      <RouterLink class="underline" exact-active-class="text-blue-600" to="/"
         >GreetingPage</RouterLink
       >
-      <RouterLink class="underline" exact-active-class="text-blue-600" to="/VueMap-Explorer/map"
+      <RouterLink class="underline" exact-active-class="text-blue-600" to="/map"
         >MapPage</RouterLink
       >
     </nav>

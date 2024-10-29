@@ -13,7 +13,7 @@ import IButton from '@/components/IButton/IButton.vue'
         those you'd love to visit. So don't wait — give it a try!
       </p>
       <!-- <IButton to="/VueMap-Explorer/auth">Get Started</IButton> -->
-      <IButton to="/VueMap-Explorer/auth/registration">Get Started</IButton>
+      <IButton to="/auth/registration">Get Started</IButton>
     </div>
   </BaseLayout>
 </template>
