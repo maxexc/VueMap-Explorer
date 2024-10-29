@@ -1,4 +1,6 @@
 import AuthView from '@/views/AuthView.vue';
+import LoginView from '@/views/LoginView.vue';
+import Registration from '@/views/Registration.vue';
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 
 // ** Lazy Loading **
@@ -15,7 +17,15 @@ console.log('BASE: ', BASE);
 const routes = [
     { path: '/VueMap-Explorer/', component: GreetingPage },
     { path: '/VueMap-Explorer/map', component: HomePage },
-    { path: '/VueMap-Explorer/auth', component: AuthView },
+    {
+        path: '/VueMap-Explorer/auth',
+        component: AuthView,
+        redirect: '/VueMap-Explorer/auth/login',
+        children: [
+            { path: '/VueMap-Explorer/auth/login', component: LoginView },
+            { path: '/VueMap-Explorer/auth/login', component: Registration }
+        ]
+    },
     // {
     //     path: '/VueMap-Explorer/auth',
     //     component: AuthPage,
