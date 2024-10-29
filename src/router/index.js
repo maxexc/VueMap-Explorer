@@ -23,7 +23,7 @@ const routes = [
         redirect: '/VueMap-Explorer/auth/login',
         children: [
             { path: '/VueMap-Explorer/auth/login', component: LoginView },
-            { path: '/VueMap-Explorer/auth/login', component: Registration }
+            { path: '/VueMap-Explorer/auth/registration', component: Registration }
         ]
     },
     // {
