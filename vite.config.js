@@ -5,16 +5,16 @@ import vueDevTools from 'vite-plugin-vue-devtools';
 
 // environment variable
 const isProduction = process.env.NODE_ENV === 'production';
-const BASE = isProduction ? '/VueMap-Explorer/' : '/';
+const BASE_URL = isProduction ? '/VueMap-Explorer/' : '/';
 
 // check mode
 console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
-console.log('BASE vite: ', BASE);
+console.log('BASE vite: ', BASE_URL);
 
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: BASE,
+  base: BASE_URL,
   plugins: [
     vue(),
     vueDevTools(),
