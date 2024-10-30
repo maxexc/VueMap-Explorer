@@ -18,6 +18,15 @@ const RegistrationPage = () => import('@/views/Registration.vue')
 export const BASE_DEV = process.env.NODE_ENV === 'production'
     ? import.meta.env.VITE_BASE_URL
     : '';
+
+// Определите, где вы развертываете приложение
+const isGitHub = window.location.hostname === 'maxexc.github.io';
+console.log("Hostname: ", window.location.hostname);
+
+// Выбор истории в зависимости от среды развертывания
+const history = isGitHub ? createWebHashHistory(BASE_DEV) : createWebHistory(BASE_DEV);
+
+
 export const BASE = ''
 
 
@@ -43,7 +52,7 @@ export const router = createRouter({
     // history: createWebHashHistory(),
     // history: createWebHistory(BASE_DEV),
     // history: createWebHistory(),
-    history: createMemoryHistory(),
+    history: history,
     routes,
 })
 
