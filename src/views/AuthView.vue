@@ -10,7 +10,7 @@ import BaseLayout from '@/layouts/BaseLayout.vue'
         <RouterLink class="text-grey" exact-active-class="text-primary" to="registration">
           Create an account
         </RouterLink>
-        <RouterLink class="text-grey" to="login" exact-active-class="text-primary">
+        <RouterLink class="text-grey" exact-active-class="text-primary" to="login">
           Sign In
         </RouterLink>
       </nav>

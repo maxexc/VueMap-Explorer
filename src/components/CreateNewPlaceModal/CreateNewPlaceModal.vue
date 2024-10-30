@@ -32,7 +32,7 @@ const handleUpload = (url) => {
 <template>
   <IModal v-if="props.isOpen" @close="emit('close')">
     <form @submit.prevent="emit('submit', formData)" class="min-w-[420px]">
-      <div class="flex gap-2 justify-center font-bold text-center mb-10">
+      <div class="flex gap-2 justify-center items-center font-bold text-center mb-10">
         <MarkerIcon />Add marker
       </div>
       <IInput label="Location" class="mb-4" v-model="formData.title" />

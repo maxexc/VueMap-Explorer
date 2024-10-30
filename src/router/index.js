@@ -1,10 +1,10 @@
-import AuthView from '@/views/AuthView.vue';
-import LoginView from '@/views/LoginView.vue';
-import Registration from '@/views/Registration.vue';
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import NotFoundView from '@/views/NotFoundView.vue';
-import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
-import HomepageView from '@/views/HomepageView.vue';
-import GreetingView from '@/views/GreetingView.vue';
+// import AuthView from '@/views/AuthView.vue';
+// import LoginView from '@/views/LoginView.vue';
+// import Registration from '@/views/Registration.vue';
+// import HomepageView from '@/views/HomepageView.vue';
+// import GreetingView from '@/views/GreetingView.vue';
 
 
 // ** Lazy Loading **
@@ -19,72 +19,31 @@ export const BASE_DEV = process.env.NODE_ENV === 'production'
     ? import.meta.env.VITE_BASE_URL
     : '';
 
-// Определите, где вы развертываете приложение
+console.log('BASE ROUTER: ', BASE_DEV,);
+
+// Hosting determination
 const isGitHub = window.location.hostname === 'maxexc.github.io';
 console.log("Hostname: ", window.location.hostname);
 
-// Выбор истории в зависимости от среды развертывания
+// Deployment environment
 const history = isGitHub ? createWebHashHistory(BASE_DEV) : createWebHistory(BASE_DEV);
 
-
-export const BASE = ''
-
-
-console.log('BASE ROUTER: ', BASE,);
-
 const routes = [
-    { path: `${BASE}/`, component: GreetingView },
-    { path: `${BASE}/map`, component: HomepageView },
+    { path: '/', component: GreetingPage },
+    { path: '/map', component: HomePage },
     {
-        path: `${BASE}/auth`,
-        component: AuthView,
-        redirect: `${BASE}/auth/login`,
+        path: '/auth',
+        component: AuthPage,
+        redirect: '/auth/login',
         children: [
-            { path: 'login', component: LoginView },
-            { path: 'registration', component: Registration }
+            { path: 'login', component: LoginPage },
+            { path: 'registration', component: RegistrationPage }
         ]
     },
-    { path: `${BASE}/:catchAll(.*)`, component: NotFoundView }
+    { path: '/:catchAll(.*)', component: NotFoundView }
 ]
 
 export const router = createRouter({
-    // history: createWebHistory(import.meta.env.VITE_BASE_URL),
-    // history: createWebHashHistory(),
-    // history: createWebHistory(BASE_DEV),
-    // history: createWebHistory(),
     history: history,
     routes,
 })
-
-// const routes = [
-//     { path: '/', component: GreetingPage },
-//     { path: '/map', component: HomePage },
-//     {
-//         path: '/auth',
-//         component: AuthPage,
-//         redirect: '/auth/login',
-//         children: [
-//             { path: 'login', component: LoginPage },
-//             { path: 'registration', component: RegistrationPage }
-//         ]
-//     },
-//     { path: '/:catchAll(.*)', component: NotFoundView }
-// ]
-
-
-
-
-// const routes = [
-//     { path: '/', component: GreetingPage },
-//     { path: '/map', component: HomePage },
-//     {
-//         path: '/auth',
-//         component: AuthView,
-//         redirect: '/auth/login',
-//         children: [
-//             { path: 'login', component: LoginView },
-//             { path: 'registration', component: Registration }
-//         ]
-//     },
-// ]
-

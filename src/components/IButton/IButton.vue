@@ -15,8 +15,8 @@ const props = defineProps({
 
 const bgStyle = computed(() => {
   return props.variant === 'gradient'
-    ? 'bg-gradient-to-r from-secondary to-primary'
-    : 'bg-secondary'
+    ? 'bg-gradient-to-r from-secondary to-primary w-full'
+    : 'bg-secondary max-w-48'
 })
 
 const isLink = computed(() => !!props.to)
@@ -25,13 +25,13 @@ const link = computed(() => (isLink.value ? props.to : null))
 </script>
 
 <template>
-  <componentName
-    :is="componentName"
-    :to="link"
-    class="rounded-xl py-3 px-10 font-bold tracking-wider text-white overflow-hidden shadow-md transform transition duration-200 hover:shadow-lg active:scale-95"
-    :class="bgStyle"
-  >
-    <slot></slot>
+  <componentName :is="componentName" :to="link" class="flex justify-center">
+    <div
+      class="rounded-xl py-3 px-10 font-bold tracking-wider text-white overflow-hidden shadow-md transform transition duration-200 hover:shadow-lg active:scale-95"
+      :class="bgStyle"
+    >
+      <slot></slot>
+    </div>
   </componentName>
 </template>
 
