@@ -4,6 +4,7 @@
 import NotFoundView from '@/views/NotFoundView.vue';
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 
+
 // ** Lazy Loading **
 const GreetingPage = () => import('@/views/GreetingView.vue')
 const HomePage = () => import('@/views/HomepageView.vue')
@@ -11,29 +12,50 @@ const AuthPage = () => import('@/views/AuthView.vue')
 const LoginPage = () => import('@/views/LoginView.vue')
 const RegistrationPage = () => import('@/views/Registration.vue')
 
+// development or production 
+export const BASE = process.env.NODE_ENV === 'production'
+    ? import.meta.env.VITE_BASE_URL
+    : '';
 
-const BASE = import.meta.env.VITE_BASE_URL
-console.log('BASE: ', BASE);
+console.log('BASE ROUTER: ', BASE);
 
 const routes = [
-    { path: '/', component: GreetingPage },
-    { path: '/map', component: HomePage },
+    { path: `${BASE}/`, component: GreetingPage },
+    { path: `${BASE}/map`, component: HomePage },
     {
-        path: '/auth',
+        path: `${BASE}/auth`,
         component: AuthPage,
-        redirect: '/auth/login',
+        redirect: `${BASE}/auth/login`,
         children: [
             { path: 'login', component: LoginPage },
             { path: 'registration', component: RegistrationPage }
         ]
     },
-    { path: '/:catchAll(.*)', component: NotFoundView }
+    { path: `${BASE}/:catchAll(.*)`, component: NotFoundView }
 ]
 
 export const router = createRouter({
-    history: createWebHistory(import.meta.env.VITE_BASE_URL),
+    // history: createWebHistory(import.meta.env.VITE_BASE_URL),
+    history: createWebHistory(),
     routes,
 })
+
+// const routes = [
+//     { path: '/', component: GreetingPage },
+//     { path: '/map', component: HomePage },
+//     {
+//         path: '/auth',
+//         component: AuthPage,
+//         redirect: '/auth/login',
+//         children: [
+//             { path: 'login', component: LoginPage },
+//             { path: 'registration', component: RegistrationPage }
+//         ]
+//     },
+//     { path: '/:catchAll(.*)', component: NotFoundView }
+// ]
+
+
 
 
 // const routes = [

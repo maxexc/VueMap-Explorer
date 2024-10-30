@@ -1,15 +1,17 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { BASE } from '@/router/index.js'
+console.log('App BASE:', BASE)
 </script>
 
 <template>
   <section class="fixed top-0 left-1">
     <nav class="flex gap-4">
       <strong>Current route path:</strong> {{ $route.fullPath }}
-      <RouterLink class="underline" exact-active-class="text-blue-600" to="/"
+      <RouterLink class="underline" exact-active-class="text-blue-600" :to="`${BASE}/`"
         >GreetingPage</RouterLink
       >
-      <RouterLink class="underline" exact-active-class="text-blue-600" to="/map"
+      <RouterLink class="underline" exact-active-class="text-blue-600" :to="`${BASE}/map`"
         >MapPage</RouterLink
       >
     </nav>

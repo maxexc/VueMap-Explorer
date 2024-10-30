@@ -3,9 +3,18 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueDevTools from 'vite-plugin-vue-devtools';
 
+// environment variable
+const isProduction = process.env.NODE_ENV === 'production';
+const BASE = isProduction ? '/VueMap-Explorer/' : '/';
+
+// check mode
+console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
+console.log('BASE vite: ', BASE);
+
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/VueMap-Explorer/' : '/',
+  base: BASE,
   plugins: [
     vue(),
     vueDevTools(),
@@ -20,4 +29,3 @@ export default defineConfig({
     }
   },
 });
-
