@@ -18,12 +18,12 @@ const toggle3D = () => {
     <div
       class="icon"
       :class="[
-        'w-[40px] h-[40px] p-[2.5px] rounded border shadow-md',
+        'w-[40px] h-[40px] justify-center p-[2.5px] rounded border shadow-md',
         is3DEnabled ? 'border-orange-300' : 'border-gray-200'
       ]"
       style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.88)"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <svg xmlns="http://www.w3.org/2000/svg" class="pl-[0.4px]" viewBox="0 0 512 512">
         <defs>
           <linearGradient id="grad3dOn" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" style="stop-color: #ffa279; stop-opacity: 1" />

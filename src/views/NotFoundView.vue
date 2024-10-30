@@ -1,7 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import { BASE } from '@/router/index.js'
-console.log('NotFoundView BASE', BASE)
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
@@ -13,12 +11,13 @@ console.log('NotFoundView BASE', BASE)
     />
     <h1 class="text-5xl font-bold mt-5 text-[#2C3E50]">404</h1>
     <p class="text-xl mt-2 text-[#333333]">Page Not Found</p>
-    <router-link
-      :to="`${BASE}/`"
-      class="mt-5 bg-gradient-to-r from-secondary to-primary rounded-xl py-3 px-10 font-bold tracking-wider text-white overflow-hidden shadow-md transform transition duration-200 hover:shadow-lg active:scale-95"
-    >
-      Back to Home Page
-    </router-link>
+    <RouterLink :to="'/'">
+      <div
+        class="mt-5 bg-gradient-to-r from-secondary to-primary rounded-xl py-3 px-10 font-bold tracking-wider text-white overflow-hidden shadow-md transform transition duration-200 hover:shadow-lg active:scale-95"
+      >
+        Back to Home Page
+      </div>
+    </RouterLink>
   </div>
 </template>
 
