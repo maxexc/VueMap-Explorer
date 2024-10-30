@@ -15,9 +15,9 @@ const LoginPage = () => import('@/views/LoginView.vue')
 const RegistrationPage = () => import('@/views/Registration.vue')
 
 // development or production
-// export const BASE = process.env.NODE_ENV === 'production'
-//     ? import.meta.env.VITE_BASE_URL
-//     : '';
+export const BASE_DEV = process.env.NODE_ENV === 'production'
+    ? import.meta.env.VITE_BASE_URL
+    : '';
 export const BASE = ''
 
 
@@ -40,8 +40,8 @@ const routes = [
 
 export const router = createRouter({
     // history: createWebHistory(import.meta.env.VITE_BASE_URL),
-    history: createWebHashHistory(),
-    // history: createWebHistory(),
+    // history: createWebHashHistory(),
+    history: createWebHistory(BASE_DEV),
     routes,
 })
 
