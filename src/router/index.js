@@ -2,7 +2,7 @@ import AuthView from '@/views/AuthView.vue';
 import LoginView from '@/views/LoginView.vue';
 import Registration from '@/views/Registration.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import HomepageView from '@/views/HomepageView.vue';
 import GreetingView from '@/views/GreetingView.vue';
 
@@ -41,7 +41,9 @@ const routes = [
 export const router = createRouter({
     // history: createWebHistory(import.meta.env.VITE_BASE_URL),
     // history: createWebHashHistory(),
-    history: createWebHistory(BASE_DEV),
+    // history: createWebHistory(BASE_DEV),
+    history: createWebHistory(),
+    // history: createMemoryHistory(),
     routes,
 })
 
