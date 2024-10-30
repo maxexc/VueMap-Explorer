@@ -1,8 +1,10 @@
-// import AuthView from '@/views/AuthView.vue';
-// import LoginView from '@/views/LoginView.vue';
-// import Registration from '@/views/Registration.vue';
+import AuthView from '@/views/AuthView.vue';
+import LoginView from '@/views/LoginView.vue';
+import Registration from '@/views/Registration.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import HomepageView from '@/views/HomepageView.vue';
+import GreetingView from '@/views/GreetingView.vue';
 
 
 // ** Lazy Loading **
@@ -17,18 +19,18 @@ export const BASE = process.env.NODE_ENV === 'production'
     ? import.meta.env.VITE_BASE_URL
     : '';
 
-console.log('BASE ROUTER: ', BASE);
+console.log('BASE ROUTER: ', BASE,);
 
 const routes = [
-    { path: `${BASE}/`, component: GreetingPage },
-    { path: `${BASE}/map`, component: HomePage },
+    { path: `${BASE}/`, component: GreetingView },
+    { path: `${BASE}/map`, component: HomepageView },
     {
         path: `${BASE}/auth`,
-        component: AuthPage,
+        component: AuthView,
         redirect: `${BASE}/auth/login`,
         children: [
-            { path: 'login', component: LoginPage },
-            { path: 'registration', component: RegistrationPage }
+            { path: 'login', component: LoginView },
+            { path: 'registration', component: Registration }
         ]
     },
     { path: `${BASE}/:catchAll(.*)`, component: NotFoundView }
