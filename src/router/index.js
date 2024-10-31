@@ -1,10 +1,5 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import NotFoundView from '@/views/NotFoundView.vue';
-// import AuthView from '@/views/AuthView.vue';
-// import LoginView from '@/views/LoginView.vue';
-// import Registration from '@/views/Registration.vue';
-// import HomepageView from '@/views/HomepageView.vue';
-// import GreetingView from '@/views/GreetingView.vue';
 
 
 // ** Lazy Loading **
