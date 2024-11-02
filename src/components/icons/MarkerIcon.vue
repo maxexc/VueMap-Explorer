@@ -47,7 +47,6 @@ defineProps({
 <style scoped>
 .ripple {
   margin-bottom: -25px;
-  /* background: rgba(255, 100, 50, 0.4); */
   animation: rippleEffect 2s infinite;
   z-index: -1;
 }
