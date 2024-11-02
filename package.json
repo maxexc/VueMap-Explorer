@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@studiometa/vue-mapbox-gl": "^2.5.0",
+    "axios": "^1.7.7",
     "mapbox-gl": "^3.7.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.29",

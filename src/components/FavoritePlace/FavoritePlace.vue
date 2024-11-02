@@ -40,7 +40,7 @@ const props = defineProps({
 
     <div
       class="h-[1px] w-full mt-4"
-      :class="{ 'bg-primary': props.isActive, 'bg-[#2C2C2C1A]': !props.isActive }"
+      :class="{ 'bg-primary': props.isActive, 'bg-borderDivider': !props.isActive }"
     ></div>
   </section>
 </template>

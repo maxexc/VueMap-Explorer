@@ -15,6 +15,8 @@ export const BASE_DEV = process.env.NODE_ENV === 'production'
     : '';
 
 console.log('BASE ROUTER: ', BASE_DEV,);
+console.log('SERVER_URL: ', import.meta.env.VITE_API_SERVER_URL);
+
 
 // Hosting determination
 const isGitHub = window.location.hostname === 'maxexc.github.io';
@@ -35,7 +37,7 @@ const routes = [
             { path: 'registration', component: RegistrationPage }
         ]
     },
-    { path: '/:catchAll(.*)', component: NotFoundView }
+    { path: '/:catchAll(.*)', component: NotFoundView, name: 'NotFoundView' }
 ]
 
 export const router = createRouter({

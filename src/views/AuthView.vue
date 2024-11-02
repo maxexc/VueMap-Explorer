@@ -5,12 +5,18 @@ import BaseLayout from '@/layouts/BaseLayout.vue'
 
 <template>
   <BaseLayout>
-    <section class="max-w-[500px] w-full bg-white p-10 rounded-2xl shadow-lg">
-      <nav class="flex gap-11 justify-center mb-10 font-bold text-base">
-        <RouterLink class="text-grey" exact-active-class="text-primary" to="registration">
+    <section
+      class="max-w-[500px] w-full bg-white bg-opacity-70 backdrop-blur-md p-5 lg:p-10 rounded-2xl shadow-lg"
+    >
+      <nav class="flex gap-11 justify-center mb-6 lg:mb-10 font-bold text-base">
+        <RouterLink
+          class="text-grey md:text-lg"
+          exact-active-class="text-primary"
+          to="registration"
+        >
           Create an account
         </RouterLink>
-        <RouterLink class="text-grey" exact-active-class="text-primary" to="login">
+        <RouterLink class="text-grey md:text-lg" exact-active-class="text-primary" to="login">
           Sign In
         </RouterLink>
       </nav>

@@ -17,7 +17,7 @@ defineOptions({
 
 const emit = defineEmits(['update:modelValue'])
 const baseStyles =
-  'w-full text-sm rounded-[4px] border-[#2c2c2c46] border-[1px] py-2 px-3 focus:outline-primary'
+  'w-full text-sm rounded-[4px] border-borderInput border-[1px] py-2 px-3 focus:outline-secondary'
 const isTextarea = computed(() => {
   return props.type === 'textarea'
 })
@@ -32,7 +32,7 @@ const componentName = computed(() => {
 <template>
   <div class="w-full text-border">
     <label class="block">
-      <span class="block text-xs px-3 mb-2">{{ props.label }} </span>
+      <span class="block text-xs px-3 mb-0.5 lg:mb-2">{{ props.label }} </span>
       <component
         :is="componentName"
         rows="3"
