@@ -3,9 +3,9 @@ import { ref } from 'vue'
 import { MapboxMap, MapboxMarker, MapboxNavigationControl } from '@studiometa/vue-mapbox-gl'
 import { mapSettings } from '@/map/settings'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import FavoritePlaces from '@/components/FavoritePlaces/FavoritePlaces.vue' 
-import MarkerIcon from '@/components/icons/MarkerIcon.vue' 
-import Toggle3DButton from '@/components/IButton/Toggle3DButton.vue' 
+import FavoritePlaces from '@/components/FavoritePlaces/FavoritePlaces.vue'
+import MarkerIcon from '@/components/icons/MarkerIcon.vue'
+import Toggle3DButton from '@/components/IButton/Toggle3DButton.vue'
 import ResetZoomButton from '@/components/IButton/ResetZoomButton.vue'
 import CreateNewPlaceModal from '@/components/CreateNewPlaceModal/CreateNewPlaceModal.vue'
 
@@ -136,7 +136,7 @@ const openModal = () => {
   <main class="flex h-screen">
     <div class="bg-white h-full w-[400px] shrink-0 overflow-auto pb-10 pt-5">
       <FavoritePlaces :items="favoritePlaces" :active-id="activeId" @place-clicked="changePlace" />
-      <button class="p-3" @click="openModal">Click modal</button>
+      <button class="p-3 text-accent" @click="openModal">Click modal</button>
       <CreateNewPlaceModal
         :is-open="isOpen"
         @close="closeModal"
