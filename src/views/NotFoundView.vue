@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <div
-    class="flex h-440:flex-col h-440:gap-4 items-center justify-self-center h-440:justify-center gap-10 text-center h-screen pb-8 lg:w-full lg:bg-backgroundMain px-4 sm:px-8"
+    class="flex h-440:flex-col h-440:gap-4 items-center justify-self-center h-440:justify-center gap-10 text-center h-screen pb-8 lg:w-full bg-white lg:bg-backgroundMain px-4 sm:px-8"
   >
     <img
       src="src/assets/img/404.jpg"
@@ -29,5 +29,6 @@ import { RouterLink } from 'vue-router'
 <style scoped>
 .active\:scale-95:active {
   transform: scale(0.7);
+  -webkit-transform: scale(0.7);
 }
 </style>

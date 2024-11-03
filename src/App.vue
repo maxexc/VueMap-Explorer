@@ -10,7 +10,7 @@ console.log('isNotFoundPage: ', isNotFoundPage.value)
 
 <template>
   <section class="fixed top-0 left-1 z-20">
-    <nav class="flex gap-4">
+    <nav class="flex text-textSecondary gap-4">
       <strong>Current route path:</strong> {{ $route.fullPath }}
       <RouterLink class="underline" exact-active-class="text-blue-600" :to="'/'"
         >GreetingPage</RouterLink

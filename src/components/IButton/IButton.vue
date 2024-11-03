@@ -48,5 +48,6 @@ const link = computed(() => (isLink.value ? props.to : null))
 
 .active\:scale-95:active {
   transform: scale(0.7);
+  -webkit-transform: scale(0.7);
 }
 </style>
