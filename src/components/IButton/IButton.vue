@@ -10,7 +10,11 @@ const props = defineProps({
       return ['primary', 'gradient', 'outlined'].includes(value)
     }
   },
-  to: String
+  to: String,
+  isLoading: {
+    default: false,
+    type: Boolean
+  }
 })
 
 const bgStyle = computed(() => {
@@ -27,27 +31,39 @@ const link = computed(() => (isLink.value ? props.to : null))
 <template>
   <componentName :is="componentName" :to="link" class="flex justify-center">
     <div
-      class="rounded-xl py-2 lg:py-3 px-10 hover:text-accent font-bold tracking-wider text-white overflow-hidden shadow-md transform transition duration-200 hover:shadow-lg active:scale-95"
+      class="rounded-xl py-2 lg:py-[11px] px-10 font-bold tracking-wider text-white shadow-md transform transition-all duration-200 hover:shadow-lg hover:text-accent active:scale-75"
       :class="bgStyle"
     >
-      <slot></slot>
+      <template v-if="props.isLoading">Loading...</template>
+      <template v-else>
+        <slot></slot>
+      </template>
     </div>
   </componentName>
 </template>
 
 <style scoped>
 .componentName {
-  transition:
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  /* transition:
     transform 0.1s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease; */
 }
 
 .hover\:shadow-lg:hover {
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
-.active\:scale-95:active {
+.transition-all {
+  transition-property: color, background-color, box-shadow, transform;
+}
+
+/* .active\:scale-95:active {
   transform: scale(0.7);
   -webkit-transform: scale(0.7);
-}
+} */
+/* 
+  class="rounded-xl py-2 lg:py-[11px] px-10 hover:text-accent font-bold tracking-wider text-white overflow-hidden shadow-md transform transition duration-200 hover:shadow-lg active:scale-95"
+  */
 </style>
