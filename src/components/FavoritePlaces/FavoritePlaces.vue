@@ -1,6 +1,15 @@
 <script setup>
 import FavoritePlace from '../FavoritePlace/FavoritePlace.vue'
 import IButton from '../IButton/IButton.vue'
+import { hideSpinner, showSpinner } from '@/utils/spinnerControl'
+function someAsyncAction() {
+  console.log('It is a spinner!')
+
+  showSpinner()
+  setTimeout(() => {
+    hideSpinner()
+  }, 3000)
+}
 
 const props = defineProps({
   items: {
@@ -34,6 +43,8 @@ const emit = defineEmits(['place-clicked'])
     </slot>
 
     <slot></slot>
-    <IButton class="w-full mt-10" variant="gradient">Add new marker</IButton>
+    <IButton class="w-full mt-10" variant="gradient" @click="someAsyncAction"
+      >Add new marker</IButton
+    >
   </div>
 </template>

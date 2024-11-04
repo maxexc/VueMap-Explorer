@@ -31,14 +31,24 @@ const handleUpload = (url) => {
 
 <template>
   <IModal v-if="props.isOpen" @close="emit('close')">
-    <form @submit.prevent="emit('submit', formData)" class="min-w-[420px]">
-      <div class="flex gap-2 justify-center items-center font-bold text-center mb-10">
+    <form @submit.prevent="emit('submit', formData)" class="w-full sm:min-w-[420px]">
+      <div class="flex gap-2 justify-center items-center font-bold text-center mb-5 sm:mb-10">
         <MarkerIcon />Add marker
       </div>
-      <IInput label="Location" class="mb-4" v-model="formData.title" />
-      <IInput label="Description" type="textarea" class="mb-3" v-model="formData.description" />
+      <IInput label="Location" class="mb-3 sm:mb-4" v-model="formData.title" />
+      <IInput
+        label="Description"
+        type="textarea"
+        class="mb-3 sm:mb-4"
+        v-model="formData.description"
+      />
       <div class="flex gap-3 items-center mb-10">
-        <img v-if="formData.img" :src="formData.img" alt="Preview" class="w-8 h-8 object-cover" />
+        <img
+          v-if="formData.img"
+          :src="formData.img"
+          alt="Preview"
+          class="w-8 h-8 sm:w-12 sm:h-12 object-cover"
+        />
         <InputImage @uploaded="handleUpload">{{ uploadText }}</InputImage>
       </div>
 

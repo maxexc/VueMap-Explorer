@@ -6,9 +6,9 @@ import BaseLayout from '@/layouts/BaseLayout.vue'
 <template>
   <BaseLayout>
     <section
-      class="max-w-[500px] w-full bg-white bg-opacity-70 backdrop-blur-md p-5 lg:p-10 rounded-2xl shadow-lg"
+      class="max-w-[500px] w-full bg-white bg-opacity-90 sm:bg-opacity-80 backdrop-blur-md p-5 lg:p-8 rounded-lg sm:rounded-2xl shadow-lg"
     >
-      <nav class="flex gap-11 justify-center mb-6 lg:mb-10 font-bold text-base">
+      <nav class="flex gap-11 justify-center mb-6 lg:mb-8 font-bold text-base">
         <RouterLink
           class="text-grey md:text-lg"
           exact-active-class="text-primary"

@@ -5,6 +5,12 @@ import IInput from '@/components/IInput/IInput.vue'
 import EyeOffIcon from '@/components/icons/EyeOffIcon.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 
+const props = defineProps({
+  isLoading: {
+    default: false,
+    type: Boolean
+  }
+})
 const emit = defineEmits(['submit'])
 const userData = reactive({
   email: '',
@@ -19,7 +25,7 @@ const togglePasswordVisibility = () => {
 <template>
   <form @submit.prevent="emit('submit', toRaw(userData))">
     <IInput
-      class="mb-3 lg:mb-4 lg:text-xl"
+      class="mb-3 lg:mb-3 lg:text-lg"
       label="Email Address"
       placeholder="email@gmail.com"
       type="email"
@@ -30,7 +36,7 @@ const togglePasswordVisibility = () => {
     <div class="relative">
       <IInput
         label="Password"
-        class="lg:text-xl"
+        class="lg:text-lg"
         :type="showPassword ? 'text' : 'password'"
         v-model="userData.password"
         autocomplete="current-password"
@@ -39,12 +45,18 @@ const togglePasswordVisibility = () => {
       <button
         @click="togglePasswordVisibility"
         type="button"
-        class="absolute bottom-[7px] lg:bottom-[11px] right-0 pr-3 flex items-center transition-opacity"
+        class="absolute bottom-[7px] lg:bottom-[9px] right-0 pr-3 flex items-center transition-opacity"
         :class="showPassword ? 'opacity-100' : 'opacity-50'"
       >
         <component :is="showPassword ? EyeIcon : EyeOffIcon" />
       </button>
     </div>
-    <IButton class="mt-8 lg:mt-10 w-full" variant="gradient" type="submit">Sign In</IButton>
+    <IButton
+      class="mt-8 lg:mt-9 w-full"
+      variant="gradient"
+      type="submit"
+      :is-loading="props.isLoading"
+      >Sign In</IButton
+    >
   </form>
 </template>

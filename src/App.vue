@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import { computed } from 'vue'
+import ISpinner from './components/ISpinner/ISpinner.vue'
 
 const route = useRoute()
 
@@ -21,6 +22,7 @@ console.log('isNotFoundPage: ', isNotFoundPage.value)
     </nav>
   </section>
   <main>
+    <ISpinner />
     <RouterView />
   </main>
 
