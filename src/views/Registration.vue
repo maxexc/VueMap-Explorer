@@ -1,12 +1,20 @@
 <script setup>
-import { registerUser } from '@/api/user'
+import { register } from '@/api/user'
 import RegistrationForm from '@/components/Auth/RegistrationForm/RegistrationForm.vue'
+import { useMutation } from '@/composables/useMutation'
 import { hideSpinner, showSpinner } from '@/utils/spinnerControl'
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const isLoading = ref(false)
+
+const {
+  isLoading,
+  error,
+  mutation: handleRegister
+} = useMutation({
+  mutationFn: (data) => register(data).then((res) => console.log('Log data: ', res.data)),
+  onSuccess: () => router.replace('/map')
+})
 
 function someAsyncAction() {
   console.log('It is a spinner!')
@@ -19,23 +27,9 @@ function someAsyncAction() {
     router.replace('/map')
   }, 3000)
 }
-
-const handleRegisterUser = async (userData) => {
-  isLoading.value = true
-  try {
-    // showSpinner()
-    // await registerUser(userData).then((res) => console.log('User data: ', res.data))
-    // router.replace('/map')
-  } catch (error) {
-    console.error(error)
-  }
-  // finally {
-  //   hideSpinner()
-  //   isLoading.value = false
-  // }
-}
 </script>
 
 <template>
   <RegistrationForm @submit="someAsyncAction" :is-loading="isLoading" />
+  <div v-if="error" class="text-red-500 mt-4 text-center font-semibold">{{ error }}</div>
 </template>

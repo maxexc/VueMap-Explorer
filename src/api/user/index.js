@@ -4,7 +4,7 @@ export const login = (body) => {
     return clientFetch.post('user/login', body);
 };
 
-export const registerUser = (body) => {
+export const register = (body) => {
     return clientFetch.post('user/register', body);
 };
 
