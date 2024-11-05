@@ -30,7 +30,7 @@ const link = computed(() => (isLink.value ? props.to : null))
 
 <template>
   <componentName :is="componentName" :to="link" class="flex justify-center">
-    <div
+    <button
       class="rounded-xl py-2 lg:py-[11px] px-10 font-bold tracking-wider text-white shadow-md transform transition-all duration-200 hover:shadow-lg hover:text-accent active:scale-75"
       :class="bgStyle"
     >
@@ -38,7 +38,7 @@ const link = computed(() => (isLink.value ? props.to : null))
       <template v-else>
         <slot></slot>
       </template>
-    </div>
+    </button>
   </componentName>
 </template>
 
@@ -46,6 +46,7 @@ const link = computed(() => (isLink.value ? props.to : null))
 .componentName {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  cursor: pointer;
   /* transition:
     transform 0.1s ease,
     box-shadow 0.2s ease; */

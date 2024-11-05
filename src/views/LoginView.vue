@@ -1,29 +1,26 @@
 <script setup>
+import { login } from '@/api/user'
 import LoginForm from '@/components/Auth/LoginForm/LoginForm.vue'
-import { hideSpinner, showSpinner } from '@/utils/spinnerControl'
-import { ref } from 'vue'
+import { useMutation } from '@/composables/useMutation'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const isLoading = ref(false)
 
-function someAsyncAction() {
-  console.log('It is a spinner!')
-
-  isLoading.value = true
-  showSpinner()
-  setTimeout(() => {
-    hideSpinner()
-    isLoading.value = false
-    router.replace('/map')
-  }, 3000)
-}
-
-const handleSubmit = (userData) => {
-  console.log('User data:', userData)
-}
+const {
+  isLoading,
+  error,
+  mutation: handleSubmit
+} = useMutation({
+  mutationFn: (data) => login(data).then((res) => console.log('Log data: ', res.data)),
+  onSuccess: () => router.replace('/map')
+})
 </script>
 
 <template>
-  <LoginForm @submit="someAsyncAction" :is-loading="isLoading" />
+  <div class="relative">
+    <LoginForm @submit="handleSubmit" :is-loading="isLoading" />
+    <div v-if="error" class="text-red-500 mt-4 text-center font-semibold">
+      {{ error }}
+    </div>
+  </div>
 </template>
