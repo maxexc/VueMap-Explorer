@@ -26,19 +26,20 @@ const emit = defineEmits(['place-clicked'])
 </script>
 
 <template>
-  <div class="px-6">
+  <div class="px-6 text-black">
     <div class="text-grey mb-4">Added markers</div>
 
     <slot name="label"></slot>
     <slot name="list">
+      <div v-if="items.length === 0">List of markers is empty.</div>
       <FavoritePlace
         v-for="place in props.items"
-        :key="place.id"
+        :key="place._id"
         :title="place.title"
         :description="place.description"
         :img="place.img"
-        :is-active="place.id === props.activeId"
-        @click="emit('place-clicked', place.id)"
+        :is-active="place._id === props.activeId"
+        @click="emit('place-clicked', place._id)"
       />
     </slot>
 

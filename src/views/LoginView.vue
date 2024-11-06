@@ -1,5 +1,6 @@
 <script setup>
-import { login } from '@/api/user'
+import { authService } from '@/api/authService'
+// import { login } from '@/api/user'
 import LoginForm from '@/components/Auth/LoginForm/LoginForm.vue'
 import { useMutation } from '@/composables/useMutation'
 import { useRouter } from 'vue-router'
@@ -11,9 +12,10 @@ const {
   error,
   mutation: handleSubmit
 } = useMutation({
-  mutationFn: (data) => login(data).then((res) => console.log('Log data: ', res.data)),
+  mutationFn: (data) => authService.login(data),
   onSuccess: () => router.replace('/map')
 })
+// mutationFn: (data) => authService.login(data).then((data) => console.log('Log data: ', data)),
 </script>
 
 <template>

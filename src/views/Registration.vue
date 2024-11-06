@@ -1,5 +1,6 @@
 <script setup>
-import { register } from '@/api/user'
+import { authService } from '@/api/authService'
+// import { register } from '@/api/user'
 import RegistrationForm from '@/components/Auth/RegistrationForm/RegistrationForm.vue'
 import { useMutation } from '@/composables/useMutation'
 import { hideSpinner, showSpinner } from '@/utils/spinnerControl'
@@ -12,9 +13,10 @@ const {
   error,
   mutation: handleRegister
 } = useMutation({
-  mutationFn: (data) => register(data).then((res) => console.log('Log data: ', res.data)),
+  mutationFn: (data) => authService.register(data).then((data) => console.log('Reg data: ', data)),
   onSuccess: () => router.replace('/map')
 })
+// mutationFn: (data) => authService.register(data).then((data) => console.log('Reg data: ', data)),
 
 function someAsyncAction() {
   console.log('It is a spinner!')
