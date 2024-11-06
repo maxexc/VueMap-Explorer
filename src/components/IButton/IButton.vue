@@ -50,7 +50,7 @@ onMounted(() => {
 <template>
   <componentName :is="componentName" :to="link" class="flex justify-center">
     <button
-      class="rounded-xl py-2 lg:py-[11px] px-10 font-bold tracking-wider text-white shadow-md duration-200 hover:shadow-lg hover:text-accent"
+      class="js-animated-button rounded-xl py-2 lg:py-[11px] px-10 font-bold tracking-wider text-white shadow-md transform transition-all duration-200 hover:shadow-lg hover:text-accent"
       :class="bgStyle"
     >
       <template v-if="props.isLoading">Loading...!</template>
