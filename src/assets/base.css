@@ -109,7 +109,7 @@ button {
   -webkit-transition: -webkit-transform 0.1s ease;
   will-change: transform;
   touch-action: manipulation;
-  /* -webkit-backface-visibility: hidden; */
+  user-select: none;
 }
 
 button:active {

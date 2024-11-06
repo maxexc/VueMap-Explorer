@@ -27,8 +27,8 @@ const isLink = computed(() => !!props.to)
 const componentName = computed(() => (isLink.value ? RouterLink : 'button'))
 const link = computed(() => (isLink.value ? props.to : null))
 
+// JS for iOS
 onMounted(() => {
-  // JS for iOS
   const button = document.querySelector('.js-animated-button')
 
   if (button) {
@@ -50,10 +50,10 @@ onMounted(() => {
 <template>
   <componentName :is="componentName" :to="link" class="flex justify-center">
     <button
-      class="js-animated-button rounded-xl py-2 lg:py-[11px] px-10 font-bold tracking-wider text-white shadow-md transform transition-all duration-200 hover:shadow-lg hover:text-accent"
+      class="js-animated-button rounded-xl py-2 lg:py-[11px] px-10 font-bold tracking-wider text-white shadow-md transition-all duration-1000 hover:shadow-lg hover:text-accent"
       :class="bgStyle"
     >
-      <template v-if="props.isLoading">Loading...!</template>
+      <template v-if="props.isLoading">Loading...</template>
       <template v-else>
         <slot></slot>
       </template>
@@ -65,9 +65,6 @@ onMounted(() => {
 .componentName {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  /* transition:
-    transform 0.1s ease,
-    box-shadow 0.2s ease; */
 }
 
 .hover\:shadow-lg:hover {
@@ -75,14 +72,10 @@ onMounted(() => {
 }
 
 .transition-all {
-  transition-property: color, background-color, box-shadow, transform;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
-
-/* .active\:scale-95:active {
-  transform: scale(0.7);
-  -webkit-transform: scale(0.7);
-} */
-/* 
-  class="rounded-xl py-2 lg:py-[11px] px-10 hover:text-accent font-bold tracking-wider text-white overflow-hidden shadow-md transform transition duration-200 hover:shadow-lg active:scale-75"
-  */
 </style>
