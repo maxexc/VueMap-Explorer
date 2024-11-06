@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { MapboxMap, MapboxMarker, MapboxNavigationControl } from '@studiometa/vue-mapbox-gl'
 import { mapSettings } from '@/map/settings'
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -8,11 +8,18 @@ import MarkerIcon from '@/components/icons/MarkerIcon.vue'
 import Toggle3DButton from '@/components/IButton/Toggle3DButton.vue'
 import ResetZoomButton from '@/components/IButton/ResetZoomButton.vue'
 import CreateNewPlaceModal from '@/components/CreateNewPlaceModal/CreateNewPlaceModal.vue'
+import { getFavoritePlaces } from '@/api/favorite-places'
+import { authService } from '@/api/authService'
+import { useMutation } from '@/composables/useMutation'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const mapInstance = ref(null)
 const is3DEnabled = ref(false)
 let zoomListener = null
 const activeId = ref(null)
+const favoritePlaces = ref([])
 
 const apply3DSettings = (map) => {
   map.setMaxPitch(85)
@@ -65,30 +72,30 @@ const handleMapLoad = (map = null) => {
   }
 }
 
-const favoritePlaces = [
+const favoritePlacesDefault = [
   {
-    id: 1,
+    _id: 1,
     title: 'Berlin',
     description:
       'Currently known as the largest and the most populated city of the European Union, Berlin is the capital city of Germany',
     img: new URL('@/assets/img/Berlin.jpg', import.meta.url).href,
-    lngLat: [13.404954, 52.520008]
+    coordinates: [13.404954, 52.520008]
   },
   {
-    id: 2,
+    _id: 2,
     title: 'Rome',
     description:
       'Rome, or the Metropolitan City of Rome, is the capital, the largest and the most important city of Italy',
     img: new URL('@/assets/img/Rome.jpg', import.meta.url).href,
-    lngLat: [12.496366, 41.902782]
+    coordinates: [12.496366, 41.902782]
   },
   {
-    id: 3,
+    _id: 3,
     title: 'Venice',
     description:
       'Venice (Venezia) is an amazingly beautiful old city and the center of the Metropolitan City of Venice',
     img: new URL('@/assets/img/marking_point.jpg', import.meta.url).href,
-    lngLat: [12.327145, 45.438759]
+    coordinates: [12.327145, 45.438759]
   }
 ]
 
@@ -114,14 +121,14 @@ const toggle3D = () => {
 
 const changeActiveId = (id) => {
   activeId.value = id
-  const { lngLat } = favoritePlaces.find((place) => place.id === id)
-  mapInstance.value.flyTo({ center: lngLat })
+  const place = favoritePlaces.value.find((place) => place._id === id)
+  if (place) {
+    mapInstance.value.flyTo({ center: place.coordinates })
+  }
 }
 
 const changePlace = (id) => {
-  const { lngLat } = favoritePlaces.find((place) => place.id === id)
   changeActiveId(id)
-  mapInstance.value.flyTo({ center: lngLat })
 }
 
 const isOpen = ref(false)
@@ -131,12 +138,52 @@ const closeModal = () => {
 const openModal = () => {
   isOpen.value = true
 }
+
+onMounted(async () => {
+  if (!authService.isLoggedIn()) {
+    console.warn('User is not authenticated. Redirecting to login page.')
+    favoritePlaces.value = favoritePlacesDefault
+    return
+  }
+  try {
+    const { data } = await getFavoritePlaces()
+    favoritePlaces.value = data
+    console.log('getFavoritePlaces: ', data)
+  } catch (error) {
+    console.error('Error loading favorite places:', error)
+    if (error.response && error.response.status === 401) {
+      console.warn('Unauthorized. Redirecting to login page.')
+      router.replace('/login')
+    }
+  }
+})
+
+const {
+  data,
+  error,
+  mutation: logOut
+} = useMutation({
+  mutationFn: () => authService.logout(),
+  onError: () => {
+    favoritePlaces.value = []
+    // router.replace('/auth')
+  }
+  // onSuccess: () => router.replace('/auth'),
+})
 </script>
 <template>
   <main class="flex h-screen">
     <div class="bg-white h-full w-[400px] shrink-0 overflow-auto pb-10 pt-5">
       <FavoritePlaces :items="favoritePlaces" :active-id="activeId" @place-clicked="changePlace" />
       <button class="p-3 text-accent" @click="openModal">Click modal</button>
+      <button class="p-3 text-accent" @click="logOut">Log out</button>
+      <br />
+      <div v-if="data" class="text-green-500 mt-4 text-center font-semibold">
+        {{ data.message }}
+      </div>
+      <div v-if="error" class="text-red-500 mt-4 text-center font-semibold">
+        {{ error }}
+      </div>
       <CreateNewPlaceModal
         :is-open="isOpen"
         @close="closeModal"
@@ -154,9 +201,9 @@ const openModal = () => {
         :projection="mapSettings.projection"
         v-on:mb-created="handleMapLoad"
       >
-        <MapboxMarker v-for="place in favoritePlaces" :key="place.id" :lngLat="place.lngLat">
-          <button @click="changeActiveId(place.id)">
-            <MarkerIcon :isActive="place.id === activeId" />
+        <MapboxMarker v-for="place in favoritePlaces" :key="place._id" :lngLat="place.coordinates">
+          <button @click="changeActiveId(place._id)">
+            <MarkerIcon :isActive="place._id === activeId" />
           </button>
         </MapboxMarker>
         <MapboxNavigationControl position="bottom-right" :showZoom="false" :showCompass="true" />

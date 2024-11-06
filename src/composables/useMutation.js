@@ -14,6 +14,7 @@ export const useMutation = ({ mutationFn, onSuccess, onError }) => {
             error.value = null
             onSuccess?.(data)
         } catch (e) {
+            data.value = null
             error.value = e.response?.data?.message || "Oops! Please adjust your request."
             console.error("Error:", e)
             onError?.(error)

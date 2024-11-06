@@ -46,7 +46,6 @@ const link = computed(() => (isLink.value ? props.to : null))
 .componentName {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  cursor: pointer;
   /* transition:
     transform 0.1s ease,
     box-shadow 0.2s ease; */
