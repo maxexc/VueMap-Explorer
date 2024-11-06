@@ -101,14 +101,18 @@ body {
   height: 100%;
 }
 
+/* iPhone styles */
 button {
-  cursor: pointer;
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  transition: transform 0.1s ease;
+  -webkit-transition: -webkit-transform 0.1s ease;
+  will-change: transform;
   touch-action: manipulation;
-  transition:
-    transform 0.1s ease,
-    box-shadow 0.2s ease;
+  /* -webkit-backface-visibility: hidden; */
 }
 
 button:active {
-  transform: scale(0.75);
+  transform: scale(0.75) translateZ(0);
+  -webkit-transform: scale(0.75) translateZ(0);
 }

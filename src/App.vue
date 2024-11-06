@@ -6,7 +6,6 @@ import ISpinner from './components/ISpinner/ISpinner.vue'
 const route = useRoute()
 
 const isNotFoundPage = computed(() => route.name === 'NotFoundView')
-console.log('isNotFoundPage: ', isNotFoundPage.value)
 </script>
 
 <template>
