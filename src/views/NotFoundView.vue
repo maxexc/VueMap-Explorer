@@ -1,4 +1,5 @@
 <script setup>
+import IButton from '@/components/IButton/IButton.vue'
 import { RouterLink } from 'vue-router'
 </script>
 
@@ -16,22 +17,8 @@ import { RouterLink } from 'vue-router'
       <h1 class="text-4xl sm:text-5xl font-bold text-accent">404</h1>
       <p class="text-lg sm:text-xl mt-2 text-textSecondary">Page Not Found</p>
       <RouterLink :to="'/'">
-        <button
-          class="mt-5 bg-gradient-to-r from-secondary to-primary rounded-xl py-2 px-8 sm:py-3 sm:px-10 font-bold tracking-wider text-white shadow-md transform transition duration-200 hover:shadow-lg"
-        >
-          Back to Home Page
-        </button>
+        <IButton variant="gradient" class="mt-5"> Back to Home Page </IButton>
       </RouterLink>
     </div>
   </div>
 </template>
-
-<style scoped>
-/* .active\:scale-75:active {
-  transform: scale(0.7);
-  -webkit-transform: scale(0.7);
-} */
-/* 
-  class="mt-5 bg-gradient-to-r from-secondary to-primary rounded-xl py-2 px-8 sm:py-3 sm:px-10 font-bold tracking-wider text-white shadow-md transform transition duration-200 hover:shadow-lg active:scale-75"
- */
-</style>
