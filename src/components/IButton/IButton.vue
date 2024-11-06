@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 
 const props = defineProps({
@@ -26,15 +26,34 @@ const bgStyle = computed(() => {
 const isLink = computed(() => !!props.to)
 const componentName = computed(() => (isLink.value ? RouterLink : 'button'))
 const link = computed(() => (isLink.value ? props.to : null))
+
+onMounted(() => {
+  // JS for iOS
+  const button = document.querySelector('.js-animated-button')
+
+  if (button) {
+    button.addEventListener('touchstart', () => {
+      button.style.transform = 'scale(0.75) translateZ(0)'
+      button.style.transition = 'transform 0.1s ease'
+    })
+
+    button.addEventListener('touchend', () => {
+      setTimeout(() => {
+        button.style.transform = 'scale(1) translateZ(0)'
+        button.style.transition = 'transform 0.1s ease'
+      }, 100)
+    })
+  }
+})
 </script>
 
 <template>
   <componentName :is="componentName" :to="link" class="flex justify-center">
     <button
-      class="rounded-xl py-2 lg:py-[11px] px-10 font-bold tracking-wider text-white shadow-md transform transition-all duration-200 hover:shadow-lg hover:text-accent active:scale-75"
+      class="rounded-xl py-2 lg:py-[11px] px-10 font-bold tracking-wider text-white shadow-md duration-200 hover:shadow-lg hover:text-accent"
       :class="bgStyle"
     >
-      <template v-if="props.isLoading">Loading...</template>
+      <template v-if="props.isLoading">Loading...!</template>
       <template v-else>
         <slot></slot>
       </template>
@@ -64,6 +83,6 @@ const link = computed(() => (isLink.value ? props.to : null))
   -webkit-transform: scale(0.7);
 } */
 /* 
-  class="rounded-xl py-2 lg:py-[11px] px-10 hover:text-accent font-bold tracking-wider text-white overflow-hidden shadow-md transform transition duration-200 hover:shadow-lg active:scale-95"
+  class="rounded-xl py-2 lg:py-[11px] px-10 hover:text-accent font-bold tracking-wider text-white overflow-hidden shadow-md transform transition duration-200 hover:shadow-lg active:scale-75"
   */
 </style>
