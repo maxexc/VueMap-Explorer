@@ -172,16 +172,20 @@ const {
 })
 </script>
 <template>
-  <main class="flex h-screen">
-    <div class="bg-white h-full w-[400px] shrink-0 overflow-auto pb-10 pt-5">
+  <main class="flex h-screen flex-col-reverse sm:flex-row">
+    <div
+      class="bg-white h-[30%] sm:h-full sm:w-[35%] lg:w-[400px] shrink-0 overflow-auto pb-10 pt-2 sm:pt-9"
+    >
       <FavoritePlaces :items="favoritePlaces" :active-id="activeId" @place-clicked="changePlace" />
-      <button class="p-3 text-accent" @click="openModal">Click modal</button>
-      <button class="p-3 text-accent" @click="logOut">Log out</button>
+      <div class="flex justify-between mt-4 px-3 sm:px-2 lg:px-6">
+        <button class="text-accent" @click="openModal">Click modal</button>
+        <button class="text-accent" @click="logOut">Log out</button>
+      </div>
       <br />
       <div v-if="data" class="text-green-500 mt-4 text-center font-semibold">
         {{ data.message }}
       </div>
-      <div v-if="error" class="text-red-500 mt-4 text-center font-semibold">
+      <div v-if="error" class="text-red-500 my-2 text-center font-semibold">
         {{ error }}
       </div>
       <CreateNewPlaceModal

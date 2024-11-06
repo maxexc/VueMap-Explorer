@@ -26,9 +26,11 @@ const emit = defineEmits(['place-clicked'])
 </script>
 
 <template>
-  <div class="px-6 text-black">
-    <div class="text-grey mb-4">Added markers</div>
-
+  <div class="px-3 sm:px-2 lg:px-6 text-black">
+    <div class="text-grey mb-3 flex justify-between gap-2">
+      <span class="block w-[83%] m-0 p-0">Added markers: </span>
+      <IButton class="w-full" variant="gradient" @click="someAsyncAction"> Add new marker </IButton>
+    </div>
     <slot name="label"></slot>
     <slot name="list">
       <div v-if="items.length === 0">List of markers is empty.</div>
@@ -44,8 +46,5 @@ const emit = defineEmits(['place-clicked'])
     </slot>
 
     <slot></slot>
-    <IButton class="w-full mt-10" variant="gradient" @click="someAsyncAction"
-      >Add new marker</IButton
-    >
   </div>
 </template>
