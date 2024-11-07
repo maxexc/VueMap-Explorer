@@ -35,14 +35,14 @@ onUnmounted(() => {
 <template>
   <Teleport to="body">
     <div
-      class="flex w-full h-full fixed p-5 top-0 left-0 overflow-auto bg-[rgba(0,0,0,0.3)]"
+      class="flex z-10 w-full h-full fixed p-5 sm:p-0 lg:p-5 top-0 left-0 overflow-auto bg-[rgba(0,0,0,0.3)]"
       @click.self="emit('close')"
     >
       <div
-        class="relative bg-white w-full sm:max-w-[500px] m-auto p-5 sm:p-10 text-black rounded-2xl"
+        class="relative bg-white w-full sm:max-w-[500px] m-auto p-5 lg:p-10 sm:p-4 text-black rounded-2xl"
       >
-        <button class="absolute right-4 top-4 sm:right-6 sm:top-6">
-          <CrossIcon class="w-6 h-6 sm:w-7 sm:h-7" @click="emit('close')" />
+        <button class="absolute right-4 top-4 lg:right-6 lg:top-6">
+          <CrossIcon class="w-6 h-6 lg:w-7 lg:h-7" @click="emit('close')" />
         </button>
         <slot></slot>
       </div>

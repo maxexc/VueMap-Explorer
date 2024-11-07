@@ -174,7 +174,7 @@ const {
 <template>
   <main class="flex h-screen flex-col-reverse sm:flex-row">
     <div
-      class="bg-white h-[30%] sm:h-full sm:w-[35%] lg:w-[400px] shrink-0 overflow-auto pb-10 pt-2 sm:pt-9"
+      class="bg-white h-[35%] sm:h-full sm:w-[35%] lg:w-[400px] shrink-0 overflow-auto pb-10 pt-2 sm:pt-9"
     >
       <FavoritePlaces :items="favoritePlaces" :active-id="activeId" @place-clicked="changePlace" />
       <div class="flex justify-between mt-4 px-3 sm:px-2 lg:px-6">
@@ -194,7 +194,7 @@ const {
         @submit="console.log"
       ></CreateNewPlaceModal>
     </div>
-    <div class="w-full h-full flex items-center justify-center text-6xl">
+    <div class="relative w-full h-full flex items-center justify-center text-6xl">
       <MapboxMap
         id="map"
         class="w-full h-full overflow-auto"
@@ -211,9 +211,9 @@ const {
           </button>
         </MapboxMarker>
         <MapboxNavigationControl position="bottom-right" :showZoom="false" :showCompass="true" />
+        <ResetZoomButton class="absolute" :mapInstance="mapInstance" :defaultZoom="10" />
       </MapboxMap>
       <Toggle3DButton :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
-      <ResetZoomButton :mapInstance="mapInstance" :defaultZoom="10" />
     </div>
   </main>
 </template>

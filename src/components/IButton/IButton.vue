@@ -7,7 +7,7 @@ const props = defineProps({
     default: 'primary',
     type: String,
     validator: (value) => {
-      return ['primary', 'gradient', 'outlined'].includes(value)
+      return ['primary', 'gradient', 'modal', 'mobile'].includes(value)
     }
   },
   to: String,
@@ -18,9 +18,19 @@ const props = defineProps({
 })
 
 const bgStyle = computed(() => {
-  return props.variant === 'gradient'
-    ? 'bg-gradient-to-r from-secondary to-primary w-full'
-    : 'bg-buttonPrimary max-w-48 '
+  switch (props.variant) {
+    case 'gradient':
+      return 'bg-gradient-to-r from-secondary to-primary w-full rounded-xl py-2 lg:py-[11px] px-10 font-bold'
+    case 'mobile':
+      return 'bg-gradient-to-r from-secondary to-primary w-full rounded-md lg:rounded-xl py-1 lg:py-2 px-1 lg:px-6 font-medium lg:font-bold'
+    case 'modal':
+      return 'bg-gradient-to-r from-secondary to-primary w-full rounded-xl py-2 lg:py-[11px] px-10 font-medium lg:font-bold'
+    default:
+      return 'bg-buttonPrimary max-w-48 rounded-xl py-2 lg:py-[11px] px-10 font-bold'
+  }
+  // return props.variant === 'gradient'
+  // ? 'bg-gradient-to-r from-secondary to-primary w-full rounded-xl py-2 lg:py-[11px] px-10 font-bold'
+  // : 'bg-buttonPrimary max-w-48 rounded-xl py-2 lg:py-[11px] px-10 font-bold'
 })
 
 const isLink = computed(() => !!props.to)
@@ -50,7 +60,7 @@ onMounted(() => {
 <template>
   <componentName :is="componentName" :to="link" class="flex justify-center">
     <button
-      class="js-animated-button rounded-md lg:rounded-xl py-1 lg:py-2 px-1 lg:px-6 font-normal lg:font-bold tracking-wider text-white shadow-md transition-all duration-1000 hover:shadow-lg hover:text-accent"
+      class="js-animated-button tracking-wider text-white shadow-md transition-all duration-200 hover:shadow-lg hover:text-accent"
       :class="bgStyle"
     >
       <template v-if="props.isLoading">Loading...</template>
@@ -78,4 +88,8 @@ onMounted(() => {
     box-shadow 0.2s ease,
     transform 0.2s ease;
 }
+/* 
+rounded-md lg:rounded-xl py-1 lg:py-[11px] px-1 lg:px-10 font-normal lg:font-bold
+class="js-animated-button rounded-xl py-2 lg:py-[11px] px-10 font-bold tracking-wider text-white shadow-md transition-all duration-200 hover:shadow-lg hover:text-accent"
+*/
 </style>
