@@ -1,3 +1,4 @@
+import { router } from "@/router";
 import { clientFetch } from "../clientFetch";
 
 export const TOKEN_KEY = 'token';
@@ -11,7 +12,6 @@ class AuthService {
 
     setToken(token) {
         localStorage.setItem(TOKEN_KEY, token);
-        clientFetch.defaults.headers.common = { Authorization: `Bearer ${token}` };
         this.#token = token;
     }
 
@@ -46,9 +46,45 @@ class AuthService {
         return data
     }
 
-    async refresh() {
-        return clientFetch.post('user/refresh');
+    async refresh() {                                            // TODO
+        const { data } = await clientFetch.post('user/refresh');
+        const { accessToken } = data;
+
+        this.setToken(accessToken);
     }
 };
 
 export const authService = new AuthService;
+
+clientFetch.interceptors.request.use((request) => {
+    const token = authService.getToken();
+    if (token) {
+        request.headers = {
+            ...request.headers,
+            Authorization: `Bearer ${token}`,
+        }
+    };
+
+    return request;
+});
+
+clientFetch.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+        const errorCode = error.response?.status
+
+        if (errorCode === 401) {
+            try {
+                return await authService.refresh();
+            } catch (e) {
+                // router.push('/auth/login')
+                return Promise.reject(error);
+            }
+        } else if (errorCode === 500) {
+            // router.push('/auth/login')
+            return Promise.reject(error)
+        }
+
+        return Promise.reject(error);
+    }
+);

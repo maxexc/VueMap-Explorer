@@ -170,6 +170,12 @@ const {
   }
   // onSuccess: () => router.replace('/auth'),
 })
+
+const { error: refreshError, mutation: testRefresh } = useMutation({
+  mutationFn: () => authService.refresh(),
+  onError: () => console.error('Error during token refresh:', error),
+  onSuccess: () => console.log('Refresh token completed successfully.')
+})
 </script>
 <template>
   <main class="flex h-screen flex-col-reverse sm:flex-row">
@@ -180,6 +186,7 @@ const {
       <div class="flex justify-between mt-4 px-3 sm:px-2 lg:px-6">
         <button class="text-accent" @click="openModal">Click modal</button>
         <button class="text-accent" @click="logOut">Log out</button>
+        <button @click="testRefresh">Test Refresh Token</button>
       </div>
       <br />
       <div v-if="data" class="text-green-500 mt-4 text-center font-semibold">
@@ -187,6 +194,9 @@ const {
       </div>
       <div v-if="error" class="text-red-500 my-2 text-center font-semibold">
         {{ error }}
+      </div>
+      <div v-if="refreshError" class="text-red-500 my-2 text-center font-semibold">
+        {{ refreshError }}
       </div>
       <CreateNewPlaceModal
         :is-open="isOpen"

@@ -47,7 +47,7 @@ const togglePasswordVisibility = () => {
       <button
         @click="togglePasswordVisibility"
         type="button"
-        class="absolute bottom-[7px] lg:bottom-[9px] right-0 pr-3 flex items-center transition-opacity"
+        class="absolute bottom-[7px] lg:bottom-[9px] right-0 pr-3 flex items-center transition-opacity no-scale"
         :class="showPassword ? 'opacity-100' : 'opacity-50'"
       >
         <component :is="showPassword ? EyeIcon : EyeOffIcon" />
