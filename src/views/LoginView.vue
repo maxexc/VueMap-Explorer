@@ -12,7 +12,7 @@ const {
   mutation: handleSubmit
 } = useMutation({
   mutationFn: (data) => authService.login(data),
-  onSuccess: () => router.replace('/map')
+  onSuccess: () => router.push('/map')
 })
 </script>
 

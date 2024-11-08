@@ -116,3 +116,10 @@ button:active {
   transform: scale(0.75) translateZ(0);
   -webkit-transform: scale(0.75) translateZ(0);
 }
+
+button.no-scale {
+  transform: none !important;
+  -webkit-transform: none !important;
+  transition: none !important;
+  -webkit-transition: none !important;
+}
