@@ -204,7 +204,7 @@ const removeMarker = () => {
 <template>
   <main class="flex h-screen flex-col-reverse sm:flex-row">
     <div
-      class="bg-white h-[34%] sm:h-full sm:w-[35%] lg:w-[400px] shrink-0 overflow-auto pb-20 pt-2 sm:pt-9"
+      class="bg-white h-[34%] sm:h-full sm:w-[22%] lg:w-[400px] shrink-0 overflow-auto pb-20 pt-2 sm:pt-9"
     >
       <FavoritePlaces :items="favoritePlaces" :active-id="activeId" @place-clicked="changePlace" />
       <div class="flex justify-between mt-4 px-3 sm:px-2 lg:px-6">

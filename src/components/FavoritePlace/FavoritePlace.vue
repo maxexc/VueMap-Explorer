@@ -22,12 +22,12 @@ const props = defineProps({
 
 <template>
   <section class="text-grey cursor-pointer mb-6 last:mb-0">
-    <div class="flex gap-4">
+    <div class="flex gap-2 lg:gap-4 sm:gap-1">
       <img class="w-[76px] h-[76px] shrink-0" :src="props.img" alt="" />
       <div class="w-full">
         <div class="flex justify-between items-center mb-2">
           <h2 class="font-bold text-border">{{ props.title }}</h2>
-          <div class="flex gap-2">
+          <div class="flex gap-4 sm:gap-2">
             <FavoritePlaceIconButton><EditIcon /></FavoritePlaceIconButton>
             <FavoritePlaceIconButton><DeleteIcon /></FavoritePlaceIconButton>
           </div>
