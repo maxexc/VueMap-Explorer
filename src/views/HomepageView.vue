@@ -20,6 +20,24 @@ const is3DEnabled = ref(false)
 let zoomListener = null
 const activeId = ref(null)
 const favoritePlaces = ref([])
+const mapMarkerLnglat = ref(null)
+const markerClickedToRemove = ref(false)
+
+const handleMapClick = (event) => {
+  const { lngLat, originalEvent } = event
+
+  if (markerClickedToRemove.value) {
+    markerClickedToRemove.value = false
+    return
+  }
+
+  if (originalEvent && originalEvent.target.closest('.existing-marker')) {
+    console.log('Clicked on existing marker')
+    return
+  }
+
+  mapMarkerLnglat.value = [lngLat.lng, lngLat.lat]
+}
 
 const apply3DSettings = (map) => {
   map.setMaxPitch(85)
@@ -176,6 +194,12 @@ const { error: refreshError, mutation: testRefresh } = useMutation({
   onError: () => console.error('Error during token refresh:', error),
   onSuccess: () => console.log('Refresh token completed successfully.')
 })
+
+const removeMarker = () => {
+  markerClickedToRemove.value = true
+  console.log('removeMarker', markerClickedToRemove.value)
+  mapMarkerLnglat.value = null
+}
 </script>
 <template>
   <main class="flex h-screen flex-col-reverse sm:flex-row">
@@ -213,10 +237,26 @@ const { error: refreshError, mutation: testRefresh } = useMutation({
         :access-token="mapSettings.apiToken"
         :map-style="mapSettings.style"
         :projection="mapSettings.projection"
+        @mb-click="handleMapClick"
         v-on:mb-created="handleMapLoad"
       >
-        <MapboxMarker v-for="place in favoritePlaces" :key="place._id" :lngLat="place.coordinates">
-          <button @click="changeActiveId(place._id)">
+        <MapboxMarker
+          v-if="mapMarkerLnglat"
+          :lngLat="mapMarkerLnglat"
+          anchor="bottom"
+          class="cursor-pointer"
+        >
+          <button @click="removeMarker">
+            <MarkerIcon :isDefault="true" />
+          </button>
+        </MapboxMarker>
+        <MapboxMarker
+          v-for="place in favoritePlaces"
+          :key="place._id"
+          :lngLat="place.coordinates"
+          anchor="bottom"
+        >
+          <button class="existing-marker" @click="changeActiveId(place._id)">
             <MarkerIcon :isActive="place._id === activeId" />
           </button>
         </MapboxMarker>
