@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive } from 'vue'
+import { computed, reactive, watch } from 'vue'
 import IButton from '../IButton/IButton.vue'
 import MarkerIcon from '../icons/MarkerIcon.vue'
 import IInput from '../IInput/IInput.vue'
@@ -36,7 +36,6 @@ const resetForm = () => {
   formData.title = ''
   formData.description = ''
   formData.img = ''
-  props.errorMessage = ''
 }
 
 const closeWithReset = () => {
@@ -44,9 +43,20 @@ const closeWithReset = () => {
   emit('close')
 }
 
+const localErrorMessage = computed(() => props.errorMessage)
+
 const uploadText = computed(() => {
   return formData.img ? 'Click here to change photo' : 'Click here to add a photo'
 })
+
+watch(
+  () => props.isOpen,
+  (newVal) => {
+    if (newVal) {
+      resetForm()
+    }
+  }
+)
 
 const handleUpload = (url) => {
   formData.img = url
