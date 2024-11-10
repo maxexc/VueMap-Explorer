@@ -188,7 +188,7 @@ const handleAddPlace = async (formData, resetForm) => {
   console.log('Modal body: ', body)
 
   await addPlace(body)
-  resetForm()
+  // resetForm()
 }
 
 const {
