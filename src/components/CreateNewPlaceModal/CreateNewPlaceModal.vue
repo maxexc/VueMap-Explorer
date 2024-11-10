@@ -39,7 +39,6 @@ const resetForm = () => {
 }
 
 const closeWithReset = () => {
-  resetForm()
   emit('close')
 }
 
@@ -65,7 +64,7 @@ const handleUpload = (url) => {
 
 <template>
   <IModal v-if="props.isOpen" @close="closeWithReset">
-    <form @submit.prevent="emit('submit', formData, resetForm)" class="w-full sm:min-w-[420px]">
+    <form @submit.prevent="emit('submit', formData)" class="w-full sm:min-w-[420px]">
       <div
         class="flex gap-2 justify-center items-center font-bold text-center mb-5 sm:mb-3 lg:mb-10"
       >
