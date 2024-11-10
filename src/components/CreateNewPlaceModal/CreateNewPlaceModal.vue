@@ -10,6 +10,18 @@ const props = defineProps({
   isOpen: {
     default: false,
     type: Boolean
+  },
+  isLoading: {
+    default: false,
+    type: Boolean
+  },
+  hasError: {
+    default: false,
+    type: Boolean || String
+  },
+  errorMessage: {
+    default: '',
+    type: String
   }
 })
 
@@ -19,6 +31,18 @@ const formData = reactive({
   description: '',
   img: ''
 })
+
+const resetForm = () => {
+  formData.title = ''
+  formData.description = ''
+  formData.img = ''
+  props.errorMessage = ''
+}
+
+const closeWithReset = () => {
+  resetForm()
+  emit('close')
+}
 
 const uploadText = computed(() => {
   return formData.img ? 'Click here to change photo' : 'Click here to add a photo'
@@ -30,14 +54,14 @@ const handleUpload = (url) => {
 </script>
 
 <template>
-  <IModal v-if="props.isOpen" @close="emit('close')">
-    <form @submit.prevent="emit('submit', formData)" class="w-full sm:min-w-[420px]">
+  <IModal v-if="props.isOpen" @close="closeWithReset">
+    <form @submit.prevent="emit('submit', formData, resetForm)" class="w-full sm:min-w-[420px]">
       <div
         class="flex gap-2 justify-center items-center font-bold text-center mb-5 sm:mb-3 lg:mb-10"
       >
         <MarkerIcon />Add marker
       </div>
-      <IInput label="Location" class="mb-3 lg:mb-4" v-model="formData.title" />
+      <IInput label="Location" class="mb-3 lg:mb-4" required v-model="formData.title" />
       <IInput
         label="Description"
         type="textarea"
@@ -54,7 +78,13 @@ const handleUpload = (url) => {
         <InputImage @uploaded="handleUpload">{{ uploadText }}</InputImage>
       </div>
 
-      <IButton class="w-full" variant="modal">Add point</IButton>
+      <IButton class="w-full" variant="modal" :is-loading="props.isLoading">Add point</IButton>
+      <div
+        v-if="props.hasError && props.errorMessage"
+        class="text-red-500 text-center font-semibold mt-1"
+      >
+        {{ props.errorMessage }}
+      </div>
     </form>
   </IModal>
 </template>

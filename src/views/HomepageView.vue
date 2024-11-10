@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { MapboxMap, MapboxMarker, MapboxNavigationControl } from '@studiometa/vue-mapbox-gl'
 import { mapSettings } from '@/map/settings'
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -8,10 +8,11 @@ import MarkerIcon from '@/components/icons/MarkerIcon.vue'
 import Toggle3DButton from '@/components/IButton/Toggle3DButton.vue'
 import ResetZoomButton from '@/components/IButton/ResetZoomButton.vue'
 import CreateNewPlaceModal from '@/components/CreateNewPlaceModal/CreateNewPlaceModal.vue'
-import { getFavoritePlaces } from '@/api/favorite-places'
+import { addFavoritePlaces, getFavoritePlaces } from '@/api/favorite-places'
 import { authService } from '@/api/authService'
 import { useMutation } from '@/composables/useMutation'
 import { useRouter } from 'vue-router'
+import { useModal } from '@/composables/useModal'
 
 const router = useRouter()
 
@@ -19,9 +20,21 @@ const mapInstance = ref(null)
 const is3DEnabled = ref(false)
 let zoomListener = null
 const activeId = ref(null)
-const favoritePlaces = ref([])
 const mapMarkerLnglat = ref(null)
 const markerClickedToRemove = ref(false)
+
+const { isOpen, closeModal, openModal } = useModal()
+
+const openModalWithErrorReset = () => {
+  addNewMarkerError.value = null
+  openModal()
+}
+
+const { data: newData, mutation: getPlaces } = useMutation({
+  mutationFn: () => getFavoritePlaces()
+})
+
+const favoritePlaces = computed(() => newData.value?.data ?? favoritePlacesDefault) // [])
 
 const handleMapClick = (event) => {
   const { lngLat, originalEvent } = event
@@ -149,36 +162,38 @@ const changePlace = (id) => {
   changeActiveId(id)
 }
 
-const isOpen = ref(false)
-const closeModal = () => {
-  isOpen.value = false
-}
-const openModal = () => {
-  isOpen.value = true
-}
-
-onMounted(async () => {
-  if (!authService.isLoggedIn()) {
-    console.warn('User is not authenticated. Redirecting to login page.')
-    favoritePlaces.value = favoritePlacesDefault
-    return
-  }
-  try {
-    const { data } = await getFavoritePlaces()
-    favoritePlaces.value = data
-    console.log('getFavoritePlaces: ', data)
-  } catch (error) {
-    console.error('Error loading favorite places:', error)
-    if (error.response && error.response.status === 401) {
-      console.warn('Unauthorized. Redirecting to login page.')
-      router.replace('/login')
-    }
+const {
+  mutation: addPlace,
+  isLoading: isAddingPlace,
+  error: addNewMarkerError
+} = useMutation({
+  mutationFn: (newPlaceData) => addFavoritePlaces(newPlaceData),
+  onSuccess: () => {
+    closeModal()
+    mapMarkerLnglat.value = null
+    getPlaces()
   }
 })
 
+const handleAddPlace = async (formData, resetForm) => {
+  if (!mapMarkerLnglat.value || mapMarkerLnglat.value.length === 0) {
+    addNewMarkerError.value = 'Please place the marker on the map before adding.'
+    return
+  }
+
+  const body = {
+    ...formData,
+    coordinates: mapMarkerLnglat.value
+  }
+  console.log('Modal body: ', body)
+
+  await addPlace(body)
+  resetForm()
+}
+
 const {
   data,
-  error,
+  error: logOutError,
   mutation: logOut
 } = useMutation({
   mutationFn: () => authService.logout(),
@@ -200,15 +215,30 @@ const removeMarker = () => {
   console.log('removeMarker', markerClickedToRemove.value)
   mapMarkerLnglat.value = null
 }
+
+onMounted(() => {
+  if (!authService.isLoggedIn()) {
+    console.warn('User is not authenticated. Redirecting to login page.')
+    // favoritePlaces.value = favoritePlacesDefault
+    // router.replace('/auth')
+    return
+  } else {
+    getPlaces()
+  }
+})
 </script>
 <template>
   <main class="flex h-screen flex-col-reverse sm:flex-row">
     <div
       class="bg-white h-[34%] sm:h-full sm:w-[22%] lg:w-[400px] shrink-0 overflow-auto pb-20 pt-2 sm:pt-9"
     >
-      <FavoritePlaces :items="favoritePlaces" :active-id="activeId" @place-clicked="changePlace" />
-      <div class="flex justify-between mt-4 px-3 sm:px-2 lg:px-6">
-        <button class="text-accent" @click="openModal">Click modal</button>
+      <FavoritePlaces
+        :items="favoritePlaces"
+        :active-id="activeId"
+        @place-clicked="changePlace"
+        @create="openModalWithErrorReset"
+      />
+      <div class="flex justify-between mt-4 gap-1 px-3 sm:px-2 lg:px-6">
         <button class="text-accent" @click="logOut">Log out</button>
         <button @click="testRefresh">Test Refresh Token</button>
       </div>
@@ -216,16 +246,19 @@ const removeMarker = () => {
       <div v-if="data" class="text-green-500 mt-4 text-center font-semibold">
         {{ data.message }}
       </div>
-      <div v-if="error" class="text-red-500 my-2 text-center font-semibold">
-        {{ error }}
+      <div v-if="logOutError" class="text-red-500 my-2 text-center font-semibold">
+        {{ logOutError }}
       </div>
       <div v-if="refreshError" class="text-red-500 my-2 text-center font-semibold">
         {{ refreshError }}
       </div>
       <CreateNewPlaceModal
         :is-open="isOpen"
+        :is-loading="isAddingPlace"
+        :has-error="Boolean(addNewMarkerError)"
+        :error-message="addNewMarkerError"
         @close="closeModal"
-        @submit="console.log"
+        @submit="handleAddPlace"
       ></CreateNewPlaceModal>
     </div>
     <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]">
