@@ -38,12 +38,6 @@ const resetForm = () => {
   formData.img = ''
 }
 
-const closeWithReset = () => {
-  emit('close')
-}
-
-const localErrorMessage = computed(() => props.errorMessage)
-
 const uploadText = computed(() => {
   return formData.img ? 'Click here to change photo' : 'Click here to add a photo'
 })
@@ -63,8 +57,8 @@ const handleUpload = (url) => {
 </script>
 
 <template>
-  <IModal v-if="props.isOpen" @close="closeWithReset">
-    <form @submit.prevent="emit('submit', formData)" class="w-full sm:min-w-[420px]">
+  <IModal v-if="props.isOpen" @close="emit('close')">
+    <form @submit.prevent="emit('submit', formData, resetForm)" class="w-full sm:min-w-[420px]">
       <div
         class="flex gap-2 justify-center items-center font-bold text-center mb-5 sm:mb-3 lg:mb-10"
       >

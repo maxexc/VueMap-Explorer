@@ -185,6 +185,7 @@ const handleAddPlace = async (formData) => {
     ...formData,
     coordinates: mapMarkerLnglat.value
   }
+
   console.log('Modal body: ', body)
 
   await addPlace(body)
