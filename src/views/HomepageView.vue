@@ -175,7 +175,7 @@ const {
   }
 })
 
-const handleAddPlace = async (formData, resetForm) => {
+const handleAddPlace = async (formData) => {
   if (!mapMarkerLnglat.value || mapMarkerLnglat.value.length === 0) {
     addNewMarkerError.value = 'Please place the marker on the map before adding.'
     return
@@ -185,10 +185,10 @@ const handleAddPlace = async (formData, resetForm) => {
     ...formData,
     coordinates: mapMarkerLnglat.value
   }
+
   console.log('Modal body: ', body)
 
   await addPlace(body)
-  // resetForm()
 }
 
 const {
