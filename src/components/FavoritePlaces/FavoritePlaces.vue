@@ -1,15 +1,6 @@
 <script setup>
 import FavoritePlace from '../FavoritePlace/FavoritePlace.vue'
 import IButton from '../IButton/IButton.vue'
-import { hideSpinner, showSpinner } from '@/utils/spinnerControl'
-function someAsyncAction() {
-  console.log('It is a spinner!')
-
-  showSpinner()
-  setTimeout(() => {
-    hideSpinner()
-  }, 3000)
-}
 
 const props = defineProps({
   items: {
@@ -18,18 +9,18 @@ const props = defineProps({
   },
   activeId: {
     required: true,
-    type: [Number, null]
+    type: [String, Number, null]
   }
 })
 
-const emit = defineEmits(['place-clicked'])
+const emit = defineEmits(['place-clicked', 'create'])
 </script>
 
 <template>
   <div class="px-3 sm:px-2 lg:px-6 text-black">
     <div class="text-grey lg:mb-5 flex justify-between gap-1">
       <span class="block w-[63%] md:w-[70%] lg:w-[83%] m-0 p-0">Added markers: </span>
-      <IButton class="w-full mb-3" variant="mobile" @click="someAsyncAction">
+      <IButton class="w-full mb-3" variant="mobile" @click="emit('create')">
         Add new marker
       </IButton>
     </div>
@@ -41,6 +32,7 @@ const emit = defineEmits(['place-clicked'])
         :key="place._id"
         :title="place.title"
         :description="place.description"
+        :coordinates="place.coordinates"
         :img="place.img"
         :is-active="place._id === props.activeId"
         @click="emit('place-clicked', place._id)"

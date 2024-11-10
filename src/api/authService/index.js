@@ -6,6 +6,10 @@ export const TOKEN_KEY = 'token';
 class AuthService {
     #token = null;
 
+    constructor() {
+        this.#token = localStorage.getItem(TOKEN_KEY) || null;
+    }
+
     isLoggedIn() {
         return Boolean(this.#token);
     }
