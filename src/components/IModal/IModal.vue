@@ -4,6 +4,15 @@ import CrossIcon from '../icons/CrossIcon.vue'
 
 const emit = defineEmits(['close'])
 
+const props = defineProps({
+  isShow: Boolean
+})
+
+// Switch off inheritAttrs
+defineOptions({
+  inheritAttrs: false
+})
+
 const closeOnEscape = (event) => {
   if (event.key === 'Escape') {
     emit('close')
@@ -34,18 +43,61 @@ onUnmounted(() => {
 
 <template>
   <Teleport to="body">
-    <div
-      class="flex z-10 w-full h-full fixed p-5 sm:p-0 lg:p-5 top-0 left-0 overflow-auto bg-[rgba(0,0,0,0.3)]"
-      @click.self="emit('close')"
-    >
+    <Transition name="fade">
       <div
-        class="relative bg-white w-full sm:max-w-[500px] m-auto p-5 lg:p-10 sm:p-4 text-black rounded-2xl"
+        v-bind="$attrs"
+        v-show="isShow"
+        class="flex z-10 w-full h-full fixed p-4 sm:p-0 lg:p-5 top-0 left-0 overflow-auto bg-[rgba(0,0,0,0.3)] backdrop"
+        @click.self="emit('close')"
       >
-        <button class="absolute right-4 top-4 lg:right-6 lg:top-6">
-          <CrossIcon class="w-6 h-6 lg:w-7 lg:h-7" @click="emit('close')" />
-        </button>
-        <slot></slot>
+        <Transition name="modal">
+          <div
+            v-show="isShow"
+            class="relative bg-white min-w-[90vw] sx:min-w-[500px] m-auto p-4 lg:p-8 pb-8 sm:pb-8 text-black rounded-2xl shadow-lg"
+          >
+            <button v-button-animation class="absolute right-2 top-2 lg:right-5 lg:top-5">
+              <CrossIcon class="w-6 h-6 lg:w-7 lg:h-7" @click="emit('close')" />
+            </button>
+            <slot></slot>
+          </div>
+        </Transition>
       </div>
-    </div>
+    </Transition>
   </Teleport>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease;
+}
+.modal-enter-from,
+.modal-leave-to {
+  transform: scale(0.8);
+  opacity: 0;
+}
+.modal-enter-to,
+.modal-leave-from {
+  transform: scale(1);
+  opacity: 1;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

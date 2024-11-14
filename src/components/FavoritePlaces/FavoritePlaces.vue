@@ -1,6 +1,8 @@
 <script setup>
+import EditPlaceModal from '../EditPlaceModal/EditPlaceModal.vue'
 import FavoritePlace from '../FavoritePlace/FavoritePlace.vue'
 import IButton from '../IButton/IButton.vue'
+import { useModal } from '@/composables/useModal'
 
 const props = defineProps({
   items: {
@@ -14,10 +16,12 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['place-clicked', 'create'])
+
+const { isOpen: isEditOpen, openModal: openEditModal, closeModal: closeEditModal } = useModal()
 </script>
 
 <template>
-  <div class="px-3 sm:px-2 lg:px-6 text-black">
+  <div class="px-3 sm:px-1 lg:px-6 text-black">
     <div class="text-grey lg:mb-5 flex justify-between gap-1">
       <span class="block w-[63%] md:w-[70%] lg:w-[83%] m-0 p-0">Added markers: </span>
       <IButton class="w-full mb-3" variant="mobile" @click="emit('create')">
@@ -29,16 +33,18 @@ const emit = defineEmits(['place-clicked', 'create'])
       <div v-if="items.length === 0">List of markers is empty.</div>
       <FavoritePlace
         v-for="place in props.items"
-        :key="place._id"
+        :key="place.id"
         :title="place.title"
         :description="place.description"
         :coordinates="place.coordinates"
         :img="place.img"
-        :is-active="place._id === props.activeId"
-        @click="emit('place-clicked', place._id)"
+        :is-active="place.id === props.activeId"
+        @click="emit('place-clicked', place.id)"
+        @edit="openEditModal"
       />
     </slot>
 
     <slot></slot>
+    <EditPlaceModal :is-open="isEditOpen" @close="closeEditModal" />
   </div>
 </template>

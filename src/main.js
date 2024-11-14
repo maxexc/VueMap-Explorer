@@ -14,6 +14,29 @@ if (token) {
 
 const app = createApp(App)
 
+// JS for iOS
+app.directive('button-animation', {
+    mounted(el) {
+        const scaleDown = () => {
+            el.style.transform = 'scale(0.75)';
+            el.style.transition = 'transform 0.1s ease';
+        };
+
+        const scaleUp = () => {
+            el.style.transform = 'scale(1)';
+            el.style.transition = 'transform 0.1s ease';
+        };
+
+        el.addEventListener('mousedown', scaleDown);
+        el.addEventListener('mouseup', scaleUp);
+        el.addEventListener('mouseleave', scaleUp);
+
+        el.addEventListener('touchstart', scaleDown, { passive: true });
+        el.addEventListener('touchend', scaleUp, { passive: true });
+        el.addEventListener('touchcancel', scaleUp, { passive: true });
+    },
+});
+
 app.use(createPinia())
 app.use(router)
 
