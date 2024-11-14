@@ -19,6 +19,7 @@ export default {
         accent: '#2C3E50',
       },
       screens: {
+        'sx': '550px',
         'sm': '640px',
         'md': '768px',
         'lg': '1024px',

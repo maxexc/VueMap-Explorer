@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
 const props = defineProps({
@@ -7,7 +7,7 @@ const props = defineProps({
     default: 'primary',
     type: String,
     validator: (value) => {
-      return ['primary', 'gradient', 'modal', 'mobile'].includes(value)
+      return ['primary', 'gradient', 'modal', 'modal-edit', 'mobile'].includes(value)
     }
   },
   to: String,
@@ -24,43 +24,24 @@ const bgStyle = computed(() => {
     case 'mobile':
       return 'bg-gradient-to-r from-secondary to-primary w-full rounded-md lg:rounded-xl py-1 lg:py-2 px-1 lg:px-6 font-medium lg:font-bold'
     case 'modal':
-      return 'bg-gradient-to-r from-secondary to-primary w-full rounded-xl py-2 lg:py-[11px] px-10 font-medium lg:font-bold'
+      return 'bg-gradient-to-r from-secondary to-primary w-full rounded-xl py-[6px] sx:py-2 px-10 font-medium lg:font-bold '
+    case 'modal-edit':
+      return 'bg-gradient-to-r from-secondary to-primary w-full rounded-xl py-[6px] lg:py-[11px] px-10 font-medium lg:font-bold'
     default:
       return 'bg-buttonPrimary max-w-48 rounded-xl py-2 lg:py-[11px] px-10 font-bold'
   }
-  // return props.variant === 'gradient'
-  // ? 'bg-gradient-to-r from-secondary to-primary w-full rounded-xl py-2 lg:py-[11px] px-10 font-bold'
-  // : 'bg-buttonPrimary max-w-48 rounded-xl py-2 lg:py-[11px] px-10 font-bold'
 })
 
 const isLink = computed(() => !!props.to)
 const componentName = computed(() => (isLink.value ? RouterLink : 'button'))
 const link = computed(() => (isLink.value ? props.to : null))
-
-// JS for iOS
-onMounted(() => {
-  const button = document.querySelector('.js-animated-button')
-
-  if (button) {
-    button.addEventListener('touchstart', () => {
-      button.style.transform = 'scale(0.75) translateZ(0)'
-      button.style.transition = 'transform 0.1s ease'
-    })
-
-    button.addEventListener('touchend', () => {
-      setTimeout(() => {
-        button.style.transform = 'scale(1) translateZ(0)'
-        button.style.transition = 'transform 0.1s ease'
-      }, 100)
-    })
-  }
-})
 </script>
 
 <template>
   <componentName :is="componentName" :to="link" class="flex justify-center">
     <button
-      class="js-animated-button tracking-wider text-white shadow-md transition-all duration-200 hover:shadow-lg hover:text-accent"
+      v-button-animation
+      class="js-animated-button py tracking-wider text-white shadow-md transition-all duration-200 hover:shadow-lg hover:text-accent"
       :class="bgStyle"
     >
       <template v-if="props.isLoading">Loading...</template>
@@ -88,8 +69,4 @@ onMounted(() => {
     box-shadow 0.2s ease,
     transform 0.2s ease;
 }
-/* 
-rounded-md lg:rounded-xl py-1 lg:py-[11px] px-1 lg:px-10 font-normal lg:font-bold
-class="js-animated-button rounded-xl py-2 lg:py-[11px] px-10 font-bold tracking-wider text-white shadow-md transition-all duration-200 hover:shadow-lg hover:text-accent"
-*/
 </style>

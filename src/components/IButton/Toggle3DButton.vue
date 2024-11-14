@@ -12,6 +12,7 @@ const toggle3D = () => {
 
 <template>
   <button
+    v-button-animation
     @click="toggle3D"
     class="absolute top-[10px] right-[10px] bg-transparent rounded border-none cursor-pointer flex flex-col items-center gap-2 hover:bg-white"
   >

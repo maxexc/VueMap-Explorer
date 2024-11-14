@@ -57,37 +57,83 @@ const handleUpload = (url) => {
 </script>
 
 <template>
-  <IModal v-if="props.isOpen" @close="emit('close')">
-    <form @submit.prevent="emit('submit', formData, resetForm)" class="w-full sm:min-w-[420px]">
+  <IModal :is-show="isOpen" @close="emit('close')" class="">
+    <form @submit.prevent="emit('submit', formData, resetForm)" class="w-full sx:px-4">
       <div
-        class="flex gap-2 justify-center items-center font-bold text-center mb-5 sm:mb-3 lg:mb-10"
+        class="flex gap-2 justify-center items-center font-bold text-center mb-5 sx:mb-3 lg:mb-8"
       >
         <MarkerIcon />Add marker
       </div>
-      <IInput label="Location" class="mb-3 lg:mb-4" required v-model="formData.title" />
+      <IInput
+        label="Location"
+        class="mb-3 sm:mb-[14px] max-h-screen lg:mb-5"
+        required
+        v-model="formData.title"
+      />
       <IInput
         label="Description"
         type="textarea"
-        class="mb-3 sm:mb-1 lg:mb-4"
+        class="lg:mb-5 sm:mb-3 mb-3"
         v-model="formData.description"
       />
-      <div class="flex gap-3 items-center pb-2 mb-8 sm:mb-4 lg:mb-8">
+      <div class="relative flex gap-3 items-center pb-2 lg:mb-5 mb-3">
         <img
           v-if="formData.img"
           :src="formData.img"
           alt="Preview"
-          class="w-8 h-8 sm:w-12 sm:h-12 object-cover"
+          :key="formData.img"
+          class="absolute w-12 h-12 lg:w-14 lg:h-14 object-cover transition-transform duration-300 scale-in"
+          style="left: 0"
         />
-        <InputImage @uploaded="handleUpload">{{ uploadText }}</InputImage>
+        <InputImage
+          :style="{
+            transition: 'margin-left 0.3s ease',
+            marginLeft: formData.img ? '60px' : '0px'
+          }"
+          @uploaded="handleUpload"
+          >{{ uploadText }}</InputImage
+        >
       </div>
 
       <IButton class="w-full" variant="modal" :is-loading="props.isLoading">Add point</IButton>
-      <div
-        v-if="props.hasError && props.errorMessage"
-        class="text-red-500 text-center font-semibold mt-1"
-      >
-        {{ props.errorMessage }}
-      </div>
+
+      <transition name="fade-slide">
+        <div
+          v-if="props.hasError && props.errorMessage"
+          class="text-red-500 text-xs sx:text-base text-center font-semibold mt-2 sx:mt-[2px] mb-[-24px] sx:mb-[-26px]"
+        >
+          {{ props.errorMessage }}
+        </div>
+      </transition>
     </form>
   </IModal>
 </template>
+
+<style scoped>
+.scale-in {
+  animation: scaleIn 0.3s ease forwards;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+</style>

@@ -34,7 +34,8 @@ const { data: newData, mutation: getPlaces } = useMutation({
   mutationFn: () => getFavoritePlaces()
 })
 
-const favoritePlaces = computed(() => newData.value?.data ?? favoritePlacesDefault) // [])
+// const favoritePlaces = computed(() => newData.value?.data ?? favoritePlacesDefault) // [])
+const favoritePlaces = computed(() => newData.value ?? favoritePlacesDefault) // []) переделал запрос
 
 const handleMapClick = (event) => {
   const { lngLat, originalEvent } = event
@@ -44,10 +45,11 @@ const handleMapClick = (event) => {
     return
   }
 
-  if (originalEvent && originalEvent.target.closest('.existing-marker')) {
-    console.log('Clicked on existing marker')
-    return
-  }
+  // заменил на @click.stop
+  // if (originalEvent && originalEvent.target.closest('.existing-marker')) {
+  //   console.log('Clicked on existing marker')
+  //   return
+  // }
 
   mapMarkerLnglat.value = [lngLat.lng, lngLat.lat]
 }
@@ -105,7 +107,7 @@ const handleMapLoad = (map = null) => {
 
 const favoritePlacesDefault = [
   {
-    _id: 1,
+    id: 1,
     title: 'Berlin',
     description:
       'Currently known as the largest and the most populated city of the European Union, Berlin is the capital city of Germany',
@@ -113,7 +115,7 @@ const favoritePlacesDefault = [
     coordinates: [13.404954, 52.520008]
   },
   {
-    _id: 2,
+    id: 2,
     title: 'Rome',
     description:
       'Rome, or the Metropolitan City of Rome, is the capital, the largest and the most important city of Italy',
@@ -121,7 +123,7 @@ const favoritePlacesDefault = [
     coordinates: [12.496366, 41.902782]
   },
   {
-    _id: 3,
+    id: 3,
     title: 'Venice',
     description:
       'Venice (Venezia) is an amazingly beautiful old city and the center of the Metropolitan City of Venice',
@@ -152,7 +154,7 @@ const toggle3D = () => {
 
 const changeActiveId = (id) => {
   activeId.value = id
-  const place = favoritePlaces.value.find((place) => place._id === id)
+  const place = favoritePlaces.value.find((place) => place.id === id)
   if (place) {
     mapInstance.value.flyTo({ center: place.coordinates })
   }
@@ -177,7 +179,7 @@ const {
 
 const handleAddPlace = async (formData) => {
   if (!mapMarkerLnglat.value || mapMarkerLnglat.value.length === 0) {
-    addNewMarkerError.value = 'Please place the marker on the map before adding.'
+    addNewMarkerError.value = 'Please add the marker on the map before adding.'
     return
   }
 
@@ -230,7 +232,7 @@ onMounted(() => {
 <template>
   <main class="flex h-screen flex-col-reverse sm:flex-row">
     <div
-      class="bg-white h-[34%] sm:h-full sm:w-[22%] lg:w-[400px] shrink-0 overflow-auto pb-20 pt-2 sm:pt-9"
+      class="bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 overflow-auto pb-20 pt-2 sm:pt-9"
     >
       <FavoritePlaces
         :items="favoritePlaces"
@@ -239,8 +241,8 @@ onMounted(() => {
         @create="openModalWithErrorReset"
       />
       <div class="flex justify-between mt-4 gap-1 px-3 sm:px-2 lg:px-6">
-        <button class="text-accent" @click="logOut">Log out</button>
-        <button @click="testRefresh">Test Refresh Token</button>
+        <button v-button-animation class="text-accent" @click="logOut">Log out</button>
+        <button v-button-animation @click="testRefresh">Test Refresh Token</button>
       </div>
       <br />
       <div v-if="data" class="text-green-500 mt-4 text-center font-semibold">
@@ -252,15 +254,15 @@ onMounted(() => {
       <div v-if="refreshError" class="text-red-500 my-2 text-center font-semibold">
         {{ refreshError }}
       </div>
-      <CreateNewPlaceModal
-        :is-open="isOpen"
-        :is-loading="isAddingPlace"
-        :has-error="Boolean(addNewMarkerError)"
-        :error-message="addNewMarkerError"
-        @close="closeModal"
-        @submit="handleAddPlace"
-      ></CreateNewPlaceModal>
     </div>
+    <CreateNewPlaceModal
+      :isOpen="isOpen"
+      :is-loading="isAddingPlace"
+      :has-error="Boolean(addNewMarkerError)"
+      :error-message="addNewMarkerError"
+      @close="closeModal"
+      @submit="handleAddPlace"
+    ></CreateNewPlaceModal>
     <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]">
       <MapboxMap
         id="map"
@@ -279,18 +281,18 @@ onMounted(() => {
           anchor="bottom"
           class="cursor-pointer"
         >
-          <button @click="removeMarker">
+          <button v-button-animation @click="removeMarker">
             <MarkerIcon :isDefault="true" />
           </button>
         </MapboxMarker>
         <MapboxMarker
           v-for="place in favoritePlaces"
-          :key="place._id"
+          :key="place.id"
           :lngLat="place.coordinates"
           anchor="bottom"
         >
-          <button class="existing-marker" @click="changeActiveId(place._id)">
-            <MarkerIcon :isActive="place._id === activeId" />
+          <button v-button-animation class="existing-marker" @click.stop="changeActiveId(place.id)">
+            <MarkerIcon :isActive="place.id === activeId" />
           </button>
         </MapboxMarker>
         <MapboxNavigationControl position="bottom-right" :showZoom="false" :showCompass="true" />
