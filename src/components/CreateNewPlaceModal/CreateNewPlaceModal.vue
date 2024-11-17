@@ -100,7 +100,7 @@ const handleUpload = (url) => {
       <transition name="fade-slide">
         <div
           v-if="props.hasError && props.errorMessage"
-          class="text-red-500 text-xs sx:text-base text-center font-semibold mt-2 sx:mt-[2px] mb-[-24px] sx:mb-[-26px]"
+          class="text-red-500 text-xs sx:text-base text-center font-semibold mt-2 sx:mt-[2px] -mb-6 sx:mb-[-26px]"
         >
           {{ props.errorMessage }}
         </div>

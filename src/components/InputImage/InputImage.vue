@@ -1,9 +1,16 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import UploadIcon from './UploadIcon.vue'
 
 const emit = defineEmits(['uploaded'])
 const errorMessage = ref('')
+
+const props = defineProps({
+  resetError: {
+    default: false,
+    type: Boolean
+  }
+})
 
 const handleUpLoading = (event) => {
   const file = event.target.files[0]
@@ -23,6 +30,15 @@ const handleUpLoading = (event) => {
     emit('uploaded', fileReader.result)
   }
 }
+
+watch(
+  () => props.resetError,
+  (newVal) => {
+    if (newVal) {
+      errorMessage.value = ''
+    }
+  }
+)
 </script>
 
 <template>
@@ -34,6 +50,27 @@ const handleUpLoading = (event) => {
         <span class="underline text-xs"><slot></slot></span>
       </span>
     </label>
-    <div v-if="errorMessage" class="text-red-500">{{ errorMessage }}</div>
+    <transition name="fade-slide">
+      <div
+        v-if="errorMessage"
+        class="text-red-500 mb-[-17.6px] lg:mb-[-19.2px] text-[11px] lg:text-[12px] text-center sx:text-left"
+      >
+        {{ errorMessage }}
+      </div>
+    </transition>
   </div>
 </template>
+
+<style scoped>
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+</style>
