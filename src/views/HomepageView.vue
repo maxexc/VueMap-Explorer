@@ -239,6 +239,7 @@ onMounted(() => {
         :active-id="activeId"
         @place-clicked="changePlace"
         @create="openModalWithErrorReset"
+        @updated="getPlaces"
       />
       <div class="flex justify-between mt-4 gap-1 px-3 sm:px-2 lg:px-6">
         <button v-button-animation class="text-accent" @click="logOut">Log out</button>

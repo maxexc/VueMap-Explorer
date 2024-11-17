@@ -37,18 +37,20 @@ const emit = defineEmits(['edit', 'delete'])
 <template>
   <section class="relative text-grey cursor-pointer mb-4 last:mb-0">
     <div class="flex gap-2 lg:gap-4 sm:gap-1">
-      <img class="w-[76px] h-[76px] shrink-0" :src="props.img || fallbackImage" alt="" />
+      <img class="w-[76px] h-[76px] shrink-0 rounded-md" :src="props.img || fallbackImage" alt="" />
       <div class="w-full">
-        <div class="flex justify-between items-center mb-2">
+        <div class="flex justify-between items-center mb-1">
           <div class="flex justify-between items-center">
-            <h2 class="font-bold text-border lg:max-w-none sm:max-w-[50px] sm:h-6 overflow-hidden">
+            <h2
+              class="font-bold text-border lg:max-w-none mt-[-4px] sm:max-w-[50px] sm:h-6 overflow-hidden"
+            >
               {{ props.title }}
             </h2>
             <FavoritePlaceIconButton @click="toggleCoordinates">
-              <span class="text-base font-serif px-2 lg:px-2 sm:px-1">i</span>
+              <span class="text-base font-serif px-2 lg:px-2 md:px-1 sm:pr-0 sm:pl-[2px]">i</span>
             </FavoritePlaceIconButton>
           </div>
-          <div class="flex gap-6 lg:gap-4 md:gap-2 sm:gap-1">
+          <div class="flex gap-6 lg:gap-4 md:gap-1 sm:gap-0">
             <FavoritePlaceIconButton @click="emit('edit')">
               <EditIcon />
             </FavoritePlaceIconButton>
