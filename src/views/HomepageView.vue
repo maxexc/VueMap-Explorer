@@ -267,7 +267,7 @@ onMounted(() => {
     <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]">
       <MapboxMap
         id="map"
-        class="w-full h-full overflow-auto"
+        class="w-full h-full overflow-auto relative"
         :center="[13.376481, 52.509663]"
         :zoom="10"
         :access-token="mapSettings.apiToken"
@@ -298,8 +298,8 @@ onMounted(() => {
         </MapboxMarker>
         <MapboxNavigationControl position="bottom-right" :showZoom="false" :showCompass="true" />
         <ResetZoomButton class="absolute" :mapInstance="mapInstance" :defaultZoom="10" />
+        <Toggle3DButton class="absolute" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
       </MapboxMap>
-      <Toggle3DButton :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
     </div>
   </main>
 </template>
