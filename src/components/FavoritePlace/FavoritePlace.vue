@@ -41,9 +41,7 @@ const emit = defineEmits(['edit', 'delete'])
       <div class="w-full">
         <div class="flex justify-between items-center mb-1">
           <div class="flex justify-between items-center">
-            <h2
-              class="font-bold text-border lg:max-w-none mt-[-4px] sm:max-w-[50px] sm:h-6 overflow-hidden"
-            >
+            <h2 class="font-bold text-border lg:max-w-none mt-[-4px] sm:max-w-[50px] sm:h-6">
               {{ props.title }}
             </h2>
             <FavoritePlaceIconButton @click="toggleCoordinates">
