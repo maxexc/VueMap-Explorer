@@ -103,6 +103,8 @@ const handleMapLoad = (map = null) => {
   if (is3DEnabled.value) {
     apply3DSettings(map)
   }
+
+  map.getCanvas().style.touchAction = 'pan-y' // allow vertical swipe
 }
 
 const favoritePlacesDefault = [
@@ -267,7 +269,7 @@ onMounted(() => {
     <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]">
       <MapboxMap
         id="map"
-        class="w-full h-full overflow-auto relative"
+        class="w-full h-full relative"
         :center="[13.376481, 52.509663]"
         :zoom="10"
         :access-token="mapSettings.apiToken"
