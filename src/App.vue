@@ -28,7 +28,7 @@ const isNotFoundPage = computed(() => route.name === 'NotFoundView')
   <footer
     :class="[
       'fixed bottom-1 z-10 left-0 right-0 text-center mt-12 pointer-events-none',
-      isNotFoundPage ? 'text-gray-600' : 'text-white sm:text-gray-600'
+      isNotFoundPage ? 'text-gray-600' : 'text-gray-600'
     ]"
   >
     <p class="text-sm">&copy; Created by maxexc</p>
