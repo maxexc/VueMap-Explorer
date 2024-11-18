@@ -234,7 +234,7 @@ onMounted(() => {
 <template>
   <main class="flex h-screen flex-col-reverse sm:flex-row">
     <div
-      class="bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 overflow-auto pb-20 pt-2 sm:pt-9"
+      class="bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
     >
       <FavoritePlaces
         :items="favoritePlaces"
@@ -243,15 +243,19 @@ onMounted(() => {
         @create="openModalWithErrorReset"
         @updated="getPlaces"
       />
-      <div class="flex justify-between mt-4 gap-1 px-3 sm:px-2 lg:px-6">
-        <button v-button-animation class="text-accent" @click="logOut">Log out</button>
-        <button v-button-animation @click="testRefresh">Test Refresh Token</button>
+      <div
+        class="absolute flex justify-between mt-5 md:mt-10 sm:mt-[52px] lg:mt-5 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
+      >
+        <button v-button-animation class="text-accent hover:text-primary" @click="logOut">
+          Log out
+        </button>
+        <!-- <button v-button-animation class="hover:text-primary" @click="testRefresh">RfToken</button> -->
       </div>
       <br />
-      <div v-if="data" class="text-green-500 mt-4 text-center font-semibold">
+      <div v-if="data" class="text-green-500 mt-0 text-center font-semibold">
         {{ data.message }}
       </div>
-      <div v-if="logOutError" class="text-red-500 my-2 text-center font-semibold">
+      <div v-if="logOutError" class="text-red-500 my-0 text-center font-semibold">
         {{ logOutError }}
       </div>
       <div v-if="refreshError" class="text-red-500 my-2 text-center font-semibold">
