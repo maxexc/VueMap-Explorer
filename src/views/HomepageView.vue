@@ -249,16 +249,15 @@ onMounted(() => {
         <button v-button-animation class="text-accent hover:text-primary" @click="logOut">
           Log out
         </button>
-        <!-- <button v-button-animation class="hover:text-primary" @click="testRefresh">RfToken</button> -->
+        <button v-button-animation class="hover:text-primary" @click="testRefresh">RfToken</button>
       </div>
-      <br />
-      <div v-if="data" class="text-green-500 mt-0 text-center font-semibold">
+      <div v-if="data" class="text-green-500 mb-3 sm:mb-0 text-center font-semibold">
         {{ data.message }}
       </div>
-      <div v-if="logOutError" class="text-red-500 my-0 text-center font-semibold">
+      <div v-if="logOutError" class="text-red-500 mb-4 sm:mb-0 text-center font-semibold">
         {{ logOutError }}
       </div>
-      <div v-if="refreshError" class="text-red-500 my-2 text-center font-semibold">
+      <div v-if="refreshError" class="text-red-500 mb-5 sm:mb-0 text-center font-semibold">
         {{ refreshError }}
       </div>
     </div>
