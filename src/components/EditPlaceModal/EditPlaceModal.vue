@@ -86,7 +86,7 @@ const handleChangeImg = (url) => {
       <div class="flex flex-wrap sx:flex-nowrap gap-3 sx:gap-5 justify-center">
         <div class="sx:w-[42%] m-auto perspective">
           <div
-            class="card relative w-full h-full scale-90 sx:scale-100 sm:w-[231px] lg:w-[286px] min-h-[195px] sm:min-h-[231px] lg:min-h-[286px]"
+            class="card relative w-full h-full min-w-64 scale-90 sx:scale-100 sm:w-[231px] lg:w-[286px] min-h-64 sm:min-h-[231px] lg:min-h-[286px]"
             :style="{ transform: cardTransform }"
           >
             <img
