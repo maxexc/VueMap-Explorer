@@ -49,13 +49,13 @@ const handleSubmit = (formData) => {
 </script>
 
 <template>
-  <div class="px-3 sm:px-1 lg:px-6 text-black">
-    <div class="text-grey lg:mb-5 flex justify-between gap-1">
-      <span class="block w-[63%] md:w-[70%] lg:w-[83%] m-0 p-0">Added markers: </span>
-      <IButton class="w-full mb-3" variant="mobile" @click="emit('create')">
-        Add new marker
-      </IButton>
-    </div>
+  <div class="px-3 sm:px-1 lg:px-6 text-grey flex justify-between gap-1">
+    <span class="block w-[63%] md:w-[70%] lg:w-[83%] m-0 p-0">Added markers: </span>
+    <IButton class="w-full mb-2 sm:mb-3 md:mb-1" variant="mobile" @click="emit('create')">
+      Add new marker
+    </IButton>
+  </div>
+  <div class="px-3 sm:px-1 lg:px-6 text-black h-full overflow-y-auto relative">
     <slot name="label"></slot>
     <slot name="list">
       <div v-if="items.length === 0">List of markers is empty.</div>
