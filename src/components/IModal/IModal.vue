@@ -39,6 +39,7 @@ onUnmounted(() => {
   enableScroll()
   window.removeEventListener('keydown', closeOnEscape)
 })
+// min-w-[90vw] sx:min-w-[500px]
 </script>
 
 <template>
@@ -53,7 +54,7 @@ onUnmounted(() => {
         <Transition name="modal">
           <div
             v-show="isShow"
-            class="relative bg-white min-w-[90vw] sx:min-w-[500px] m-auto p-4 lg:p-8 pb-8 sm:pb-8 text-black rounded-2xl shadow-lg"
+            class="relative bg-white min-w-[90vw] sx:min-w-[280px] m-auto p-4 lg:p-8 pb-8 sm:pb-8 text-black rounded-2xl shadow-lg"
           >
             <button v-button-animation class="absolute right-2 top-2 lg:right-5 lg:top-5">
               <CrossIcon class="w-6 h-6 lg:w-7 lg:h-7" @click="emit('close')" />

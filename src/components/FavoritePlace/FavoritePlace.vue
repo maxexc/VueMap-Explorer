@@ -44,7 +44,7 @@ const emit = defineEmits(['edit', 'delete'])
             <h2 class="font-bold text-border lg:max-w-none mt-[-4px] sm:max-w-[50px] sm:h-6">
               {{ props.title }}
             </h2>
-            <FavoritePlaceIconButton @click="toggleCoordinates">
+            <FavoritePlaceIconButton @click.stop="toggleCoordinates">
               <span class="text-base font-serif px-2 lg:px-2 md:px-1 sm:pr-0 sm:pl-[2px]">i</span>
             </FavoritePlaceIconButton>
           </div>

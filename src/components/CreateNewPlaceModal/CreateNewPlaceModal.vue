@@ -58,7 +58,10 @@ const handleUpload = (url) => {
 
 <template>
   <IModal :is-show="isOpen" @close="emit('close')" class="">
-    <form @submit.prevent="emit('submit', formData, resetForm)" class="w-full sx:px-4">
+    <form
+      @submit.prevent="emit('submit', formData, resetForm)"
+      class="w-full sx:px-4 sx:min-w-[436px]"
+    >
       <div
         class="flex gap-2 justify-center items-center font-bold text-center mb-5 sx:mb-3 lg:mb-8"
       >
@@ -66,7 +69,7 @@ const handleUpload = (url) => {
       </div>
       <IInput
         label="Location"
-        class="mb-3 sm:mb-[14px] max-h-screen lg:mb-5"
+        class="mb-3 sm:mb-[14px] max-h-screen lg:mb-5 max-w-full"
         required
         v-model="formData.title"
       />
