@@ -318,8 +318,8 @@ const enterFullscreen = () => {
         <MapboxNavigationControl position="bottom-right" :showZoom="false" :showCompass="true" />
         <ResetZoomButton class="absolute" :mapInstance="mapInstance" :defaultZoom="10" />
         <Toggle3DButton class="absolute" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
+        <FullScreenButton class="absolute bottom-[150px] right-4" />
       </MapboxMap>
     </div>
-    <FullScreenButton class="bottom-[150px] right-4" />
   </main>
 </template>
