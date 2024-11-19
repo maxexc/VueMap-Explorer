@@ -34,7 +34,7 @@ const toggleFullscreen = () => {
   <button
     v-button-animation
     @click="toggleFullscreen"
-    class="fixed z-10 bg-white/80 shadow-lg hover:bg-gray-100 transition transform hover:scale-105"
+    class="z-10 bg-white/80 shadow-lg hover:bg-gray-100 transition transform hover:scale-105"
     title="Toggle Fullscreen"
   >
     <svg
