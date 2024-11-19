@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 const isFullscreen = ref(false)
 
@@ -27,6 +27,25 @@ const toggleFullscreen = () => {
     isFullscreen.value = false
   }
 }
+
+const handleOrientationChange = () => {
+  if (isFullscreen.value) {
+    const element = document.documentElement
+    if (element.requestFullscreen) {
+      element.requestFullscreen()
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen()
+    }
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('orientationchange', handleOrientationChange)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('orientationchange', handleOrientationChange)
+})
 </script>
 
 <template>
@@ -38,7 +57,6 @@ const toggleFullscreen = () => {
   >
     <svg
       v-if="!isFullscreen"
-      xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
       fill="#5e5e5e"
@@ -52,7 +70,6 @@ const toggleFullscreen = () => {
     </svg>
     <svg
       v-else
-      xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
       fill="none"

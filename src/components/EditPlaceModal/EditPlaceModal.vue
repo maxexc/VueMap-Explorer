@@ -86,7 +86,7 @@ const handleChangeImg = (url) => {
       <div class="flex flex-wrap sx:flex-nowrap gap-3 sx:gap-5 justify-center">
         <div class="sx:w-[42%] m-auto perspective">
           <div
-            class="card relative w-full h-full min-w-64 scale-90 sx:scale-100 sm:w-[231px] lg:w-[286px] min-h-64 sm:min-h-[231px] lg:min-h-[286px]"
+            class="card relative w-full h-full scale-90 sx:scale-100 min-w-64 sx:min-w-[195px] sm:w-[231px] lg:w-[286px] min-h-64 sx:min-h-[195px] sm:h-[231px] lg:h-[286px]"
             :style="{ transform: cardTransform }"
           >
             <img
@@ -111,7 +111,7 @@ const handleChangeImg = (url) => {
           <IInput
             label="Description"
             type="textarea"
-            class="mb-[18px] lg:mb-6 sm:h-[88px] lg:h-[119px]"
+            class="mb-[18px] lg:mb-6 sx:max-h-[58px] sm:min-h-[88px] lg:min-h-[119px]"
             v-model="formData.description"
           />
           <IButton class="w-full" variant="modal-edit" :is-loading="isLoading"> Save </IButton>

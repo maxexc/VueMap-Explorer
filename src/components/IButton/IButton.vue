@@ -27,6 +27,8 @@ const bgStyle = computed(() => {
       return 'bg-gradient-to-r from-secondary to-primary w-full rounded-xl py-[6px] sx:py-2 px-10 font-medium lg:font-bold '
     case 'modal-edit':
       return 'bg-gradient-to-r from-secondary to-primary w-full rounded-xl py-[6px] lg:py-[11px] px-10 font-medium lg:font-bold'
+    case 'modal-confirm':
+      return 'bg-transparent text-buttonPrimary border-2 border-secondary w-full rounded-xl py-[6px] lg:py-[9px] px-[38px] font-bold hover:text-primary hover:border-buttonPrimary'
     default:
       return 'bg-buttonPrimary max-w-48 rounded-xl py-2 lg:py-[11px] px-10 font-bold'
   }
@@ -41,7 +43,7 @@ const link = computed(() => (isLink.value ? props.to : null))
   <componentName :is="componentName" :to="link" class="flex justify-center">
     <button
       v-button-animation
-      class="js-animated-button py tracking-wider text-white shadow-md transition-all duration-200 hover:shadow-lg hover:text-accent"
+      class="js-animated-button tracking-wider text-white shadow-md transition-all duration-200 hover:shadow-lg hover:text-accent"
       :class="bgStyle"
     >
       <template v-if="props.isLoading">Loading...</template>

@@ -14,6 +14,7 @@ import { useMutation } from '@/composables/useMutation'
 import { useRouter } from 'vue-router'
 import { useModal } from '@/composables/useModal'
 import FullScreenButton from '@/components/IButton/FullScreenButton.vue'
+import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal.vue'
 
 const router = useRouter()
 
@@ -320,6 +321,7 @@ const enterFullscreen = () => {
         <Toggle3DButton class="absolute" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
         <FullScreenButton class="absolute bottom-[151px] right-[14px]" />
       </MapboxMap>
+      <ConfirmationModal />
     </div>
   </main>
 </template>
