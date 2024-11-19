@@ -4,8 +4,3 @@
 [id*='__vue-devtools'] {
   display: none !important;
 }
-
-html,
-body {
-  height: 100%;
-}
