@@ -13,6 +13,7 @@ import { authService } from '@/api/authService'
 import { useMutation } from '@/composables/useMutation'
 import { useRouter } from 'vue-router'
 import { useModal } from '@/composables/useModal'
+import FullScreenButton from '@/components/IButton/FullScreenButton.vue'
 
 const router = useRouter()
 
@@ -230,6 +231,19 @@ onMounted(() => {
     getPlaces()
   }
 })
+
+const enterFullscreen = () => {
+  const element = document.documentElement // Полный экран для всего документа
+  if (element.requestFullscreen) {
+    element.requestFullscreen() // Для современных браузеров
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen() // Для Safari
+  } else if (element.msRequestFullscreen) {
+    element.msRequestFullscreen() // Для старых версий IE
+  } else {
+    console.warn('Fullscreen mode not supported') // На случай, если функциональность отсутствует
+  }
+}
 </script>
 <template>
   <main class="flex h-screen flex-col-reverse sm:flex-row">
@@ -306,5 +320,6 @@ onMounted(() => {
         <Toggle3DButton class="absolute" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
       </MapboxMap>
     </div>
+    <FullScreenButton class="bottom-[150px] right-4" />
   </main>
 </template>
