@@ -4,14 +4,3 @@
 [id*='__vue-devtools'] {
   display: none !important;
 }
-
-html,
-body {
-  height: 100%;
-  overscroll-behavior: none; /* Предотвращение перетаскивания страницы */
-}
-
-body {
-  -webkit-touch-callout: none; /* Отключить вызов контекстного меню */
-  -webkit-user-select: none; /* Отключить выделение текста */
-}
