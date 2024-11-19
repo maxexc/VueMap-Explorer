@@ -3,10 +3,10 @@ import IButton from '../IButton/IButton.vue'
 import IModal from '../IModal/IModal.vue'
 
 defineProps({
-  title: {
-    default: false,
-    type: String
-  },
+  // title: {
+  //   default: false,
+  //   type: String
+  // },
   isLoading: {
     default: false,
     type: Boolean

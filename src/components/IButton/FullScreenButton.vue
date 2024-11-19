@@ -3,6 +3,9 @@ import { onMounted, onUnmounted, ref } from 'vue'
 
 const isFullscreen = ref(false)
 
+// hidden <video> for iOS
+let videoElement = null
+
 const toggleFullscreen = () => {
   const element = document.documentElement
   if (!isFullscreen.value) {
@@ -13,7 +16,8 @@ const toggleFullscreen = () => {
     } else if (element.msRequestFullscreen) {
       element.msRequestFullscreen()
     } else {
-      alert('Fullscreen is not supported on your browser.')
+      // iOS fix
+      activateFullscreenViaVideo()
     }
     isFullscreen.value = true
   } else {
@@ -23,28 +27,80 @@ const toggleFullscreen = () => {
       document.webkitExitFullscreen()
     } else if (document.msExitFullscreen) {
       document.msExitFullscreen()
+    } else {
+      deactivateFullscreenViaVideo()
     }
     isFullscreen.value = false
   }
 }
 
-const handleOrientationChange = () => {
-  if (isFullscreen.value) {
-    const element = document.documentElement
-    if (element.requestFullscreen) {
-      element.requestFullscreen()
-    } else if (element.webkitRequestFullscreen) {
-      element.webkitRequestFullscreen()
-    }
+// iOS on <video>
+const activateFullscreenViaVideo = () => {
+  if (!videoElement) return
+
+  if (videoElement.webkitEnterFullscreen) {
+    videoElement.style.display = 'block' //
+    videoElement.webkitEnterFullscreen()
+    videoElement.play() // Required!
+  } else {
+    alert('Fullscreen is not supported on your browser.')
   }
 }
 
+// iOS off <video>
+const deactivateFullscreenViaVideo = () => {
+  if (videoElement) {
+    videoElement.pause() //
+    videoElement.style.display = 'none' //
+  }
+}
+
+// iOS
+const handleBeginFullscreen = () => {
+  const appContent = document.getElementById('app-content')
+  appContent.style.position = 'fixed'
+  appContent.style.top = '0'
+  appContent.style.left = '0'
+  appContent.style.width = '100%'
+  appContent.style.height = '100%'
+  appContent.style.zIndex = '9999'
+}
+
+// iOS
+const handleEndFullscreen = () => {
+  const appContent = document.getElementById('app-content')
+  appContent.style.position = 'static'
+  appContent.style.zIndex = 'auto'
+}
+
+// iOS
 onMounted(() => {
-  window.addEventListener('orientationchange', handleOrientationChange)
+  videoElement = document.createElement('video')
+  videoElement.style.position = 'fixed'
+  videoElement.style.top = '0'
+  videoElement.style.left = '0'
+  videoElement.style.width = '1px'
+  videoElement.style.height = '1px'
+  videoElement.style.display = 'none' // hide video
+  videoElement.setAttribute('playsinline', 'true')
+  videoElement.setAttribute('muted', 'true')
+
+  // iOS
+  videoElement.addEventListener('webkitbeginfullscreen', handleBeginFullscreen)
+  videoElement.addEventListener('webkitendfullscreen', handleEndFullscreen)
+
+  // iOS
+  document.body.appendChild(videoElement)
 })
 
+// iOS
 onUnmounted(() => {
-  window.removeEventListener('orientationchange', handleOrientationChange)
+  if (videoElement) {
+    videoElement.removeEventListener('webkitbeginfullscreen', handleBeginFullscreen)
+    videoElement.removeEventListener('webkitendfullscreen', handleEndFullscreen)
+    document.body.removeChild(videoElement)
+    videoElement = null
+  }
 })
 </script>
 
