@@ -5,7 +5,7 @@ import IModal from '../IModal/IModal.vue'
 
 <template>
   <IModal>
-    <div>Are youb really want delete marker?</div>
+    <div>Do you really want to delete the marker?</div>
     <div>
       <IButton>Cancel</IButton>
       <IButton>Confirm</IButton>
