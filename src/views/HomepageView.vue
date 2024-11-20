@@ -251,15 +251,7 @@ document.addEventListener('touchmove', (e) => {
 <template>
   <main class="flex h-screen flex-col-reverse sm:flex-row">
     <div
-      class="absolute top-0 left-0 h-full w-[16px] bg-transparent cursor-pointer z-50"
-      @touchmove.prevent="handleSwipeLeft"
-    ></div>
-    <div
-      class="absolute top-0 right-0 h-full w-[16px] bg-transparent cursor-pointer z-50"
-      @touchmove.prevent="handleSwipeRight"
-    ></div>
-    <div
-      class="relative bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] overflow-y-auto shrink-0 pt-1 sm:pt-7 flex flex-col"
+      class="relative bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
     >
       <div
         v-if="isPlacesLoading"
@@ -293,14 +285,14 @@ document.addEventListener('touchmove', (e) => {
         {{ refreshError }}
       </div>
 
-      <CreateNewPlaceModal
-        :isOpen="isOpen"
-        :is-loading="isAddingPlace"
-        :has-error="Boolean(addNewMarkerError)"
-        :error-message="addNewMarkerError"
-        @close="closeModal"
-        @submit="handleAddPlace"
-      ></CreateNewPlaceModal>
+      <!-- <CreateNewPlaceModal
+    :isOpen="isOpen"
+    :is-loading="isAddingPlace"
+    :has-error="Boolean(addNewMarkerError)"
+    :error-message="addNewMarkerError"
+    @close="closeModal"
+    @submit="handleAddPlace"
+  ></CreateNewPlaceModal> -->
       <div>
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
@@ -402,7 +394,6 @@ document.addEventListener('touchmove', (e) => {
       </MapboxMap>
     </div>
   </main>
-  <div class="py-1"></div>
 </template>
 
 <!-- <script setup>
