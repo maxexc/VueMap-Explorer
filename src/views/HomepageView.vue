@@ -260,13 +260,13 @@ document.addEventListener('touchmove', (e) => {
         Loading...
       </div>
       <!-- <FavoritePlaces
-    :items="favoritePlaces"
-    :active-id="activeId"
-    :is-places-loading="isPlacesLoading"
-    @place-clicked="changePlace"
-    @create="openModalWithErrorReset"
-    @updated="getPlaces"
-  /> -->
+        :items="favoritePlaces"
+        :active-id="activeId"
+        :is-places-loading="isPlacesLoading"
+        @place-clicked="changePlace"
+        @create="openModalWithErrorReset"
+        @updated="getPlaces"
+      /> -->
       <div
         class="absolute flex justify-between mt-5 md:mt-10 sm:mt-[52px] lg:mt-5 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
       >
@@ -284,8 +284,8 @@ document.addEventListener('touchmove', (e) => {
       <div v-if="refreshError" class="text-red-500 mb-5 sm:mb-0 text-center font-semibold">
         {{ refreshError }}
       </div>
-    </div>
-    <!-- <CreateNewPlaceModal
+
+      <!-- <CreateNewPlaceModal
     :isOpen="isOpen"
     :is-loading="isAddingPlace"
     :has-error="Boolean(addNewMarkerError)"
@@ -293,69 +293,70 @@ document.addEventListener('touchmove', (e) => {
     @close="closeModal"
     @submit="handleAddPlace"
   ></CreateNewPlaceModal> -->
-    <!-- <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]"> -->
-    <div>
-      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+      <div>
+        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
 
+        <div style="overflow-y: auto; touch-action: auto; height: 100vh">
+          <h1>Touchmove Events:</h1>
+          <ul>
+            <li v-for="(event, index) in touchEventLog" :key="index">{{ event }}</li>
+          </ul>
+        </div>
+      </div>
       <div style="overflow-y: auto; touch-action: auto; height: 100vh">
-        <h1>Touchmove Events:</h1>
-        <ul>
-          <li v-for="(event, index) in touchEventLog" :key="index">{{ event }}</li>
-        </ul>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
       </div>
     </div>
-    <div style="overflow-y: auto; touch-action: auto; height: 100vh">
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-      <p>Test content</p>
-    </div>
-    <!-- <MapboxMap
+    <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]">
+      <MapboxMap
         id="map"
         class="w-full h-full relative"
         :center="[13.376481, 52.509663]"
@@ -390,8 +391,8 @@ document.addEventListener('touchmove', (e) => {
         <ResetZoomButton class="absolute" :mapInstance="mapInstance" :defaultZoom="10" />
         <Toggle3DButton class="absolute" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
         <FullScreenButton class="absolute bottom-[151px] right-[14px]" />
-      </MapboxMap> -->
-    <!-- </div> -->
+      </MapboxMap>
+    </div>
   </main>
 </template>
 
