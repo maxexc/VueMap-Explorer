@@ -5,7 +5,6 @@ const isFullscreen = ref(false)
 
 // hidden <video> for iOS
 // let videoElement = null
-videoElement.style.pointerEvents = 'none'
 
 const toggleFullscreen = () => {
   const element = document.documentElement

@@ -282,7 +282,8 @@ onMounted(() => {
       @submit="handleAddPlace"
     ></CreateNewPlaceModal>
     <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]">
-      <MapboxMap
+      <div>TEST TEST TEST TEST TEST TEST TEST TEST TEST</div>
+      <!-- <MapboxMap
         id="map"
         class="w-full h-full relative"
         :center="[13.376481, 52.509663]"
@@ -317,7 +318,7 @@ onMounted(() => {
         <ResetZoomButton class="absolute" :mapInstance="mapInstance" :defaultZoom="10" />
         <Toggle3DButton class="absolute" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
         <FullScreenButton class="absolute bottom-[151px] right-[14px]" />
-      </MapboxMap>
+      </MapboxMap> -->
     </div>
   </main>
 </template>

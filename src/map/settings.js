@@ -1,4 +1,4 @@
-const TOKEN = import.meta.env.VITE_TOKEN_MAPBOX;
+const TOKEN = import.meta.env.VITE_TOKEN_MAPBOX_2;
 
 
 export const mapSettings = {
