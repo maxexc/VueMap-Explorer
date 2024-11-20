@@ -26,7 +26,7 @@ const history = isGitHub ? createWebHashHistory(BASE_DEV) : createWebHistory(BAS
 
 const routes = [
     { path: '/', component: GreetingPage },
-    { path: '/map', component: HomePage },
+    { path: '/map', component: HomePage, name: 'Map' },
     {
         path: '/auth',
         component: AuthPage,

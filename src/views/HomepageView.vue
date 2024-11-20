@@ -109,7 +109,7 @@ const handleMapLoad = (map = null) => {
     apply3DSettings(map)
   }
 
-  map.getCanvas().style.touchAction = 'pan-y' // allow vertical swipe
+  // map.getCanvas().style.touchAction = 'auto' // allow vertical swipe
 }
 
 const favoritePlacesDefault = [
@@ -236,6 +236,7 @@ onMounted(() => {
   }
 })
 
+
 // <div
 //   class="relative bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
 // >
@@ -245,11 +246,25 @@ onMounted(() => {
 //   >
 //     Loading...
 //   </div>
+
+const touchEventLog = ref([])
+
+document.addEventListener('touchmove', (e) => {
+  const eventDetails = `Touchmove: clientX=${e.touches[0]?.clientX}, clientY=${e.touches[0]?.clientY}`
+
+  touchEventLog.value.push(eventDetails)
+
+  if (touchEventLog.value.length > 10) {
+    touchEventLog.value.shift()
+  }
+})
+
 </script>
 <template>
-  <main class="flex h-screen flex-col-reverse sm:flex-row">
+  <main class="flex h-screen overflow-auto flex-col-reverse sm:flex-row">
     <div
       class="bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
+
     >
       <div
         v-if="isPlacesLoading"
@@ -282,7 +297,9 @@ onMounted(() => {
       <div v-if="refreshError" class="text-red-500 mb-5 sm:mb-0 text-center font-semibold">
         {{ refreshError }}
       </div>
+
       <div class="h-[120vw]">
+
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
@@ -298,6 +315,7 @@ onMounted(() => {
             <li v-for="(event, index) in touchEventLog" :key="index">{{ event }}</li>
           </ul>
         </div>
+
       </div>
       <!-- <CreateNewPlaceModal
         :isOpen="isOpen"
@@ -353,6 +371,9 @@ onMounted(() => {
         <p>Test content</p>
         <p>Test content</p>
       </div> -->
+
+  
+
     <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]">
       <MapboxMap
         id="map"
@@ -371,7 +392,7 @@ onMounted(() => {
           anchor="bottom"
           class="cursor-pointer"
         >
-          <button v-button-animation @click="removeMarker">
+          <button v-button-animation class="existing-marker" @click="removeMarker">
             <MarkerIcon :isDefault="true" />
           </button>
         </MapboxMarker>
@@ -393,3 +414,21 @@ onMounted(() => {
     </div>
   </main>
 </template>
+
+<!-- <script setup>
+import { ref } from 'vue'
+
+const touchEventLog = ref([]) 
+
+
+document.addEventListener('touchmove', (e) => {
+  const eventDetails = `Touchmove: clientX=${e.touches[0]?.clientX}, clientY=${e.touches[0]?.clientY}`
+  
+  touchEventLog.value.push(eventDetails)
+
+ 
+  if (touchEventLog.value.length > 10) {
+    touchEventLog.value.shift()
+  }
+})
+</script> -->
