@@ -109,7 +109,7 @@ const handleMapLoad = (map = null) => {
     apply3DSettings(map)
   }
 
-  map.getCanvas().style.touchAction = 'auto' // allow vertical swipe
+  // map.getCanvas().style.touchAction = 'auto' // allow vertical swipe
 }
 
 const favoritePlacesDefault = [
@@ -250,7 +250,7 @@ document.addEventListener('touchmove', (e) => {
 </script>
 <template>
   <!-- <main class="flex h-screen flex-col-reverse sm:flex-row"> -->
-  <div
+  <!-- <div
     class="relative bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
   >
     <div
@@ -259,14 +259,14 @@ document.addEventListener('touchmove', (e) => {
     >
       Loading...
     </div>
-    <!-- <FavoritePlaces
+    <FavoritePlaces
         :items="favoritePlaces"
         :active-id="activeId"
         :is-places-loading="isPlacesLoading"
         @place-clicked="changePlace"
         @create="openModalWithErrorReset"
         @updated="getPlaces"
-      /> -->
+      />
     <div
       class="absolute flex justify-between mt-5 md:mt-10 sm:mt-[52px] lg:mt-5 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
     >
@@ -292,7 +292,7 @@ document.addEventListener('touchmove', (e) => {
     :error-message="addNewMarkerError"
     @close="closeModal"
     @submit="handleAddPlace"
-  ></CreateNewPlaceModal>
+  ></CreateNewPlaceModal> -->
   <!-- <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]"> -->
   <div>
     TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
