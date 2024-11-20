@@ -259,7 +259,7 @@ document.addEventListener('touchmove', (e) => {
       @touchmove.prevent="handleSwipeRight"
     ></div>
     <div
-      class="relative bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
+      class="relative bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] overflow-y-auto shrink-0 pt-1 sm:pt-7 flex flex-col"
     >
       <div
         v-if="isPlacesLoading"
@@ -318,7 +318,7 @@ document.addEventListener('touchmove', (e) => {
           </ul>
         </div>
       </div>
-      <!-- <div style="overflow-y: auto; touch-action: auto; height: 100vh">
+      <div style="overflow-y: auto; touch-action: auto; height: 100vh">
         <p>Test content</p>
         <p>Test content</p>
         <p>Test content</p>
@@ -361,7 +361,7 @@ document.addEventListener('touchmove', (e) => {
         <p>Test content</p>
         <p>Test content</p>
         <p>Test content</p>
-      </div> -->
+      </div>
     </div>
     <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]">
       <MapboxMap
@@ -402,11 +402,7 @@ document.addEventListener('touchmove', (e) => {
       </MapboxMap>
     </div>
   </main>
-  <div class="py-20">
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-  </div>
+  <div class="py-1"></div>
 </template>
 
 <!-- <script setup>
