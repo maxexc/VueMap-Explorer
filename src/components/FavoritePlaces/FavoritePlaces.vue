@@ -5,7 +5,8 @@ import FavoritePlace from '../FavoritePlace/FavoritePlace.vue'
 import IButton from '../IButton/IButton.vue'
 import { useModal } from '@/composables/useModal'
 import { useMutation } from '@/composables/useMutation'
-import { updateFavoritePlaces } from '@/api/favorite-places'
+import { deleteFavoritePlaces, updateFavoritePlaces } from '@/api/favorite-places'
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal.vue'
 
 const props = defineProps({
   items: {
@@ -15,12 +16,21 @@ const props = defineProps({
   activeId: {
     required: true,
     type: [String, Number, null]
+  },
+  isPlacesLoading: {
+    default: false,
+    type: Boolean
   }
 })
 
 const emit = defineEmits(['place-clicked', 'create', 'updated'])
 
 const { isOpen: isEditOpen, openModal: openEditModal, closeModal: closeEditModal } = useModal()
+const {
+  isOpen: isConfirmationModalOpen,
+  openModal: openConfirmationModal,
+  closeModal: closeConfirmationModal
+} = useModal()
 
 const {
   mutation: updatePlace,
@@ -34,8 +44,23 @@ const {
   }
 })
 
+const {
+  mutation: deletePlace,
+  error: deleteError,
+  isLoading: isDeleting
+} = useMutation({
+  mutationFn: (id) => deleteFavoritePlaces(id),
+  onSuccess: () => {
+    closeConfirmationModal()
+    idItemToDelete.value = null
+    emit('updated')
+  },
+  onError: () => {}
+})
+
 const selectedId = ref(null)
 const selectedItem = computed(() => props.items.find((place) => place.id === selectedId.value))
+const idItemToDelete = ref(null)
 
 const handleEditPlace = (id) => {
   editPointError.value = null
@@ -45,6 +70,15 @@ const handleEditPlace = (id) => {
 
 const handleSubmit = (formData) => {
   updatePlace(formData)
+}
+
+const hadleOpenConfirmationModal = (id) => {
+  idItemToDelete.value = id
+  openConfirmationModal()
+}
+
+const handleDeletePlace = () => {
+  deletePlace(idItemToDelete.value)
 }
 </script>
 
@@ -58,7 +92,7 @@ const handleSubmit = (formData) => {
   <div class="px-3 sm:px-1 lg:px-6 text-black h-full overflow-y-auto relative">
     <slot name="label"></slot>
     <slot name="list">
-      <div v-if="items.length === 0">List of markers is empty.</div>
+      <div v-if="items.length === 0 && !isPlacesLoading">List of markers is empty.</div>
       <FavoritePlace
         v-for="place in props.items"
         :key="place.id"
@@ -69,6 +103,7 @@ const handleSubmit = (formData) => {
         :is-active="place.id === props.activeId"
         @click="emit('place-clicked', place.id)"
         @edit="handleEditPlace(place.id)"
+        @delete="hadleOpenConfirmationModal(place.id)"
       />
     </slot>
 
@@ -80,6 +115,15 @@ const handleSubmit = (formData) => {
       :error-message="editPointError"
       @close="closeEditModal"
       @submit="handleSubmit"
+    />
+
+    <ConfirmationModal
+      :is-open="isConfirmationModalOpen"
+      :is-loading="isDeleting"
+      :error-message="deleteError"
+      @cancel="closeConfirmationModal"
+      @confirm="handleDeletePlace"
+      title="Are you sure you want to delete this marker?"
     />
   </div>
 </template>
