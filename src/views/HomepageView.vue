@@ -236,6 +236,17 @@ onMounted(() => {
   }
 })
 
+
+// <div
+//   class="relative bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
+// >
+//   <div
+//     v-if="isPlacesLoading"
+//     class="absolute z-10 text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
+//   >
+//     Loading...
+//   </div>
+
 const touchEventLog = ref([])
 
 document.addEventListener('touchmove', (e) => {
@@ -247,26 +258,28 @@ document.addEventListener('touchmove', (e) => {
     touchEventLog.value.shift()
   }
 })
+
 </script>
 <template>
   <main class="flex h-screen overflow-auto flex-col-reverse sm:flex-row">
     <div
-      class="bg-white py-4 overflow-auto h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
+      class="bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
+
     >
       <div
         v-if="isPlacesLoading"
-        class="absolute z-10 text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
+        class="z-10 text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
       >
         Loading...
       </div>
-      <FavoritePlaces
+      <!-- <FavoritePlaces
         :items="favoritePlaces"
         :active-id="activeId"
         :is-places-loading="isPlacesLoading"
         @place-clicked="changePlace"
         @create="openModalWithErrorReset"
         @updated="getPlaces"
-      />
+      /> -->
       <div
         class="absolute flex justify-between mt-5 md:mt-10 sm:mt-[52px] lg:mt-5 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
       >
@@ -285,15 +298,8 @@ document.addEventListener('touchmove', (e) => {
         {{ refreshError }}
       </div>
 
-      <CreateNewPlaceModal
-        :isOpen="isOpen"
-        :is-loading="isAddingPlace"
-        :has-error="Boolean(addNewMarkerError)"
-        :error-message="addNewMarkerError"
-        @close="closeModal"
-        @submit="handleAddPlace"
-      ></CreateNewPlaceModal>
-      <!-- <div>
+      <div class="h-[120vw]">
+
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
@@ -309,52 +315,65 @@ document.addEventListener('touchmove', (e) => {
             <li v-for="(event, index) in touchEventLog" :key="index">{{ event }}</li>
           </ul>
         </div>
-      </div> -->
-      <!-- <div style="overflow-y: auto; touch-action: auto; height: 100vh">
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-      </div> -->
+
+      </div>
+      <!-- <CreateNewPlaceModal
+        :isOpen="isOpen"
+        :is-loading="isAddingPlace"
+        :has-error="Boolean(addNewMarkerError)"
+        :error-message="addNewMarkerError"
+        @close="closeModal"
+        @submit="handleAddPlace"
+      ></CreateNewPlaceModal> -->
     </div>
+
+    <!-- <div style="overflow-y: auto; touch-action: auto; height: 100vh">
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+        <p>Test content</p>
+      </div> -->
+
+  
+
     <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]">
       <MapboxMap
         id="map"
