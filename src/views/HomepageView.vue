@@ -285,14 +285,14 @@ document.addEventListener('touchmove', (e) => {
         {{ refreshError }}
       </div>
 
-      <!-- <CreateNewPlaceModal
-    :isOpen="isOpen"
-    :is-loading="isAddingPlace"
-    :has-error="Boolean(addNewMarkerError)"
-    :error-message="addNewMarkerError"
-    @close="closeModal"
-    @submit="handleAddPlace"
-  ></CreateNewPlaceModal> -->
+      <CreateNewPlaceModal
+        :isOpen="isOpen"
+        :is-loading="isAddingPlace"
+        :has-error="Boolean(addNewMarkerError)"
+        :error-message="addNewMarkerError"
+        @close="closeModal"
+        @submit="handleAddPlace"
+      ></CreateNewPlaceModal>
       <div>
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
@@ -310,7 +310,7 @@ document.addEventListener('touchmove', (e) => {
           </ul>
         </div>
       </div>
-      <div style="overflow-y: auto; touch-action: auto; height: 100vh">
+      <!-- <div style="overflow-y: auto; touch-action: auto; height: 100vh">
         <p>Test content</p>
         <p>Test content</p>
         <p>Test content</p>
@@ -353,7 +353,7 @@ document.addEventListener('touchmove', (e) => {
         <p>Test content</p>
         <p>Test content</p>
         <p>Test content</p>
-      </div>
+      </div> -->
     </div>
     <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]">
       <MapboxMap
