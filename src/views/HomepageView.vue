@@ -1,4 +1,4 @@
-<!-- <script setup>
+<script setup>
 import { computed, onMounted, ref } from 'vue'
 import { MapboxMap, MapboxMarker, MapboxNavigationControl } from '@studiometa/vue-mapbox-gl'
 import { mapSettings } from '@/map/settings'
@@ -235,9 +235,21 @@ onMounted(() => {
     getPlaces()
   }
 })
-</script> -->
+
+const touchEventLog = ref([])
+
+document.addEventListener('touchmove', (e) => {
+  const eventDetails = `Touchmove: clientX=${e.touches[0]?.clientX}, clientY=${e.touches[0]?.clientY}`
+
+  touchEventLog.value.push(eventDetails)
+
+  if (touchEventLog.value.length > 10) {
+    touchEventLog.value.shift()
+  }
+})
+</script>
 <template>
-  <!-- <main class="flex h-screen flex-col-reverse sm:flex-row">
+  <main class="flex h-screen flex-col-reverse sm:flex-row">
     <div
       class="relative bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
     >
@@ -280,70 +292,70 @@ onMounted(() => {
       :error-message="addNewMarkerError"
       @close="closeModal"
       @submit="handleAddPlace"
-    ></CreateNewPlaceModal> -->
-  <!-- <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]"> -->
-  <div>
-    TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-    TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-    TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-    TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-    TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-    TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-    TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-    TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-  </div>
-  <div style="overflow-y: auto; touch-action: auto; height: 100vh">
-    <h1>Touchmove Events:</h1>
-    <ul>
-      <!-- Выводим последние 10 событий -->
-      <li v-for="(event, index) in touchEventLog" :key="index">{{ event }}</li>
-    </ul>
-  </div>
-  <div style="overflow-y: auto; touch-action: auto; height: 100vh">
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-    <p>Test content</p>
-  </div>
-  <!-- <MapboxMap
+    ></CreateNewPlaceModal>
+    <!-- <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]"> -->
+    <div>
+      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+
+      <div style="overflow-y: auto; touch-action: auto; height: 100vh">
+        <h1>Touchmove Events:</h1>
+        <ul>
+          <li v-for="(event, index) in touchEventLog" :key="index">{{ event }}</li>
+        </ul>
+      </div>
+    </div>
+    <div style="overflow-y: auto; touch-action: auto; height: 100vh">
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+      <p>Test content</p>
+    </div>
+    <!-- <MapboxMap
         id="map"
         class="w-full h-full relative"
         :center="[13.376481, 52.509663]"
@@ -379,24 +391,24 @@ onMounted(() => {
         <Toggle3DButton class="absolute" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
         <FullScreenButton class="absolute bottom-[151px] right-[14px]" />
       </MapboxMap> -->
-  <!-- </div> -->
-  <!-- </main> -->
+    <!-- </div> -->
+  </main>
 </template>
 
-<script setup>
+<!-- <script setup>
 import { ref } from 'vue'
 
-const touchEventLog = ref([]) // Массив для хранения данных о событиях
+const touchEventLog = ref([]) 
 
-// Добавляем обработчик touchmove
+
 document.addEventListener('touchmove', (e) => {
   const eventDetails = `Touchmove: clientX=${e.touches[0]?.clientX}, clientY=${e.touches[0]?.clientY}`
-  // Добавляем данные о событии в массив
+  
   touchEventLog.value.push(eventDetails)
 
-  // Ограничиваем вывод до последних 10 событий
+ 
   if (touchEventLog.value.length > 10) {
     touchEventLog.value.shift()
   }
 })
-</script>
+</script> -->
