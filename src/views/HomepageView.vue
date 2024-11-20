@@ -249,9 +249,9 @@ document.addEventListener('touchmove', (e) => {
 })
 </script>
 <template>
-  <main class="flex h-screen flex-col-reverse overflow-auto sm:flex-row">
+  <main class="flex h-screen overflow-auto flex-col-reverse sm:flex-row">
     <div
-      class="bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
+      class="bg-white py-4 overflow-auto h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
     >
       <div
         v-if="isPlacesLoading"
