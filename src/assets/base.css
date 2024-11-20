@@ -63,12 +63,12 @@
   font-weight: normal;
 }
 
-html,
+/* html,
 body {
   touch-action: auto;
   overscroll-behavior: auto;
   height: 100%;
-}
+} */
 
 body {
   min-height: 100vh;
@@ -108,6 +108,6 @@ body {
   height: 100%;
 }
 
-.map-container {
+/* .map-container {
   touch-action: pan-x pan-y;
-}
+} */

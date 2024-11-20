@@ -109,7 +109,7 @@ const handleMapLoad = (map = null) => {
     apply3DSettings(map)
   }
 
-  // map.getCanvas().style.touchAction = 'auto' // allow vertical swipe
+  map.getCanvas().style.touchAction = 'manipulation' // allow vertical swipe
 }
 
 const favoritePlacesDefault = [
@@ -257,38 +257,32 @@ document.addEventListener('touchmove', (e) => {
     touchEventLog.value.shift()
   }
 })
+// outline outline-1 outline-red-500
 </script>
 <template>
-  <main class="flex h-screen overflow-auto flex-col-reverse sm:flex-row">
-    <div
-      class="bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
-    >
+  <div class="h-[100vh] overflow-auto">
+    <main class="flex min-h-screen flex-col-reverse sm:flex-row" style="touch-action: auto">
       <div
-        v-if="isPlacesLoading"
-        class="z-10 text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
+        class="bg-white h-[33.1vh] sm:h-[101vh] md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
       >
-        Loading...
-      </div>
+        <div
+          v-if="isPlacesLoading"
+          class="z-10 text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
+        >
+          Loading...
+        </div>
 
-      <div
-        class="absolute flex justify-between mt-5 md:mt-10 sm:mt-[52px] lg:mt-5 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
-      >
-        <button v-button-animation class="text-accent hover:text-primary" @click="logOut">
-          Log out
-        </button>
-        <button v-button-animation class="hover:text-primary" @click="testRefresh">RfToken</button>
-      </div>
-      <div v-if="data" class="text-green-500 mb-3 sm:mb-0 text-center font-semibold">
-        {{ data.message }}
-      </div>
-      <div v-if="logOutError" class="text-red-500 mb-4 sm:mb-0 text-center font-semibold">
-        {{ logOutError }}
-      </div>
-      <div v-if="refreshError" class="text-red-500 mb-5 sm:mb-0 text-center font-semibold">
-        {{ refreshError }}
-      </div>
+        <div
+          class="absolute flex justify-between mt-5 md:mt-10 sm:mt-[52px] lg:mt-5 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
+        >
+          <button v-button-animation class="text-accent hover:text-primary" @click="logOut">
+            Log out
+          </button>
+          <button v-button-animation class="hover:text-primary" @click="testRefresh">
+            RfToken
+          </button>
+        </div>
 
-      <div class="h-[120vw]">
         <FavoritePlaces
           :items="favoritePlaces"
           :active-id="activeId"
@@ -297,21 +291,6 @@ document.addEventListener('touchmove', (e) => {
           @create="openModalWithErrorReset"
           @updated="getPlaces"
         />
-        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-        TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-
-        <!-- <div style="overflow-y: auto; touch-action: auto; height: 100vh">
-          <h1>Touchmove Events:</h1>
-          <ul>
-            <li v-for="(event, index) in touchEventLog" :key="index">{{ event }}</li>
-          </ul>
-        </div> -->
         <CreateNewPlaceModal
           :isOpen="isOpen"
           :is-loading="isAddingPlace"
@@ -320,10 +299,104 @@ document.addEventListener('touchmove', (e) => {
           @close="closeModal"
           @submit="handleAddPlace"
         ></CreateNewPlaceModal>
-      </div>
-    </div>
+        <!-- <div class="h-[120vw]">
+          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
 
-    <!-- <div style="overflow-y: auto; touch-action: auto; height: 100vh">
+          <div style="overflow-y: auto; touch-action: auto; height: 100vh">
+            <h1>Touchmove Events:</h1>
+            <ul>
+              <li v-for="(event, index) in touchEventLog" :key="index">{{ event }}</li>
+            </ul>
+          </div>
+        </div> -->
+        <div v-if="data" class="text-green-500 mb-1 sm:mb-0 text-center font-semibold">
+          {{ data.message }}
+        </div>
+        <div v-if="logOutError" class="text-red-500 mb-4 sm:mb-0 text-center font-semibold">
+          {{ logOutError }}
+        </div>
+        <div
+          v-if="refreshError"
+          class="text-red-500 h-[5vh] mb-5 sm:mb-0 text-center font-semibold"
+        >
+          {{ refreshError }}
+        </div>
+      </div>
+
+      <div
+        class="relative w-full h-[67vh] sm:h-[100vh] flex-grow flex items-center justify-center text-6xl pb-[2px]"
+      >
+        <MapboxMap
+          id="map"
+          class="w-full h-full relative"
+          :center="[13.376481, 52.509663]"
+          :zoom="10"
+          :access-token="mapSettings.apiToken"
+          :map-style="mapSettings.style"
+          :projection="mapSettings.projection"
+          @mb-click="handleMapClick"
+          v-on:mb-created="handleMapLoad"
+        >
+          <MapboxMarker
+            v-if="mapMarkerLnglat"
+            :lngLat="mapMarkerLnglat"
+            anchor="bottom"
+            class="cursor-pointer"
+          >
+            <button v-button-animation class="existing-marker" @click="removeMarker">
+              <MarkerIcon :isDefault="true" />
+            </button>
+          </MapboxMarker>
+          <MapboxMarker
+            v-for="place in favoritePlaces"
+            :key="place.id"
+            :lngLat="place.coordinates"
+            anchor="bottom"
+          >
+            <button
+              v-button-animation
+              class="existing-marker"
+              @click.stop="changeActiveId(place.id)"
+            >
+              <MarkerIcon :isActive="place.id === activeId" />
+            </button>
+          </MapboxMarker>
+          <MapboxNavigationControl position="bottom-right" :showZoom="false" :showCompass="true" />
+          <ResetZoomButton class="absolute" :mapInstance="mapInstance" :defaultZoom="10" />
+          <Toggle3DButton class="absolute" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
+          <FullScreenButton class="absolute bottom-[151px] right-[14px]" />
+        </MapboxMap>
+      </div>
+    </main>
+  </div>
+</template>
+
+<!-- <script setup>
+import { ref } from 'vue'
+
+const touchEventLog = ref([]) 
+
+
+document.addEventListener('touchmove', (e) => {
+  const eventDetails = `Touchmove: clientX=${e.touches[0]?.clientX}, clientY=${e.touches[0]?.clientY}`
+  
+  touchEventLog.value.push(eventDetails)
+
+ 
+  if (touchEventLog.value.length > 10) {
+    touchEventLog.value.shift()
+  }
+})
+</script> -->
+
+<!-- <div style="overflow-y: auto; touch-action: auto; height: 100vh">
         <p>Test content</p>
         <p>Test content</p>
         <p>Test content</p>
@@ -367,62 +440,3 @@ document.addEventListener('touchmove', (e) => {
         <p>Test content</p>
         <p>Test content</p>
       </div> -->
-
-    <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]">
-      <MapboxMap
-        id="map"
-        class="w-full h-full relative"
-        :center="[13.376481, 52.509663]"
-        :zoom="10"
-        :access-token="mapSettings.apiToken"
-        :map-style="mapSettings.style"
-        :projection="mapSettings.projection"
-        @mb-click="handleMapClick"
-        v-on:mb-created="handleMapLoad"
-      >
-        <MapboxMarker
-          v-if="mapMarkerLnglat"
-          :lngLat="mapMarkerLnglat"
-          anchor="bottom"
-          class="cursor-pointer"
-        >
-          <button v-button-animation class="existing-marker" @click="removeMarker">
-            <MarkerIcon :isDefault="true" />
-          </button>
-        </MapboxMarker>
-        <MapboxMarker
-          v-for="place in favoritePlaces"
-          :key="place.id"
-          :lngLat="place.coordinates"
-          anchor="bottom"
-        >
-          <button v-button-animation class="existing-marker" @click.stop="changeActiveId(place.id)">
-            <MarkerIcon :isActive="place.id === activeId" />
-          </button>
-        </MapboxMarker>
-        <MapboxNavigationControl position="bottom-right" :showZoom="false" :showCompass="true" />
-        <ResetZoomButton class="absolute" :mapInstance="mapInstance" :defaultZoom="10" />
-        <Toggle3DButton class="absolute" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
-        <FullScreenButton class="absolute bottom-[151px] right-[14px]" />
-      </MapboxMap>
-    </div>
-  </main>
-</template>
-
-<!-- <script setup>
-import { ref } from 'vue'
-
-const touchEventLog = ref([]) 
-
-
-document.addEventListener('touchmove', (e) => {
-  const eventDetails = `Touchmove: clientX=${e.touches[0]?.clientX}, clientY=${e.touches[0]?.clientY}`
-  
-  touchEventLog.value.push(eventDetails)
-
- 
-  if (touchEventLog.value.length > 10) {
-    touchEventLog.value.shift()
-  }
-})
-</script> -->
