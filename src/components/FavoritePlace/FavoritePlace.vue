@@ -37,7 +37,11 @@ const emit = defineEmits(['edit', 'delete'])
 <template>
   <section class="relative text-grey cursor-pointer mb-4 last:mb-0">
     <div class="flex gap-2 lg:gap-4 sm:gap-1">
-      <img class="w-[76px] h-[76px] shrink-0 rounded-md" :src="props.img || fallbackImage" alt="" />
+      <img
+        class="w-[76px] h-[76px] shrink-0 object-cover rounded-md"
+        :src="props.img || fallbackImage"
+        alt=""
+      />
       <div class="w-full">
         <div class="flex justify-between items-center mb-1">
           <div class="flex justify-between items-center">
