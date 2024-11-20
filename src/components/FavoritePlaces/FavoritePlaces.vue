@@ -89,7 +89,7 @@ const handleDeletePlace = () => {
       Add new marker
     </IButton>
   </div>
-  <div class="px-3 sm:px-1 lg:px-6 pb-24 text-black h-full overflow-y-auto relative">
+  <div class="px-3 sm:px-1 lg:px-6 pb-[104px] text-black h-full overflow-y-auto relative">
     <slot name="label"></slot>
     <slot name="list">
       <div v-if="items.length === 0 && !isPlacesLoading">List of markers is empty.</div>
