@@ -109,7 +109,7 @@ const handleMapLoad = (map = null) => {
     apply3DSettings(map)
   }
 
-  map.getCanvas().style.touchAction = 'pan-y' // allow vertical swipe
+  // map.getCanvas().style.touchAction = 'pan-y' // allow vertical swipe
 }
 
 const favoritePlacesDefault = [
