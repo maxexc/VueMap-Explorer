@@ -252,22 +252,22 @@ document.addEventListener('touchmove', (e) => {
   <!-- <main class="flex h-screen flex-col-reverse sm:flex-row"> -->
   <!-- <div
     class="relative bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
+  > -->
+  <!-- <div
+    v-if="isPlacesLoading"
+    class="absolute z-10 text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
   >
-    <div
-      v-if="isPlacesLoading"
-      class="absolute z-10 text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
-    >
-      Loading...
-    </div>
-    <FavoritePlaces
-        :items="favoritePlaces"
-        :active-id="activeId"
-        :is-places-loading="isPlacesLoading"
-        @place-clicked="changePlace"
-        @create="openModalWithErrorReset"
-        @updated="getPlaces"
-      />
-    <div
+    Loading...
+  </div> -->
+  <FavoritePlaces
+    :items="favoritePlaces"
+    :active-id="activeId"
+    :is-places-loading="isPlacesLoading"
+    @place-clicked="changePlace"
+    @create="openModalWithErrorReset"
+    @updated="getPlaces"
+  />
+  <!-- <div
       class="absolute flex justify-between mt-5 md:mt-10 sm:mt-[52px] lg:mt-5 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
     >
       <button v-button-animation class="text-accent hover:text-primary" @click="logOut">
@@ -284,8 +284,8 @@ document.addEventListener('touchmove', (e) => {
     <div v-if="refreshError" class="text-red-500 mb-5 sm:mb-0 text-center font-semibold">
       {{ refreshError }}
     </div>
-  </div>
-  <CreateNewPlaceModal
+  </div> -->
+  <!-- <CreateNewPlaceModal
     :isOpen="isOpen"
     :is-loading="isAddingPlace"
     :has-error="Boolean(addNewMarkerError)"
