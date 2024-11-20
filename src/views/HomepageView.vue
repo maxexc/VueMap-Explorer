@@ -236,7 +236,6 @@ onMounted(() => {
   }
 })
 
-
 // <div
 //   class="relative bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
 // >
@@ -258,13 +257,11 @@ document.addEventListener('touchmove', (e) => {
     touchEventLog.value.shift()
   }
 })
-
 </script>
 <template>
   <main class="flex h-screen overflow-auto flex-col-reverse sm:flex-row">
     <div
       class="bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
-
     >
       <div
         v-if="isPlacesLoading"
@@ -299,7 +296,6 @@ document.addEventListener('touchmove', (e) => {
       </div>
 
       <div class="h-[120vw]">
-
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
@@ -309,13 +305,12 @@ document.addEventListener('touchmove', (e) => {
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
 
-        <div style="overflow-y: auto; touch-action: auto; height: 100vh">
+        <!-- <div style="overflow-y: auto; touch-action: auto; height: 100vh">
           <h1>Touchmove Events:</h1>
           <ul>
             <li v-for="(event, index) in touchEventLog" :key="index">{{ event }}</li>
           </ul>
-        </div>
-
+        </div> -->
       </div>
       <!-- <CreateNewPlaceModal
         :isOpen="isOpen"
@@ -371,8 +366,6 @@ document.addEventListener('touchmove', (e) => {
         <p>Test content</p>
         <p>Test content</p>
       </div> -->
-
-  
 
     <div class="relative w-full h-full flex items-center justify-center text-6xl pb-[2px]">
       <MapboxMap
