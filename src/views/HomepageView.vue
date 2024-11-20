@@ -269,14 +269,7 @@ document.addEventListener('touchmove', (e) => {
       >
         Loading...
       </div>
-      <!-- <FavoritePlaces
-        :items="favoritePlaces"
-        :active-id="activeId"
-        :is-places-loading="isPlacesLoading"
-        @place-clicked="changePlace"
-        @create="openModalWithErrorReset"
-        @updated="getPlaces"
-      /> -->
+
       <div
         class="absolute flex justify-between mt-5 md:mt-10 sm:mt-[52px] lg:mt-5 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
       >
@@ -296,6 +289,14 @@ document.addEventListener('touchmove', (e) => {
       </div>
 
       <div class="h-[120vw]">
+        <FavoritePlaces
+          :items="favoritePlaces"
+          :active-id="activeId"
+          :is-places-loading="isPlacesLoading"
+          @place-clicked="changePlace"
+          @create="openModalWithErrorReset"
+          @updated="getPlaces"
+        />
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
         TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
@@ -311,15 +312,15 @@ document.addEventListener('touchmove', (e) => {
             <li v-for="(event, index) in touchEventLog" :key="index">{{ event }}</li>
           </ul>
         </div> -->
+        <CreateNewPlaceModal
+          :isOpen="isOpen"
+          :is-loading="isAddingPlace"
+          :has-error="Boolean(addNewMarkerError)"
+          :error-message="addNewMarkerError"
+          @close="closeModal"
+          @submit="handleAddPlace"
+        ></CreateNewPlaceModal>
       </div>
-      <!-- <CreateNewPlaceModal
-        :isOpen="isOpen"
-        :is-loading="isAddingPlace"
-        :has-error="Boolean(addNewMarkerError)"
-        :error-message="addNewMarkerError"
-        @close="closeModal"
-        @submit="handleAddPlace"
-      ></CreateNewPlaceModal> -->
     </div>
 
     <!-- <div style="overflow-y: auto; touch-action: auto; height: 100vh">
