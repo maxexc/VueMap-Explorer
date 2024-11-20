@@ -91,7 +91,7 @@ const handleDeletePlace = () => {
   </div>
   <div
     class="px-3 sm:px-1 lg:px-6 pb-[104px] text-black h-full overflow-y-auto relative"
-    style="touch-action: auto"
+    style="height: 100%; touch-action: auto"
   >
     <slot name="label"></slot>
     <slot name="list">

@@ -63,6 +63,13 @@
   font-weight: normal;
 }
 
+html,
+body {
+  touch-action: auto;
+  overscroll-behavior: auto;
+  height: 100%;
+}
+
 body {
   min-height: 100vh;
   color: var(--color-text);
