@@ -109,7 +109,7 @@ const handleMapLoad = (map = null) => {
     apply3DSettings(map)
   }
 
-  // map.getCanvas().style.touchAction = 'pan-y' // allow vertical swipe
+  map.getCanvas().style.touchAction = 'auto' // allow vertical swipe
 }
 
 const favoritePlacesDefault = [
@@ -299,7 +299,7 @@ onMounted(() => {
           anchor="bottom"
           class="cursor-pointer"
         >
-          <button v-button-animation @click="removeMarker">
+          <button v-button-animation class="existing-marker" @click="removeMarker">
             <MarkerIcon :isDefault="true" />
           </button>
         </MapboxMarker>
