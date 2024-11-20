@@ -14,7 +14,6 @@ import { useMutation } from '@/composables/useMutation'
 import { useRouter } from 'vue-router'
 import { useModal } from '@/composables/useModal'
 import FullScreenButton from '@/components/IButton/FullScreenButton.vue'
-import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal.vue'
 
 const router = useRouter()
 
@@ -32,7 +31,11 @@ const openModalWithErrorReset = () => {
   openModal()
 }
 
-const { data: newData, mutation: getPlaces } = useMutation({
+const {
+  data: newData,
+  mutation: getPlaces,
+  isLoading: isPlacesLoading
+} = useMutation({
   mutationFn: () => getFavoritePlaces()
 })
 
@@ -232,28 +235,22 @@ onMounted(() => {
     getPlaces()
   }
 })
-
-const enterFullscreen = () => {
-  const element = document.documentElement // Полный экран для всего документа
-  if (element.requestFullscreen) {
-    element.requestFullscreen() // Для современных браузеров
-  } else if (element.webkitRequestFullscreen) {
-    element.webkitRequestFullscreen() // Для Safari
-  } else if (element.msRequestFullscreen) {
-    element.msRequestFullscreen() // Для старых версий IE
-  } else {
-    console.warn('Fullscreen mode not supported') // На случай, если функциональность отсутствует
-  }
-}
 </script>
 <template>
   <main class="flex h-screen flex-col-reverse sm:flex-row">
     <div
-      class="bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
+      class="relative bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
     >
+      <div
+        v-if="isPlacesLoading"
+        class="absolute z-10 text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
+      >
+        Loading...
+      </div>
       <FavoritePlaces
         :items="favoritePlaces"
         :active-id="activeId"
+        :is-places-loading="isPlacesLoading"
         @place-clicked="changePlace"
         @create="openModalWithErrorReset"
         @updated="getPlaces"
@@ -321,7 +318,6 @@ const enterFullscreen = () => {
         <Toggle3DButton class="absolute" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
         <FullScreenButton class="absolute bottom-[151px] right-[14px]" />
       </MapboxMap>
-      <ConfirmationModal />
     </div>
   </main>
 </template>

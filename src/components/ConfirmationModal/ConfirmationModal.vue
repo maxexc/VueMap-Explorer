@@ -3,10 +3,10 @@ import IButton from '../IButton/IButton.vue'
 import IModal from '../IModal/IModal.vue'
 
 defineProps({
-  // title: {
-  //   default: false,
-  //   type: String
-  // },
+  title: {
+    default: '',
+    type: String
+  },
   isLoading: {
     default: false,
     type: Boolean
@@ -15,30 +15,31 @@ defineProps({
     type: Boolean,
     default: false
   },
-  hasError: {
-    type: Boolean,
-    default: false
-  },
+  // hasError: {
+  //   type: Boolean,
+  //   default: false
+  // },
   errorMessage: {
     default: '',
     type: String
   }
 })
-// Are you sure you want to delete this marker?
+
+const emit = defineEmits(['cancel', 'confirm'])
 </script>
 
 <template>
-  <IModal :is-show="false" class="" @close="emit('cancel')">
+  <IModal :is-show="isOpen" @close="emit('cancel')">
     <div class="my-4 text-center text-base lg:text-lg">
-      Are you sure you want to delete this marker?
+      {{ title }}
     </div>
     <div class="flex gap-3 justify-center">
-      <IButton variant="modal-confirm">Cancel</IButton>
-      <IButton variant="gradient">Delete</IButton>
+      <IButton variant="modal-confirm" @click="emit('cancel')">Cancel</IButton>
+      <IButton variant="gradient" :is-loading="isLoading" @click="emit('confirm')">Delete</IButton>
     </div>
     <transition name="fade-slide">
       <div
-        v-if="hasError && errorMessage"
+        v-if="errorMessage"
         class="text-red-500 text-xs sx:text-base text-center font-semibold mt-2 sx:mt-[2px] -mb-6 sx:mb-[-26px]"
       >
         {{ errorMessage }}
