@@ -235,39 +235,16 @@ onMounted(() => {
     getPlaces()
   }
 })
-
-// <div
-//   class="relative bg-white h-[34%] sm:h-full md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
-// >
-//   <div
-//     v-if="isPlacesLoading"
-//     class="absolute z-10 text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
-//   >
-//     Loading...
-//   </div>
-
-const touchEventLog = ref([])
-
-document.addEventListener('touchmove', (e) => {
-  const eventDetails = `Touchmove: clientX=${e.touches[0]?.clientX}, clientY=${e.touches[0]?.clientY}`
-
-  touchEventLog.value.push(eventDetails)
-
-  if (touchEventLog.value.length > 10) {
-    touchEventLog.value.shift()
-  }
-})
-// outline outline-1 outline-red-500
 </script>
 <template>
-  <div class="h-[100vh] overflow-auto">
+  <section class="h-[100vh] overflow-auto">
     <main class="flex min-h-screen flex-col-reverse sm:flex-row" style="touch-action: auto">
       <div
-        class="bg-white h-[33.1vh] sm:h-[101vh] md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
+        class="bg-white h-[33.1vh] sm:h-[100.1vh] md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col relative"
       >
         <div
           v-if="isPlacesLoading"
-          class="z-10 text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
+          class="absolute z-10 text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
         >
           Loading...
         </div>
@@ -278,7 +255,7 @@ document.addEventListener('touchmove', (e) => {
           <button v-button-animation class="text-accent hover:text-primary" @click="logOut">
             Log out
           </button>
-          <button v-button-animation class="hover:text-primary" @click="testRefresh">
+          <button v-button-animation class="text-accent hover:text-primary" @click="testRefresh">
             RfToken
           </button>
         </div>
@@ -299,23 +276,6 @@ document.addEventListener('touchmove', (e) => {
           @close="closeModal"
           @submit="handleAddPlace"
         ></CreateNewPlaceModal>
-        <!-- <div class="h-[120vw]">
-          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-          TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-
-          <div style="overflow-y: auto; touch-action: auto; height: 100vh">
-            <h1>Touchmove Events:</h1>
-            <ul>
-              <li v-for="(event, index) in touchEventLog" :key="index">{{ event }}</li>
-            </ul>
-          </div>
-        </div> -->
         <div v-if="data" class="text-green-500 mb-1 sm:mb-0 text-center font-semibold">
           {{ data.message }}
         </div>
@@ -375,68 +335,5 @@ document.addEventListener('touchmove', (e) => {
         </MapboxMap>
       </div>
     </main>
-  </div>
+  </section>
 </template>
-
-<!-- <script setup>
-import { ref } from 'vue'
-
-const touchEventLog = ref([]) 
-
-
-document.addEventListener('touchmove', (e) => {
-  const eventDetails = `Touchmove: clientX=${e.touches[0]?.clientX}, clientY=${e.touches[0]?.clientY}`
-  
-  touchEventLog.value.push(eventDetails)
-
- 
-  if (touchEventLog.value.length > 10) {
-    touchEventLog.value.shift()
-  }
-})
-</script> -->
-
-<!-- <div style="overflow-y: auto; touch-action: auto; height: 100vh">
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-        <p>Test content</p>
-      </div> -->
