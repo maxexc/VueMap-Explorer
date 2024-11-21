@@ -12,22 +12,120 @@ const props = defineProps({
   }
 })
 
-const handleUpLoading = (event) => {
+const resizeImage = (file) => {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader()
+
+    fileReader.onload = (event) => {
+      const img = new Image()
+      img.src = event.target.result
+
+      img.onload = async () => {
+        let canvas = document.createElement('canvas')
+        let ctx = canvas.getContext('2d')
+
+        // макс 512x512
+        const MAX_WIDTH = 512
+        const MAX_HEIGHT = 512
+        let width = img.width
+        let height = img.height
+
+        // Соотношение сторон
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width
+            width = MAX_WIDTH
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height
+            height = MAX_HEIGHT
+          }
+        }
+
+        canvas.width = width
+        canvas.height = height
+        ctx.drawImage(img, 0, 0, width, height)
+
+        let quality = 0.9 // Set quality
+        let dataUrl = canvas.toDataURL('image/jpeg', quality)
+
+        // resize untill < 73 KB
+        let base64Size =
+          dataUrl.length * (3 / 4) - (dataUrl.endsWith('==') ? 2 : dataUrl.endsWith('=') ? 1 : 0)
+
+        while (base64Size > 73 * 1024 && quality > 0.1) {
+          quality -= 0.1
+          dataUrl = canvas.toDataURL('image/jpeg', quality)
+          base64Size =
+            dataUrl.length * (3 / 4) - (dataUrl.endsWith('==') ? 2 : dataUrl.endsWith('=') ? 1 : 0)
+        }
+
+        resolve(dataUrl)
+      }
+
+      img.onerror = () => {
+        reject('Error processing image')
+        errorMessage.value = 'Error processing image'
+      }
+    }
+
+    fileReader.readAsDataURL(file)
+  })
+}
+
+const handleUpLoading = async (event) => {
   const file = event.target.files[0]
   console.log('file.size in bytes: ', file.size)
 
-  if (file.size > 3 * 1024 * 1024) {
-    errorMessage.value = 'File size is too large - max 3Mb'
+  // if (file.size > 3 * 1024 * 1024) {
+  //   errorMessage.value = 'File size is too large - max 3Mb'
+  //   return
+  // }
+
+  // const fileReader = new FileReader()
+
+  // fileReader.readAsDataURL(file)
+
+  // fileReader.onload = () => {
+  //   errorMessage.value = ''
+  //   emit('uploaded', fileReader.result)
+  // }
+
+  // Проверка размера файла до сжатия
+  if (file.size <= 73 * 1024) {
+    const fileReader = new FileReader()
+    fileReader.onload = () => {
+      emit('uploaded', fileReader.result) // Передаем напрямую
+    }
+    fileReader.readAsDataURL(file)
     return
   }
 
-  const fileReader = new FileReader()
+  // Проверка на макс. размер 15 MB
+  if (file.size > 15 * 1024 * 1024) {
+    errorMessage.value = 'File size is too large - max 15MB'
+    return
+  }
 
-  fileReader.readAsDataURL(file)
+  try {
+    // Если больше 73 KB, сжимаем его
+    const resizedImage = await resizeImage(file)
 
-  fileReader.onload = () => {
+    // Размер base64 после ресайза
+    const base64Size = Math.round(
+      resizedImage.length * (3 / 4) -
+        (resizedImage.endsWith('==') ? 2 : resizedImage.endsWith('=') ? 1 : 0)
+    )
+
+    console.log('Resized Base64 image size in bytes:', base64Size)
+    console.log('Resized Base64 image size in KB:', base64Size / 1024)
+
     errorMessage.value = ''
-    emit('uploaded', fileReader.result)
+    emit('uploaded', resizedImage)
+  } catch (error) {
+    errorMessage.value = 'Error processing image'
+    console.error(error)
   }
 }
 
