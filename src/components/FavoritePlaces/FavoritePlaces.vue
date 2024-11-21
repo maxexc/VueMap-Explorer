@@ -80,19 +80,16 @@ const hadleOpenConfirmationModal = (id) => {
 const handleDeletePlace = () => {
   deletePlace(idItemToDelete.value)
 }
-// outline outline-1 outline-red-500
 </script>
 
 <template>
-  <!-- <div class="h-full"> -->
   <div class="px-3 sm:px-1 lg:px-6 text-grey flex justify-between gap-1">
     <span class="block w-[63%] md:w-[70%] lg:w-[83%] m-0 p-0">Added markers: </span>
     <IButton class="w-full mb-2 sm:mb-3 md:mb-1" variant="mobile" @click="emit('create')">
       Add new marker
     </IButton>
   </div>
-  <!-- <div class="px-3 sm:px-1 lg:px-6 text-black h-full overflow-y-auto relative"> -->
-  <div class="px-3 sm:px-1 lg:px-6 text-black pb-[104px] h-full overflow-auto relative">
+  <div class="px-3 sm:px-1 lg:px-6 text-black pb-[104px] h-full overflow-auto">
     <slot name="label"></slot>
     <slot name="list">
       <div v-if="items.length === 0 && !isPlacesLoading">List of markers is empty.</div>
@@ -129,5 +126,4 @@ const handleDeletePlace = () => {
       title="Are you sure you want to delete this marker?"
     />
   </div>
-  <!-- </div> -->
 </template>
