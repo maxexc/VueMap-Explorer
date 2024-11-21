@@ -276,7 +276,7 @@ onMounted(() => {
           @close="closeModal"
           @submit="handleAddPlace"
         ></CreateNewPlaceModal>
-        <div v-if="data" class="text-green-500 mb-1 sm:mb-0 text-center font-semibold">
+        <div v-if="data" class="text-green-500 mb-4 sm:mb-0 text-center font-semibold">
           {{ data.message }}
         </div>
         <div v-if="logOutError" class="text-red-500 mb-4 sm:mb-0 text-center font-semibold">
