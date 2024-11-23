@@ -311,7 +311,6 @@ onMounted(() => {
           :zoom="10"
           :access-token="mapSettings.apiToken"
           :map-style="'mapbox://styles/mapbox/light-v10'"
-          :projection="mapSettings.projection"
           @mb-click="handleMapClick"
           v-on:mb-created="handleMapLoad"
         >
@@ -355,5 +354,6 @@ onMounted(() => {
               ? 'mapbox://styles/mapbox/light-v10' // For low-performance devices
               : mapSettings.style 
           "
+    :projection="mapSettings.projection"
 */
 </style>
