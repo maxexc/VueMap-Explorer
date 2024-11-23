@@ -14,8 +14,11 @@ import { useMutation } from '@/composables/useMutation'
 import { useRouter } from 'vue-router'
 import { useModal } from '@/composables/useModal'
 import FullScreenButton from '@/components/IButton/FullScreenButton.vue'
+import UserInfo from '@/components/UserInfo/UserInfo.vue'
 
 const router = useRouter()
+
+const isLowPerformanceDevice = /iPhone SE|iPhone 5|iPhone 5S/.test(navigator.userAgent)
 
 const mapInstance = ref(null)
 const is3DEnabled = ref(false)
@@ -276,6 +279,8 @@ onMounted(() => {
           @close="closeModal"
           @submit="handleAddPlace"
         ></CreateNewPlaceModal>
+        <UserInfo />
+
         <div v-if="data" class="text-green-500 mb-4 sm:mb-0 text-center font-semibold">
           {{ data.message }}
         </div>
@@ -299,7 +304,11 @@ onMounted(() => {
           :center="[13.376481, 52.509663]"
           :zoom="10"
           :access-token="mapSettings.apiToken"
-          :map-style="mapSettings.style"
+          :map-style="
+            isLowPerformanceDevice
+              ? 'mapbox://styles/mapbox/light-v10' // For low-performance devices
+              : mapSettings.style
+          "
           :projection="mapSettings.projection"
           @mb-click="handleMapClick"
           v-on:mb-created="handleMapLoad"
