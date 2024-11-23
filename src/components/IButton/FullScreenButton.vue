@@ -15,7 +15,11 @@ const toggleFullscreen = () => {
       element.webkitRequestFullscreen()
     } else if (element.msRequestFullscreen) {
       element.msRequestFullscreen()
-    } else {
+    }
+    // else {
+    //   alert("Fullscreen is not supported on your browser.")
+    // }
+    else {
       // iOS fix
       activateFullscreenViaVideo()
     }
