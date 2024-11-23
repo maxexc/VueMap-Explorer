@@ -284,6 +284,12 @@ onMounted(() => {
         <div v-if="data" class="text-green-500 mb-4 sm:mb-0 text-center font-semibold">
           {{ data.message }}
         </div>
+        <div
+          v-if="isLowPerformanceDevice"
+          class="text-green-500 mb-4 sm:mb-0 text-center font-semibold"
+        >
+          iPhone SE detected: {{ isLowPerformanceDevice }}
+        </div>
         <div v-if="logOutError" class="text-red-500 mb-4 sm:mb-0 text-center font-semibold">
           {{ logOutError }}
         </div>
