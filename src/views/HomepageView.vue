@@ -310,11 +310,7 @@ onMounted(() => {
           :center="[13.376481, 52.509663]"
           :zoom="10"
           :access-token="mapSettings.apiToken"
-          :map-style="
-            isLowPerformanceDevice
-              ? 'mapbox://styles/mapbox/light-v10' // For low-performance devices
-              : mapSettings.style
-          "
+          :map-style="'mapbox://styles/mapbox/light-v10'"
           :projection="mapSettings.projection"
           @mb-click="handleMapClick"
           v-on:mb-created="handleMapLoad"
@@ -352,3 +348,12 @@ onMounted(() => {
     </main>
   </section>
 </template>
+
+<style scoped>
+/* :map-style="
+            isLowPerformanceDevice
+              ? 'mapbox://styles/mapbox/light-v10' // For low-performance devices
+              : mapSettings.style 
+          "
+*/
+</style>
