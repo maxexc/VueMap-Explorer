@@ -40,7 +40,7 @@ const {
   mutationFn: () => getFavoritePlaces()
 })
 
-// const favoritePlaces = computed(() => newData.value?.data ?? favoritePlacesDefault) // [])
+// const favoritePlaces = computed(() => newData.value?.data ?? favoritePlacesDefault) //  [])
 const favoritePlaces = computed(() => newData.value ?? favoritePlacesDefault) // []) переделал запрос
 
 const handleMapClick = (event) => {
