@@ -18,8 +18,6 @@ import UserInfo from '@/components/UserInfo/UserInfo.vue'
 
 const router = useRouter()
 
-const isLowPerformanceDevice = /iPhone SE|iPhone 5|iPhone 5S/.test(navigator.userAgent)
-
 const mapInstance = ref(null)
 const is3DEnabled = ref(false)
 let zoomListener = null
@@ -42,7 +40,7 @@ const {
   mutationFn: () => getFavoritePlaces()
 })
 
-// const favoritePlaces = computed(() => newData.value?.data ?? favoritePlacesDefault) // [])
+// const favoritePlaces = computed(() => newData.value?.data ?? favoritePlacesDefault) //  [])
 const favoritePlaces = computed(() => newData.value ?? favoritePlacesDefault) // []) переделал запрос
 
 const handleMapClick = (event) => {
@@ -284,12 +282,6 @@ onMounted(() => {
         <div v-if="data" class="text-green-500 mb-4 sm:mb-0 text-center font-semibold">
           {{ data.message }}
         </div>
-        <div
-          v-if="isLowPerformanceDevice"
-          class="text-green-500 mb-4 sm:mb-0 text-center font-semibold"
-        >
-          iPhone SE detected: {{ isLowPerformanceDevice }}
-        </div>
         <div v-if="logOutError" class="text-red-500 mb-4 sm:mb-0 text-center font-semibold">
           {{ logOutError }}
         </div>
@@ -310,7 +302,8 @@ onMounted(() => {
           :center="[13.376481, 52.509663]"
           :zoom="10"
           :access-token="mapSettings.apiToken"
-          :map-style="'mapbox://styles/mapbox/light-v10'"
+          :map-style="mapSettings.style"
+          :projection="mapSettings.projection"
           @mb-click="handleMapClick"
           v-on:mb-created="handleMapLoad"
         >
@@ -347,13 +340,3 @@ onMounted(() => {
     </main>
   </section>
 </template>
-
-<style scoped>
-/* :map-style="
-            isLowPerformanceDevice
-              ? 'mapbox://styles/mapbox/light-v10' // For low-performance devices
-              : mapSettings.style 
-          "
-    :projection="mapSettings.projection"
-*/
-</style>
