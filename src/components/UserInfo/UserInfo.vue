@@ -1,31 +1,30 @@
 <script setup>
 import UserIcon from './UserIcon.vue'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import LogoutIcon from '../LogoutButton/LogoutIcon.vue'
 
-const username = ref('Tom Cruise') // Здесь можно заменить на реальные данные пользователя.
-const router = useRouter()
-
-const handleLogout = () => {
-  // Логика для выхода пользователя
-  console.log('User logged out')
-  router.push('/auth') // Перенаправление на страницу авторизации
-}
+const props = defineProps({
+  onLogout: {
+    type: Function,
+    required: true
+  }
+})
 </script>
 
 <template>
   <div
-    class="bg-white rounded-lg shadow-md p-4 flex items-center gap-4 hover:bg-gray-100 transition"
+    class="bg-white rounded-lg shadow-md flex items-center gap-1 sm:gap-0 lg:gap-1 hover:bg-gray-100 transition"
   >
-    <div class="flex items-center justify-center w-12 h-12 bg-primary-100 rounded-full">
+    <div
+      class="flex items-center px-1 sm:px-0 lg:px-1 justify-center w-6 sm:w-4 lg:w-8 bg-primary-100 rounded-full"
+    >
       <UserIcon class="text-primary-600" />
     </div>
     <div class="flex-1">
-      <p class="font-semibold text-gray-900 text-sm sm:text-base">{{ username }}</p>
+      <p class="font-semibold text-gray-900 text-sm sm:text-xs lg:text-base">Tom Cruise</p>
       <button
-        @click="handleLogout"
-        class="text-xs text-red-600 hover:text-red-700 underline flex gap-2"
+        v-button-animation
+        @click="onLogout"
+        class="text-sm sm:text-xs lg:text-base text-green-500 hover:text-red-600 underline flex gap-1 sm:gap-1 lg:gap-2 items-center"
       >
         Log out
         <LogoutIcon />
@@ -33,8 +32,6 @@ const handleLogout = () => {
     </div>
   </div>
 </template>
-
-<style scoped></style>
 
 <!-- <script setup>
 import UserIcon from './UserIcon.vue'

@@ -7,6 +7,7 @@ import { useModal } from '@/composables/useModal'
 import { useMutation } from '@/composables/useMutation'
 import { deleteFavoritePlaces, updateFavoritePlaces } from '@/api/favorite-places'
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal.vue'
+import UserInfo from '../UserInfo/UserInfo.vue'
 
 const props = defineProps({
   items: {
@@ -20,6 +21,18 @@ const props = defineProps({
   isPlacesLoading: {
     default: false,
     type: Boolean
+  },
+  onLogout: {
+    type: Function,
+    required: true
+  },
+  logoutData: {
+    type: Object,
+    default: null
+  },
+  logoutError: {
+    type: String,
+    default: ''
   }
 })
 
@@ -83,11 +96,30 @@ const handleDeletePlace = () => {
 </script>
 
 <template>
-  <div class="px-3 sm:px-1 lg:px-6 text-grey flex justify-between gap-1">
-    <span class="block w-[63%] md:w-[70%] lg:w-[83%] m-0 p-0">Added markers: </span>
-    <IButton class="w-full mb-2 sm:mb-3 md:mb-1" variant="mobile" @click="emit('create')">
-      Add new marker
-    </IButton>
+  <div class="bg-white rounded-lg px-3 sm:px-1 md:px-1 lg:px-6 shadow-md flex flex-col gap-1 mb-1">
+    <div class="flex items-center justify-between gap-2 sm:gap-1 lg:gap-2">
+      <UserInfo
+        class="flex-grow max-w-[70%] sm:min-w-[50%] lg:min-w-[20%] lg:max-w-[70%]"
+        :onLogout="onLogout"
+      />
+      <IButton
+        class="bg-gray-100 text-white px-3 sm:px-1 lg:px-4 py-2 rounded-xl"
+        variant="mobile"
+        @click="emit('create')"
+      >
+        Add new marker
+      </IButton>
+    </div>
+
+    <div class="flex flex-col sm:flex-row justify-between items-center">
+      <span class="font-bold text-sm text-gray-800 flex items-center gap-1"> Added markers:</span>
+      <div v-if="logoutData" class="text-green-500 text-xs font-semibold">
+        {{ logoutData.message }}
+      </div>
+      <div v-if="logoutError" class="text-red-500 text-xs font-semibold">
+        {{ logoutError }}
+      </div>
+    </div>
   </div>
   <div class="px-3 sm:px-1 lg:px-6 text-black pb-[104px] h-full overflow-auto">
     <slot name="label"></slot>
