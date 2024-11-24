@@ -14,7 +14,6 @@ import { useMutation } from '@/composables/useMutation'
 import { useRouter } from 'vue-router'
 import { useModal } from '@/composables/useModal'
 import FullScreenButton from '@/components/IButton/FullScreenButton.vue'
-import UserInfo from '@/components/UserInfo/UserInfo.vue'
 
 const router = useRouter()
 
@@ -210,8 +209,11 @@ const {
   onError: () => {
     favoritePlaces.value = []
     // router.replace('/auth')
+  },
+  onSuccess: () => {
+    favoritePlaces.value = [...favoritePlacesDefault]
+    // router.replace('/auth')
   }
-  // onSuccess: () => router.replace('/auth'),
 })
 
 const { error: refreshError, mutation: testRefresh } = useMutation({
@@ -241,7 +243,8 @@ onMounted(() => {
   <section class="h-[100vh] overflow-auto">
     <main class="flex min-h-screen flex-col-reverse sm:flex-row" style="touch-action: auto">
       <div
-        class="bg-white h-[33.1vh] sm:h-[100.1vh] md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col relative"
+        id="favorites-container"
+        class="relative h-[33.1vh] bg-white sm:h-[100.1vh] md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
       >
         <div
           v-if="isPlacesLoading"
@@ -251,11 +254,8 @@ onMounted(() => {
         </div>
 
         <div
-          class="absolute flex justify-between mt-5 md:mt-10 sm:mt-[52px] lg:mt-5 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
+          class="absolute flex justify-between -mt-2 md:-mt-3 sm:-mt-3 lg:-mt-3 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
         >
-          <button v-button-animation class="text-accent hover:text-primary" @click="logOut">
-            Log out
-          </button>
           <button v-button-animation class="text-accent hover:text-primary" @click="testRefresh">
             RfToken
           </button>
@@ -268,6 +268,9 @@ onMounted(() => {
           @place-clicked="changePlace"
           @create="openModalWithErrorReset"
           @updated="getPlaces"
+          :on-logout="logOut"
+          :logout-data="data"
+          :logout-error="logOutError"
         />
         <CreateNewPlaceModal
           :isOpen="isOpen"
@@ -277,14 +280,6 @@ onMounted(() => {
           @close="closeModal"
           @submit="handleAddPlace"
         ></CreateNewPlaceModal>
-        <UserInfo />
-
-        <div v-if="data" class="text-green-500 mb-4 sm:mb-0 text-center font-semibold">
-          {{ data.message }}
-        </div>
-        <div v-if="logOutError" class="text-red-500 mb-4 sm:mb-0 text-center font-semibold">
-          {{ logOutError }}
-        </div>
         <div
           v-if="refreshError"
           class="text-red-500 h-[5vh] mb-5 sm:mb-0 text-center font-semibold"

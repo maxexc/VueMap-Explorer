@@ -3,27 +3,32 @@ import { onMounted, onUnmounted, ref } from 'vue'
 
 const isFullscreen = ref(false)
 
-// hidden <video> for iOS
-let videoElement = null
+// for iOS
+const setVH = () => {
+  const vh = window.innerHeight * 0.01
+  document.documentElement.style.setProperty('--vh', `${vh}px`)
+}
 
 const toggleFullscreen = () => {
   const element = document.documentElement
+  let success = false
   if (!isFullscreen.value) {
     if (element.requestFullscreen) {
       element.requestFullscreen()
+      success = true
     } else if (element.webkitRequestFullscreen) {
       element.webkitRequestFullscreen()
+      success = true
     } else if (element.msRequestFullscreen) {
       element.msRequestFullscreen()
+      success = true
+    } else {
+      success = forceScrollFullscreen()
     }
-    // else {
-    //   alert("Fullscreen is not supported on your browser.")
-    // }
-    else {
-      // iOS fix
-      activateFullscreenViaVideo()
+    if (!success) {
+      alert('Fullscreen is not supported on your browser.')
     }
-    isFullscreen.value = true
+    isFullscreen.value = success
   } else {
     if (document.exitFullscreen) {
       document.exitFullscreen()
@@ -31,83 +36,37 @@ const toggleFullscreen = () => {
       document.webkitExitFullscreen()
     } else if (document.msExitFullscreen) {
       document.msExitFullscreen()
-    } else {
-      deactivateFullscreenViaVideo()
     }
+    resetScrollFullscreen()
     isFullscreen.value = false
   }
 }
 
-// iOS on <video>
-const activateFullscreenViaVideo = () => {
-  if (!videoElement) {
-    alert('Fullscreen is not supported on your browser.')
-    return
+const forceScrollFullscreen = () => {
+  const favoritesContainer = document.getElementById('favorites-container')
+  if (favoritesContainer) {
+    favoritesContainer.style.height = 'calc(var(--vh, 1vh) * 100 + 100px)'
+    favoritesContainer.style.overflowY = 'auto'
+    return true
   }
-
-  if (videoElement.webkitEnterFullscreen) {
-    videoElement.style.display = 'block' //
-    videoElement.webkitEnterFullscreen()
-    videoElement.play() // Required!
-  } else {
-    alert('Fullscreen is not supported on your browser.')
-  }
+  return false
 }
 
-// iOS off <video>
-const deactivateFullscreenViaVideo = () => {
-  if (videoElement) {
-    videoElement.pause() //
-    videoElement.style.display = 'none' //
+const resetScrollFullscreen = () => {
+  const favoritesContainer = document.getElementById('favorites-container')
+  if (favoritesContainer) {
+    favoritesContainer.style.height = ''
+    favoritesContainer.style.overflowY = ''
   }
 }
 
-// iOS
-const handleBeginFullscreen = () => {
-  const appContent = document.getElementById('app-content')
-  appContent.style.position = 'fixed'
-  appContent.style.top = '0'
-  appContent.style.left = '0'
-  appContent.style.width = '100%'
-  appContent.style.height = '100%'
-  appContent.style.zIndex = '9999'
-}
-
-// iOS
-const handleEndFullscreen = () => {
-  const appContent = document.getElementById('app-content')
-  appContent.style.position = 'static'
-  appContent.style.zIndex = 'auto'
-}
-
-// iOS
 onMounted(() => {
-  videoElement = document.createElement('video')
-  videoElement.style.position = 'fixed'
-  videoElement.style.top = '0'
-  videoElement.style.left = '0'
-  videoElement.style.width = '1px'
-  videoElement.style.height = '1px'
-  videoElement.style.display = 'none' // hide video
-  videoElement.setAttribute('playsinline', 'true')
-  videoElement.setAttribute('muted', 'true')
-
-  // iOS
-  videoElement.addEventListener('webkitbeginfullscreen', handleBeginFullscreen)
-  videoElement.addEventListener('webkitendfullscreen', handleEndFullscreen)
-
-  // iOS
-  document.body.appendChild(videoElement)
+  setVH()
+  window.addEventListener('resize', setVH)
 })
 
-// iOS
 onUnmounted(() => {
-  if (videoElement) {
-    videoElement.removeEventListener('webkitbeginfullscreen', handleBeginFullscreen)
-    videoElement.removeEventListener('webkitendfullscreen', handleEndFullscreen)
-    document.body.removeChild(videoElement)
-    videoElement = null
-  }
+  window.removeEventListener('resize', setVH)
 })
 </script>
 

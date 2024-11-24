@@ -24,7 +24,7 @@ const bgStyle = computed(() => {
     case 'gradient':
       return 'bg-gradient-to-r from-secondary to-primary text-white w-full rounded-xl py-2 lg:py-[11px] px-10 font-bold'
     case 'mobile':
-      return 'bg-gradient-to-r from-secondary to-primary text-white w-full rounded-md lg:rounded-xl py-1 lg:py-2 px-1 lg:px-6 font-medium lg:font-bold'
+      return 'bg-gradient-to-r from-secondary to-primary text-white w-full rounded-xl py-2 px-4 lg:px-6 font-bold text-sm sm:text-xs lg:text-base hover:shadow-md transition-all'
     case 'modal':
       return 'bg-gradient-to-r from-secondary to-primary text-white w-full rounded-xl py-[6px] sx:py-2 px-10 font-medium lg:font-bold '
     case 'modal-edit':
