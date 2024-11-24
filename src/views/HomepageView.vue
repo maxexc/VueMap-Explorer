@@ -253,13 +253,13 @@ onMounted(() => {
           Loading...
         </div>
 
-        <div
+        <!-- <div
           class="absolute flex justify-between -mt-2 md:-mt-3 sm:-mt-3 lg:-mt-3 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
         >
           <button v-button-animation class="text-accent hover:text-primary" @click="testRefresh">
             RfToken
           </button>
-        </div>
+        </div> -->
 
         <FavoritePlaces
           :items="favoritePlaces"
