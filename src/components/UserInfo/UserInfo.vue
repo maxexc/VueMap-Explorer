@@ -20,11 +20,11 @@ const props = defineProps({
       <UserIcon class="text-primary-600" />
     </div>
     <div class="flex-1">
-      <p class="font-semibold text-gray-900 text-sm sm:text-xs lg:text-base">Tom Cruise</p>
+      <p class="sticky font-semibold text-gray-900 text-sm sm:text-xs lg:text-base">Tom Cruise</p>
       <button
         v-button-animation
         @click="onLogout"
-        class="text-sm sm:text-xs lg:text-base text-green-500 hover:text-red-600 underline flex gap-1 sm:gap-1 lg:gap-2 items-center"
+        class="text-sm sm:text-xs lg:text-base text-green-500 hover:text-red-600 underline flex gap-1 sm:gap-1 lg:gap-2 items-center -mt-[2px] pb-[2px]"
       >
         Log out
         <LogoutIcon />
