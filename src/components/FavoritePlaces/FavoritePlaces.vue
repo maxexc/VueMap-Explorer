@@ -93,17 +93,18 @@ const hadleOpenConfirmationModal = (id) => {
 const handleDeletePlace = () => {
   deletePlace(idItemToDelete.value)
 }
+// <div class="flex flex-col sm:flex-row justify-between items-center"> outline outline-1 outline-red-500
 </script>
 
 <template>
-  <div class="bg-white rounded-lg px-3 sm:px-1 md:px-1 lg:px-6 shadow-md flex flex-col gap-1 mb-1">
+  <div class="bg-white rounded-lg px-3 sm:px-1 md:px-1 lg:px-6 shadow-md flex flex-col gap-0 mb-0">
     <div class="flex items-center justify-between gap-2 sm:gap-1 lg:gap-2">
       <UserInfo
         class="flex-grow max-w-[70%] sm:min-w-[50%] lg:min-w-[20%] lg:max-w-[70%]"
         :onLogout="onLogout"
       />
       <IButton
-        class="bg-gray-100 text-white px-3 sm:px-1 lg:px-4 py-2 rounded-xl"
+        class="bg-gray-100 text-white px-3 sm:px-1 lg:px-4 py-[3px] rounded-xl"
         variant="mobile"
         @click="emit('create')"
       >
@@ -111,8 +112,8 @@ const handleDeletePlace = () => {
       </IButton>
     </div>
 
-    <div class="flex flex-col sm:flex-row justify-between items-center">
-      <span class="font-bold text-sm text-gray-800 flex items-center gap-1"> Added markers:</span>
+    <div class="flex justify-between items-center h-[14px]">
+      <span class="font-bold text-xs text-gray-800 flex items-center gap-1"> Added markers:</span>
       <div v-if="logoutData" class="text-green-500 text-xs font-semibold">
         {{ logoutData.message }}
       </div>
@@ -121,7 +122,7 @@ const handleDeletePlace = () => {
       </div>
     </div>
   </div>
-  <div class="px-3 sm:px-1 lg:px-6 text-black pb-[104px] h-full overflow-auto">
+  <div class="px-3 mt-[2px] sm:px-1 lg:px-6 text-black pb-[104px] h-full overflow-auto">
     <slot name="label"></slot>
     <slot name="list">
       <div v-if="items.length === 0 && !isPlacesLoading">List of markers is empty.</div>

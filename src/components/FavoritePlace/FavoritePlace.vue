@@ -44,15 +44,17 @@ const emit = defineEmits(['edit', 'delete'])
       />
       <div class="w-full">
         <div class="flex justify-between items-center mb-1">
-          <div class="flex justify-between items-center">
-            <h2 class="font-bold text-border lg:max-w-none mt-[-4px] sm:max-w-[50px] sm:h-6">
+          <div class="flex justify-between items-center truncate">
+            <h2
+              class="truncate max-w-[156px] lg:min-w-[186px] lg:max-w-[186px] sm:max-w-[54px] md:max-w-[50px] gr:max-w-[68px] sm:text-[12px] md:text-[14px] lg:text-[15px] font-bold text-border sm:h-6"
+            >
               {{ props.title }}
             </h2>
             <FavoritePlaceIconButton @click.stop="toggleCoordinates">
-              <span class="text-base font-serif px-2 lg:px-2 md:px-1 sm:pr-0 sm:pl-[2px]">i</span>
+              <span class="text-base font-serif px-2 lg:px-2 sm:px-[2px] mt-[-2px]">i</span>
             </FavoritePlaceIconButton>
           </div>
-          <div class="flex gap-6 lg:gap-4 md:gap-1 sm:gap-0">
+          <div class="flex gap-4 lg:gap-4 md:gap-0 sm:gap-0">
             <FavoritePlaceIconButton @click="emit('edit')">
               <EditIcon />
             </FavoritePlaceIconButton>

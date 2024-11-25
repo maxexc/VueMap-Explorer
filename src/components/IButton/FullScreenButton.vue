@@ -1,34 +1,21 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { ref } from 'vue'
 
 const isFullscreen = ref(false)
 
-// for iOS
-const setVH = () => {
-  const vh = window.innerHeight * 0.01
-  document.documentElement.style.setProperty('--vh', `${vh}px`)
-}
-
 const toggleFullscreen = () => {
   const element = document.documentElement
-  let success = false
   if (!isFullscreen.value) {
     if (element.requestFullscreen) {
       element.requestFullscreen()
-      success = true
     } else if (element.webkitRequestFullscreen) {
       element.webkitRequestFullscreen()
-      success = true
     } else if (element.msRequestFullscreen) {
       element.msRequestFullscreen()
-      success = true
     } else {
-      success = forceScrollFullscreen()
-    }
-    if (!success) {
       alert('Fullscreen is not supported on your browser.')
     }
-    isFullscreen.value = success
+    isFullscreen.value = true
   } else {
     if (document.exitFullscreen) {
       document.exitFullscreen()
@@ -37,37 +24,9 @@ const toggleFullscreen = () => {
     } else if (document.msExitFullscreen) {
       document.msExitFullscreen()
     }
-    resetScrollFullscreen()
     isFullscreen.value = false
   }
 }
-
-const forceScrollFullscreen = () => {
-  const favoritesContainer = document.getElementById('favorites-container')
-  if (favoritesContainer) {
-    favoritesContainer.style.height = 'calc(var(--vh, 1vh) * 100 + 100px)'
-    favoritesContainer.style.overflowY = 'auto'
-    return true
-  }
-  return false
-}
-
-const resetScrollFullscreen = () => {
-  const favoritesContainer = document.getElementById('favorites-container')
-  if (favoritesContainer) {
-    favoritesContainer.style.height = ''
-    favoritesContainer.style.overflowY = ''
-  }
-}
-
-onMounted(() => {
-  setVH()
-  window.addEventListener('resize', setVH)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', setVH)
-})
 </script>
 
 <template>
