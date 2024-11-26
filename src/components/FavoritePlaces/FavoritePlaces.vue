@@ -93,6 +93,12 @@ const hadleOpenConfirmationModal = (id) => {
 const handleDeletePlace = () => {
   deletePlace(idItemToDelete.value)
 }
+
+const logoutMessage = computed(() => {
+  if (props.logoutData) return props.logoutData.message
+  if (props.logoutError) return props.logoutError
+  return null
+})
 // <div class="flex flex-col sm:flex-row justify-between items-center"> outline outline-1 outline-red-500
 </script>
 
@@ -100,26 +106,33 @@ const handleDeletePlace = () => {
   <div class="bg-white rounded-lg px-3 sm:px-1 md:px-1 lg:px-6 shadow-md flex flex-col gap-0 mb-0">
     <div class="flex items-center justify-between gap-2 sm:gap-1 lg:gap-2">
       <UserInfo
-        class="flex-grow max-w-[70%] sm:min-w-[50%] lg:min-w-[20%] lg:max-w-[70%]"
+        class="flex-grow max-w-[60%] sm:min-w-[50%] lg:min-w-[20%] lg:max-w-[70%]"
         :onLogout="onLogout"
       />
       <IButton
-        class="bg-gray-100 text-white px-3 sm:px-1 lg:px-4 py-[3px] rounded-xl"
+        class="bg-gray-100 min-w-[40%] sm:min-w-min text-white px-3 sm:px-1 lg:px-4 py-[5px] sm:py-[4px] lg:py-[6px] rounded-xl"
         variant="mobile"
         @click="emit('create')"
       >
-        Add new marker
+        Add marker
       </IButton>
     </div>
 
     <div class="flex justify-between items-center h-[14px]">
       <span class="font-bold text-xs text-gray-800 flex items-center gap-1"> Added markers:</span>
-      <div v-if="logoutData" class="text-green-500 text-xs font-semibold">
+      <div
+        v-if="logoutMessage"
+        class="text-xs font-semibold"
+        :class="props.logoutData ? 'text-green-500' : 'text-red-500'"
+      >
+        {{ logoutMessage }}
+      </div>
+      <!-- <div v-if="logoutData" class="text-green-500 text-xs font-semibold">
         {{ logoutData.message }}
       </div>
       <div v-if="logoutError" class="text-red-500 text-xs font-semibold">
         {{ logoutError }}
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="px-3 mt-[2px] sm:px-1 lg:px-6 text-black pb-[104px] h-full overflow-auto">
