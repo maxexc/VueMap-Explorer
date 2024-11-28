@@ -14,6 +14,7 @@ import { useMutation } from '@/composables/useMutation'
 import { useRouter } from 'vue-router'
 import { useModal } from '@/composables/useModal'
 import FullScreenButton from '@/components/IButton/FullScreenButton.vue'
+import { getUserInfo } from '@/api/user'
 
 const router = useRouter()
 
@@ -201,7 +202,17 @@ const handleAddPlace = async (formData) => {
 }
 
 const {
-  data,
+  data: userInfoData,
+  isLoading: isUserLoading,
+  error: userError,
+  mutation: getUser
+} = useMutation({
+  mutationFn: () => getUserInfo()
+})
+
+const {
+  data: logOutData,
+  isLoading: isLogOutLoading,
   error: logOutError,
   mutation: logOut
 } = useMutation({
@@ -229,6 +240,7 @@ const removeMarker = () => {
 }
 
 onMounted(() => {
+  getUser()
   if (!authService.isLoggedIn()) {
     console.warn('User is not authenticated. Redirecting to login page.')
     // favoritePlaces.value = favoritePlacesDefault
@@ -246,13 +258,6 @@ onMounted(() => {
         id="favorites-container"
         class="relative h-[33.1vh] bg-white sm:h-[100.1vh] md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
       >
-        <div
-          v-if="isPlacesLoading"
-          class="absolute z-10 text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
-        >
-          Loading...
-        </div>
-
         <!-- <div
           class="absolute flex justify-between -mt-2 md:-mt-3 sm:-mt-3 lg:-mt-3 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
         >
@@ -262,14 +267,19 @@ onMounted(() => {
         </div> -->
 
         <FavoritePlaces
+          v-model:userError="userError"
           :items="favoritePlaces"
           :active-id="activeId"
           :is-places-loading="isPlacesLoading"
           @place-clicked="changePlace"
           @create="openModalWithErrorReset"
           @updated="getPlaces"
+          :user-info="userInfoData"
+          :is-user-loading="isUserLoading"
+          :user-error="userError"
           :on-logout="logOut"
-          :logout-data="data"
+          :logout-data="logOutData"
+          :is-log-out-loading="isLogOutLoading"
           :logout-error="logOutError"
         />
         <CreateNewPlaceModal
