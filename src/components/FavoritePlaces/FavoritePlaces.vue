@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import EditPlaceModal from '../EditPlaceModal/EditPlaceModal.vue'
 import FavoritePlace from '../FavoritePlace/FavoritePlace.vue'
 import IButton from '../IButton/IButton.vue'
@@ -22,6 +22,18 @@ const props = defineProps({
     default: false,
     type: Boolean
   },
+  userInfo: {
+    type: Object,
+    default: null
+  },
+  isUserLoading: {
+    type: Boolean,
+    default: false
+  },
+  userError: {
+    type: String,
+    default: ''
+  },
   onLogout: {
     type: Function,
     required: true
@@ -29,6 +41,10 @@ const props = defineProps({
   logoutData: {
     type: Object,
     default: null
+  },
+  isLogOutLoading: {
+    type: Boolean,
+    default: false
   },
   logoutError: {
     type: String,
@@ -99,7 +115,23 @@ const logoutMessage = computed(() => {
   if (props.logoutError) return props.logoutError
   return null
 })
-// <div class="flex flex-col sm:flex-row justify-between items-center"> outline outline-1 outline-red-500
+
+// Timer for userError, temporary
+let errorTimeout = null
+
+watch(
+  () => props.userError,
+  (newError) => {
+    if (newError) {
+      if (errorTimeout) clearTimeout(errorTimeout)
+
+      errorTimeout = setTimeout(() => {
+        emit('update:userError', '')
+        errorTimeout = null
+      }, 5000)
+    }
+  }
+)
 </script>
 
 <template>
@@ -107,7 +139,11 @@ const logoutMessage = computed(() => {
     <div class="flex items-center justify-between gap-2 sm:gap-1 lg:gap-2">
       <UserInfo
         class="flex-grow max-w-[60%] sm:min-w-[50%] lg:min-w-[20%] lg:max-w-[70%]"
+        :user-info="userInfo"
+        :is-user-loading="isUserLoading"
+        :user-error="userError"
         :onLogout="onLogout"
+        :is-log-out-loading="isLogOutLoading"
       />
       <IButton
         class="bg-gray-100 min-w-[40%] sm:min-w-min text-white px-3 sm:px-1 lg:px-4 py-[5px] sm:py-[4px] lg:py-[6px] rounded-xl"
@@ -127,16 +163,18 @@ const logoutMessage = computed(() => {
       >
         {{ logoutMessage }}
       </div>
-      <!-- <div v-if="logoutData" class="text-green-500 text-xs font-semibold">
-        {{ logoutData.message }}
+      <div v-if="userError" class="text-red-500 text-xs font-semibold">
+        {{ userError }}
       </div>
-      <div v-if="logoutError" class="text-red-500 text-xs font-semibold">
-        {{ logoutError }}
-      </div> -->
     </div>
   </div>
   <div class="px-3 mt-[2px] sm:px-1 lg:px-6 text-black pb-[104px] h-full overflow-auto">
-    <slot name="label"></slot>
+    <div
+      v-if="isPlacesLoading"
+      class="text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
+    >
+      Loading...
+    </div>
     <slot name="list">
       <div v-if="items.length === 0 && !isPlacesLoading">List of markers is empty.</div>
       <FavoritePlace
