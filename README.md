@@ -39,3 +39,19 @@ npm run test:unit
 ```sh
 npm run lint
 ```
+
+### PWA Installation Instructions:
+
+### For Android Users:
+
+1. Open the app in your browser.
+2. You will see a banner prompting to Add to Home Screen. Follow the instructions to install.
+
+### For iPhone Users:
+
+1. Open the app in Safari.
+2. Tap the Share button (the icon with an arrow pointing out of a box).
+3. Scroll down and select Add to Home Screen.
+4. Confirm by tapping Add in the top-right corner.
+
+After installation, the app will appear on your home screen like a native app!
