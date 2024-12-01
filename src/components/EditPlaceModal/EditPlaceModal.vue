@@ -50,7 +50,7 @@ watch(
       formData.id = props.place.id || ''
       formData.title = props.place.title || ''
       formData.description = props.place.description || ''
-      formData.img = props.place.img || fallbackImage
+      formData.img = props.place.img || ''
       formData.coordinates = props.place.coordinates || null
       flipCount.value = 0
       backImage.value = ''
@@ -90,7 +90,6 @@ const handleChangeImg = (url) => {
             :style="{ transform: cardTransform }"
           >
             <img
-              v-if="formData.img"
               :src="formData.img || fallbackImage"
               class="card-face absolute w-full h-full object-cover rounded-md"
               alt="front image"

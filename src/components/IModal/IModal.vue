@@ -39,7 +39,6 @@ onUnmounted(() => {
   enableScroll()
   window.removeEventListener('keydown', closeOnEscape)
 })
-// min-w-[90vw] sx:min-w-[500px]
 </script>
 
 <template>

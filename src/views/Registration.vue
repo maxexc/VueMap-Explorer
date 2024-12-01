@@ -2,7 +2,7 @@
 import { authService } from '@/api/authService'
 import RegistrationForm from '@/components/Auth/RegistrationForm/RegistrationForm.vue'
 import { useMutation } from '@/composables/useMutation'
-import { hideSpinner, showSpinner } from '@/utils/spinnerControl'
+// import { hideSpinner, showSpinner } from '@/utils/spinnerControl'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -16,23 +16,24 @@ const {
   onSuccess: () => router.replace('/map')
 })
 
-function someAsyncAction() {
-  console.log('It is a spinner!')
+// function someAsyncAction() {
+//   console.log('It is a spinner!')
 
-  isLoading.value = true
-  showSpinner()
-  setTimeout(() => {
-    hideSpinner()
-    isLoading.value = false
-    router.replace('/map')
-  }, 3000)
-}
+//   isLoading.value = true
+//   showSpinner()
+//   setTimeout(() => {
+//     hideSpinner()
+//     isLoading.value = false
+//     router.replace('/map')
+//   }, 3000)
+// }
 </script>
 
 <template>
   <transition name="fade" appear>
     <div>
-      <RegistrationForm @submit="someAsyncAction" :is-loading="isLoading" />
+      <!-- <RegistrationForm @submit="someAsyncAction" :is-loading="isLoading" /> -->
+      <RegistrationForm @submit="handleRegister" :is-loading="isLoading" />
       <transition name="fade-slide">
         <div v-if="error" class="text-red-500 -mb-6 lg:mt-2 lg:-mb-8 text-center font-semibold">
           {{ error }}

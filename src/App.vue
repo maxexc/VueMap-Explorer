@@ -10,7 +10,7 @@ const isMapPage = computed(() => route.name === 'Map')
 </script>
 
 <template>
-  <section class="fixed top-0 left-1 z-20">
+  <!-- <section class="fixed top-0 left-1 z-20">
     <nav class="flex text-textSecondary gap-4">
       <strong>Current route path:</strong> {{ $route.fullPath }}
       <RouterLink class="underline" exact-active-class="text-blue-600" :to="'/'"
@@ -20,7 +20,7 @@ const isMapPage = computed(() => route.name === 'Map')
         >MapPage</RouterLink
       >
     </nav>
-  </section>
+  </section> -->
   <main>
     <ISpinner />
     <RouterView />

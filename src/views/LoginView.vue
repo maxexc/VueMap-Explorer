@@ -2,7 +2,6 @@
 import { authService } from '@/api/authService'
 import LoginForm from '@/components/Auth/LoginForm/LoginForm.vue'
 import { useMutation } from '@/composables/useMutation'
-import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
