@@ -41,7 +41,7 @@ const {
 })
 
 // const favoritePlaces = computed(() => newData.value?.data ?? favoritePlacesDefault) //  [])
-const favoritePlaces = computed(() => newData.value ?? favoritePlacesDefault) // []) переделал запрос
+const favoritePlaces = computed(() => newData.value ?? []) // []) переделал запрос
 
 const handleMapClick = (event) => {
   const { lngLat, originalEvent } = event
@@ -50,12 +50,6 @@ const handleMapClick = (event) => {
     markerClickedToRemove.value = false
     return
   }
-
-  // заменил на @click.stop
-  // if (originalEvent && originalEvent.target.closest('.existing-marker')) {
-  //   console.log('Clicked on existing marker')
-  //   return
-  // }
 
   mapMarkerLnglat.value = [lngLat.lng, lngLat.lat]
 }
@@ -113,32 +107,32 @@ const handleMapLoad = (map = null) => {
   map.getCanvas().style.touchAction = 'manipulation' // allow vertical swipe
 }
 
-const favoritePlacesDefault = [
-  {
-    id: 1,
-    title: 'Berlin',
-    description:
-      'Currently known as the largest and the most populated city of the European Union, Berlin is the capital city of Germany',
-    img: new URL('@/assets/img/Berlin.jpg', import.meta.url).href,
-    coordinates: [13.404954, 52.520008]
-  },
-  {
-    id: 2,
-    title: 'Rome',
-    description:
-      'Rome, or the Metropolitan City of Rome, is the capital, the largest and the most important city of Italy',
-    img: new URL('@/assets/img/Rome.jpg', import.meta.url).href,
-    coordinates: [12.496366, 41.902782]
-  },
-  {
-    id: 3,
-    title: 'Venice',
-    description:
-      'Venice (Venezia) is an amazingly beautiful old city and the center of the Metropolitan City of Venice',
-    img: new URL('@/assets/img/marking_point.jpg', import.meta.url).href,
-    coordinates: [12.327145, 45.438759]
-  }
-]
+// const favoritePlacesDefault = [
+//   {
+//     id: 1,
+//     title: 'Berlin',
+//     description:
+//       'Currently known as the largest and the most populated city of the European Union, Berlin is the capital city of Germany',
+//     img: new URL('@/assets/img/Berlin.jpg', import.meta.url).href,
+//     coordinates: [13.404954, 52.520008]
+//   },
+//   {
+//     id: 2,
+//     title: 'Rome',
+//     description:
+//       'Rome, or the Metropolitan City of Rome, is the capital, the largest and the most important city of Italy',
+//     img: new URL('@/assets/img/Rome.jpg', import.meta.url).href,
+//     coordinates: [12.496366, 41.902782]
+//   },
+//   {
+//     id: 3,
+//     title: 'Venice',
+//     description:
+//       'Venice (Venezia) is an amazingly beautiful old city and the center of the Metropolitan City of Venice',
+//     img: new URL('@/assets/img/marking_point.jpg', import.meta.url).href,
+//     coordinates: [12.327145, 45.438759]
+//   }
+// ]
 
 const toggle3D = () => {
   is3DEnabled.value = !is3DEnabled.value
@@ -219,11 +213,11 @@ const {
   mutationFn: () => authService.logout(),
   onError: () => {
     favoritePlaces.value = []
-    // router.replace('/auth')
+    router.replace('/auth')
   },
   onSuccess: () => {
     favoritePlaces.value = [...favoritePlacesDefault]
-    // router.replace('/auth')
+    router.replace('/auth')
   }
 })
 
@@ -244,19 +238,20 @@ onMounted(() => {
   if (!authService.isLoggedIn()) {
     console.warn('User is not authenticated. Redirecting to login page.')
     // favoritePlaces.value = favoritePlacesDefault
-    // router.replace('/auth')
+    router.replace('/auth')
     return
   } else {
     getPlaces()
   }
 })
+//  sm:pt-7
 </script>
 <template>
   <section class="h-[100vh] overflow-auto">
     <main class="flex min-h-screen flex-col-reverse sm:flex-row" style="touch-action: auto">
       <div
         id="favorites-container"
-        class="relative h-[33.1vh] bg-white sm:h-[100.1vh] md:w-[24%] sm:w-[28%] lg:w-[400px] shrink-0 pt-1 sm:pt-7 flex flex-col"
+        class="relative h-[33.1vh] bg-white sm:h-[100.1vh] md:w-[24%] sm:w-[28%] lg:w-[400px] pt-1 shrink-0 flex flex-col"
       >
         <!-- <div
           class="absolute flex justify-between -mt-2 md:-mt-3 sm:-mt-3 lg:-mt-3 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"

@@ -15,10 +15,6 @@ defineProps({
     type: Boolean,
     default: false
   },
-  // hasError: {
-  //   type: Boolean,
-  //   default: false
-  // },
   errorMessage: {
     default: '',
     type: String

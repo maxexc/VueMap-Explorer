@@ -51,7 +51,7 @@ watch(
   }
 )
 
-const handleUpload = (url) => {
+const handleUpload = (url = '') => {
   formData.img = url
 }
 </script>

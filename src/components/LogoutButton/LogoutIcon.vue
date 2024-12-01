@@ -32,7 +32,7 @@
           stroke-linecap: butt;
           stroke-linejoin: miter;
           stroke-miterlimit: 10;
-          fill: currentColor; /*  */
+          fill: currentColor;
           fill-rule: nonzero;
           opacity: 1;
         "
@@ -48,7 +48,7 @@
           stroke-linecap: butt;
           stroke-linejoin: miter;
           stroke-miterlimit: 10;
-          fill: currentColor; /* rgb(0, 0, 0) */
+          fill: currentColor;
           fill-rule: nonzero;
           opacity: 1;
         "
@@ -64,7 +64,7 @@
           stroke-linecap: butt;
           stroke-linejoin: miter;
           stroke-miterlimit: 10;
-          fill: currentColor; /*  */
+          fill: currentColor;
           fill-rule: nonzero;
           opacity: 1;
         "

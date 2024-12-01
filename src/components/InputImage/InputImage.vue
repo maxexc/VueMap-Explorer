@@ -24,13 +24,13 @@ const resizeImage = (file) => {
         let canvas = document.createElement('canvas')
         let ctx = canvas.getContext('2d')
 
-        // макс 512x512
+        // max 512x512
         const MAX_WIDTH = 512
         const MAX_HEIGHT = 512
         let width = img.width
         let height = img.height
 
-        // Соотношение сторон
+        // Side ratio
         if (width > height) {
           if (width > MAX_WIDTH) {
             height *= MAX_WIDTH / width
@@ -78,41 +78,25 @@ const handleUpLoading = async (event) => {
   const file = event.target.files[0]
   console.log('file.size in bytes: ', file.size)
 
-  // if (file.size > 3 * 1024 * 1024) {
-  //   errorMessage.value = 'File size is too large - max 3Mb'
-  //   return
-  // }
-
-  // const fileReader = new FileReader()
-
-  // fileReader.readAsDataURL(file)
-
-  // fileReader.onload = () => {
-  //   errorMessage.value = ''
-  //   emit('uploaded', fileReader.result)
-  // }
-
-  // Проверка размера файла до сжатия
   if (file.size <= 73 * 1024) {
     const fileReader = new FileReader()
     fileReader.onload = () => {
-      emit('uploaded', fileReader.result) // Передаем напрямую
+      emit('uploaded', fileReader.result)
     }
     fileReader.readAsDataURL(file)
     return
   }
 
-  // Проверка на макс. размер 15 MB
+  // max size 15 MB
   if (file.size > 15 * 1024 * 1024) {
     errorMessage.value = 'File size is too large - max 15MB'
     return
   }
 
   try {
-    // Если больше 73 KB, сжимаем его
     const resizedImage = await resizeImage(file)
 
-    // Размер base64 после ресайза
+    // Check base64
     const base64Size = Math.round(
       resizedImage.length * (3 / 4) -
         (resizedImage.endsWith('==') ? 2 : resizedImage.endsWith('=') ? 1 : 0)

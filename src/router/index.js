@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import NotFoundView from '@/views/NotFoundView.vue';
+import { authService } from '@/api/authService';
 
 
 // ** Lazy Loading **
@@ -16,7 +17,6 @@ export const BASE_DEV = process.env.NODE_ENV === 'production'
 
 console.log('BASE ROUTER: ', BASE_DEV,);
 
-
 // Hosting determination
 const isGitHub = window.location.hostname === 'maxexc.github.io';
 console.log("Hostname: ", window.location.hostname);
@@ -25,15 +25,15 @@ console.log("Hostname: ", window.location.hostname);
 const history = isGitHub ? createWebHashHistory(BASE_DEV) : createWebHistory(BASE_DEV);
 
 const routes = [
-    { path: '/', component: GreetingPage },
+    { path: '/', component: GreetingPage, name: 'Greeting' },
     { path: '/map', component: HomePage, name: 'Map' },
     {
         path: '/auth',
         component: AuthPage,
         redirect: '/auth/login',
         children: [
-            { path: 'login', component: LoginPage },
-            { path: 'registration', component: RegistrationPage }
+            { path: 'login', component: LoginPage, name: 'Login' },
+            { path: 'registration', component: RegistrationPage, name: 'Registration' }
         ]
     },
     { path: '/:catchAll(.*)', component: NotFoundView, name: 'NotFoundView' }
@@ -42,4 +42,17 @@ const routes = [
 export const router = createRouter({
     history: history,
     routes,
+})
+
+router.beforeEach((to, from, next) => {
+    const authRoutes = ['Login', 'Registration', 'Greeting', 'NotFoundView']
+    const { name } = to
+
+    if (authService.isLoggedIn() && authRoutes.includes(name)) {
+        next({ name: 'Map' })
+    } else if (!authRoutes.includes(name) && !authService.isLoggedIn()) {
+        next({ name: 'Login' })
+    } else {
+        next()
+    }
 })

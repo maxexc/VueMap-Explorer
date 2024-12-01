@@ -78,10 +78,15 @@ clientFetch.interceptors.response.use(
         const errorCode = error.response?.status
 
         if (errorCode === 401) {
+            console.warn('401 Unauthorized. Trying to refresh token...');
             try {
-                return await authService.refresh();
+                await authService.refresh();
+                console.info('Token refreshed successfully.');
+                return clientFetch(error.config);
             } catch (e) {
-                // router.push('/auth/login')
+                console.error('Failed to refresh token. Redirecting to login...');
+                authService.clearToken();
+                router.push('/auth/login')
                 return Promise.reject(error);
             }
         } else if (errorCode === 500) {

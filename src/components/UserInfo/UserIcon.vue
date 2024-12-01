@@ -1,8 +1,7 @@
 <template>
   <div
-    class="bg-gradient-to-r from-[#85e7ae] to-[#a7fcd1] ring-2 ring-white p-1 rounded-full scale-125 sm:scale-100 md:scale-105 lg:scale-125 shadow-md"
+    class="bg-gradient-to-r from-[#85e7ae] to-[#a7fcd1] ring-2 ring-white p-1 rounded-full scale-125 sm:scale-90 md:scale-95 lg:scale-125 shadow-md"
   >
-    <!-- <div class="user-icon-container"> -->
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -27,10 +26,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #48bb78, #9cffc5); /* Градиент */
+  background: linear-gradient(135deg, #48bb78, #9cffc5);
   padding: 8px;
-  border-radius: 50%; /* Круглая форма */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Легкая тень */
-  color: #fff; /* Белый цвет иконки */
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #fff;
 }
 </style>

@@ -8,6 +8,8 @@ import { useMutation } from '@/composables/useMutation'
 import { deleteFavoritePlaces, updateFavoritePlaces } from '@/api/favorite-places'
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal.vue'
 import UserInfo from '../UserInfo/UserInfo.vue'
+import { router } from '@/router'
+import { authService } from '@/api/authService'
 
 const props = defineProps({
   items: {
@@ -127,6 +129,8 @@ watch(
 
       errorTimeout = setTimeout(() => {
         emit('update:userError', '')
+        authService.clearToken()
+        authService.logout()
         errorTimeout = null
       }, 5000)
     }
@@ -138,7 +142,7 @@ watch(
   <div class="bg-white rounded-lg px-3 sm:px-1 md:px-1 lg:px-6 shadow-md flex flex-col gap-0 mb-0">
     <div class="flex items-center justify-between gap-2 sm:gap-1 lg:gap-2">
       <UserInfo
-        class="flex-grow max-w-[60%] sm:min-w-[50%] lg:min-w-[20%] lg:max-w-[70%]"
+        class="flex-grow max-w-[60%] sm:min-w-[51%] lg:min-w-[20%] lg:max-w-[70%]"
         :user-info="userInfo"
         :is-user-loading="isUserLoading"
         :user-error="userError"
