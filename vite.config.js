@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueDevTools from 'vite-plugin-vue-devtools';
+import { VitePWA } from 'vite-plugin-pwa';
 
 // environment variable
 const isProduction = process.env.NODE_ENV === 'production';
@@ -18,6 +19,28 @@ export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.svg', 'robots.txt', 'apple-touch-icon.png'],
+      manifest: {
+        name: 'VueMap Explorer',
+        short_name: 'VueMap',
+        description: 'An interactive map explorer built with Vue.js',
+        theme_color: '#ffffff',
+        icons: [
+          {
+            src: 'img/android-chrome-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'img/android-chrome-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+        ],
+      },
+    })
   ],
   resolve: {
     alias: {
