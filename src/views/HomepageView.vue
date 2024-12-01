@@ -251,7 +251,7 @@ onMounted(() => {
     <main class="flex min-h-screen flex-col-reverse sm:flex-row" style="touch-action: auto">
       <div
         id="favorites-container"
-        class="relative h-[33.1vh] bg-white sm:h-[100.1vh] md:w-[24%] sm:w-[28%] lg:w-[400px] pt-1 shrink-0 flex flex-col"
+        class="relative h-[33.1vh] bg-white sm:h-[100.1vh] md:w-[24%] sm:w-[28%] lg:w-[400px] pt-1 lg:pt-2 shrink-0 flex flex-col"
       >
         <!-- <div
           class="absolute flex justify-between -mt-2 md:-mt-3 sm:-mt-3 lg:-mt-3 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
