@@ -216,7 +216,7 @@ const {
     router.replace('/auth')
   },
   onSuccess: () => {
-    favoritePlaces.value = [...favoritePlacesDefault]
+    // favoritePlaces.value = [...favoritePlacesDefault]
     router.replace('/auth')
   }
 })
