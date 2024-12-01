@@ -27,6 +27,9 @@ export default defineConfig({
         short_name: 'VueMap',
         description: 'An interactive map explorer built with Vue.js',
         theme_color: '#ffffff',
+        start_url: BASE_URL,
+        display: 'standalone',
+        background_color: '#ffffff',
         icons: [
           {
             src: 'img/android-chrome-192x192.png',
