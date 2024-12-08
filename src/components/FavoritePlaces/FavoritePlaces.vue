@@ -8,8 +8,8 @@ import { useMutation } from '@/composables/useMutation'
 import { deleteFavoritePlaces, updateFavoritePlaces } from '@/api/favorite-places'
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal.vue'
 import UserInfo from '../UserInfo/UserInfo.vue'
-import { router } from '@/router'
 import { authService } from '@/api/authService'
+import SwiperSlider from '../SwiperSlider/SwiperSlider.vue'
 
 const props = defineProps({
   items: {
@@ -51,6 +51,10 @@ const props = defineProps({
   logoutError: {
     type: String,
     default: ''
+  },
+  isMobile: {
+    type: Boolean,
+    required: true
   }
 })
 
@@ -90,7 +94,7 @@ const {
 })
 
 const selectedId = ref(null)
-const selectedItem = computed(() => props.items.find((place) => place.id === selectedId.value))
+const selectedItem = computed(() => props.items.find((place) => place.id === props.activeId))
 const idItemToDelete = ref(null)
 
 const handleEditPlace = (id) => {
@@ -139,7 +143,9 @@ watch(
 </script>
 
 <template>
-  <div class="bg-white rounded-lg px-3 sm:px-1 md:px-1 lg:px-6 shadow-md flex flex-col gap-0 mb-0">
+  <div
+    class="bg-white rounded-lg px-3 sm:px-1 md:px-1 lg:px-6 shadow-md flex flex-col gap-0 mb-[1px]"
+  >
     <div class="flex items-center justify-between gap-2 sm:gap-1 lg:gap-2">
       <UserInfo
         class="flex-grow max-w-[60%] sm:min-w-[51%] lg:min-w-[20%] lg:max-w-[70%]"
@@ -159,7 +165,9 @@ watch(
     </div>
 
     <div class="flex justify-between items-center h-[14px]">
-      <span class="font-bold text-xs text-gray-800 flex items-center gap-1"> Added markers:</span>
+      <span class="font-bold text-xs text-gray-800 flex items-center gap-1">
+        {{ isMobile ? ' Selected marker:' : ' Added markers:' }}
+      </span>
       <div
         v-if="logoutMessage"
         class="text-xs font-semibold"
@@ -172,28 +180,46 @@ watch(
       </div>
     </div>
   </div>
-  <div class="px-3 mt-[2px] sm:px-1 lg:px-6 text-black pb-[104px] h-full overflow-auto">
+  <div class="px-3 mt-1 sm:mt-0 sm:px-1 lg:px-6 text-black h-full overflow-auto">
     <div
       v-if="isPlacesLoading"
       class="text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
     >
       Loading...
     </div>
-    <slot name="list">
-      <div v-if="items.length === 0 && !isPlacesLoading">List of markers is empty.</div>
-      <FavoritePlace
-        v-for="place in props.items"
-        :key="place.id"
-        :title="place.title"
-        :description="place.description"
-        :coordinates="place.coordinates"
-        :img="place.img"
-        :is-active="place.id === props.activeId"
-        @click="emit('place-clicked', place.id)"
-        @edit="handleEditPlace(place.id)"
-        @delete="hadleOpenConfirmationModal(place.id)"
+    <div v-else-if="items.length === 0" class="text-xs text-gray-500 italic mt-2">
+      List of markers is empty.
+    </div>
+    <template v-else-if="!isMobile">
+      <SwiperSlider
+        :markers="items"
+        :activeMarkerId="activeId"
+        :is-mobile="isMobile"
+        @marker-selected="emit('place-clicked', $event)"
+        @edit="handleEditPlace"
+        @delete="hadleOpenConfirmationModal"
+        :card-component="FavoritePlace"
       />
-    </slot>
+    </template>
+    <template v-else>
+      <transition name="slide-horizontal" mode="out-in">
+        <FavoritePlace
+          v-if="selectedItem"
+          :id="selectedItem.id"
+          :key="selectedItem.id"
+          :title="selectedItem.title"
+          :description="selectedItem.description"
+          :coordinates="selectedItem.coordinates"
+          :img="selectedItem.img"
+          :is-active="selectedItem.id === activeId"
+          layout="vertical"
+          @click="emit('place-clicked', selectedItem.id)"
+          @edit="handleEditPlace(selectedItem.id)"
+          @delete="hadleOpenConfirmationModal(selectedItem.id)"
+        />
+        <div v-else class="text-xs text-gray-500 italic mt-2">No marker selected.</div>
+      </transition>
+    </template>
 
     <slot></slot>
     <EditPlaceModal
@@ -215,3 +241,20 @@ watch(
     />
   </div>
 </template>
+
+<style scoped>
+.slide-horizontal-enter-active,
+.slide-horizontal-leave-active {
+  transition: all 0.4s ease;
+}
+
+.slide-horizontal-enter-from {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.slide-horizontal-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+</style>
