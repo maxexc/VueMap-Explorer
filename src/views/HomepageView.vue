@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { MapboxMap, MapboxMarker, MapboxNavigationControl } from '@studiometa/vue-mapbox-gl'
 import { mapSettings } from '@/map/settings'
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -15,6 +15,8 @@ import { useRouter } from 'vue-router'
 import { useModal } from '@/composables/useModal'
 import FullScreenButton from '@/components/IButton/FullScreenButton.vue'
 import { getUserInfo } from '@/api/user'
+import SwiperSlider from '@/components/SwiperSlider/SwiperSlider.vue'
+import VerticalSliderCard from '@/components/SwiperSlider/VerticalSliderCard.vue'
 
 const router = useRouter()
 
@@ -131,6 +133,13 @@ const handleMapLoad = (map = null) => {
 //       'Venice (Venezia) is an amazingly beautiful old city and the center of the Metropolitan City of Venice',
 //     img: new URL('@/assets/img/marking_point.jpg', import.meta.url).href,
 //     coordinates: [12.327145, 45.438759]
+//   },
+//   {
+//     id: 4,
+//     title: 'Itally',
+//     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, officia?',
+//     img: '',
+//     coordinates: [13.327145, 46.438759]
 //   }
 // ]
 
@@ -155,10 +164,12 @@ const toggle3D = () => {
 }
 
 const changeActiveId = (id) => {
-  activeId.value = id
-  const place = favoritePlaces.value.find((place) => place.id === id)
-  if (place) {
-    mapInstance.value.flyTo({ center: place.coordinates })
+  if (activeId.value !== id) {
+    activeId.value = id
+    const place = favoritePlaces.value.find((place) => place.id === id)
+    if (place) {
+      mapInstance.value.flyTo({ center: place.coordinates })
+    }
   }
 }
 
@@ -244,24 +255,44 @@ onMounted(() => {
     getPlaces()
   }
 })
-//  sm:pt-7
+
+const isMobile = ref(window.innerWidth < 640)
+
+const updateIsMobile = () => {
+  isMobile.value = window.innerWidth < 640
+}
+
+onMounted(() => {
+  window.addEventListener('resize', updateIsMobile)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateIsMobile)
+})
 </script>
 <template>
-  <section class="h-[100vh] overflow-auto">
-    <main class="flex min-h-screen flex-col-reverse sm:flex-row" style="touch-action: auto">
+  <section class="relative h-[100vh] overflow-auto">
+    <div :class="isMobile && favoritePlaces.length > 0 ? 'py-[2px]' : 'py-0'">
+      <SwiperSlider
+        v-if="isMobile"
+        :markers="favoritePlaces"
+        :activeMarkerId="activeId"
+        :is-mobile="isMobile"
+        @marker-selected="changeActiveId"
+        :card-component="VerticalSliderCard"
+      />
+    </div>
+    <main
+      class="flex min-h-screen sm:mt-0 flex-col-reverse sm:flex-row"
+      :class="isMobile && favoritePlaces.length > 0 ? '-mt-[104px]' : 'mt-0'"
+      style="touch-action: auto"
+    >
       <div
         id="favorites-container"
-        class="relative h-[33.1vh] bg-white sm:h-[100.1vh] md:w-[24%] sm:w-[28%] lg:w-[400px] pt-1 lg:pt-2 shrink-0 flex flex-col"
+        class="relative h-[26.1vh] bg-white sm:h-[100.1vh] md:w-[24%] sm:w-[28%] lg:w-[400px] pt-1 lg:pt-2 shrink-0 flex flex-col"
       >
-        <!-- <div
-          class="absolute flex justify-between -mt-2 md:-mt-3 sm:-mt-3 lg:-mt-3 gap-3 sm:gap-1 lg:gap-3 px-3 sm:px-1 lg:px-6 text-xs sm:text-[10px] lg:text-xs"
-        >
-          <button v-button-animation class="text-accent hover:text-primary" @click="testRefresh">
-            RfToken
-          </button>
-        </div> -->
-
         <FavoritePlaces
+          v-bind:is-mobile="isMobile"
           v-model:userError="userError"
           :items="favoritePlaces"
           :active-id="activeId"
@@ -294,7 +325,7 @@ onMounted(() => {
       </div>
 
       <div
-        class="relative w-full h-[67vh] sm:h-[100vh] flex-grow flex items-center justify-center text-6xl pb-[2px]"
+        class="relative w-full sm:mt-0 h-[74vh] sm:h-[100vh] flex-grow flex items-center justify-center text-6xl pb-[2px]"
       >
         <MapboxMap
           id="map"
