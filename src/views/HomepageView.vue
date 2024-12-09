@@ -272,16 +272,16 @@ onBeforeUnmount(() => {
 </script>
 <template>
   <section class="relative h-[100vh] overflow-auto">
-    <div :class="isMobile && favoritePlaces.length > 0 ? 'py-[2px]' : 'py-0'">
-      <SwiperSlider
-        v-if="isMobile"
-        :markers="favoritePlaces"
-        :activeMarkerId="activeId"
-        :is-mobile="isMobile"
-        @marker-selected="changeActiveId"
-        :card-component="VerticalSliderCard"
-      />
-    </div>
+    <!-- <div :class="isMobile && favoritePlaces.length > 0 ? 'py-[2px]' : 'py-0'"> -->
+    <SwiperSlider
+      v-if="isMobile"
+      :markers="favoritePlaces"
+      :activeMarkerId="activeId"
+      :is-mobile="isMobile"
+      @marker-selected="changeActiveId"
+      :card-component="VerticalSliderCard"
+    />
+    <!-- </div> -->
     <main
       class="flex min-h-screen sm:mt-0 flex-col-reverse sm:flex-row"
       :class="isMobile && favoritePlaces.length > 0 ? '-mt-[104px]' : 'mt-0'"

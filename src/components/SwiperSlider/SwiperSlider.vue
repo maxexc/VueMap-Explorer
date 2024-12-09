@@ -165,6 +165,7 @@ const swiperSettings = computed(() => ({
   }
 }
 .slider-vertical {
+  padding: 2px 0;
   height: unset;
 }
 .marker-card {
