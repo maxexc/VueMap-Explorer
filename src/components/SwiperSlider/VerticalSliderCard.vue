@@ -6,10 +6,6 @@ const props = defineProps({
     required: true,
     type: String
   },
-  description: {
-    required: true,
-    type: String
-  },
   img: {
     type: String,
     default: null

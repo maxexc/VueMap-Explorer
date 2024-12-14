@@ -50,7 +50,7 @@ class AuthService {
         return data
     }
 
-    async refresh() {                                            // TODO
+    async refresh() {
         const { data } = await clientFetch.post('user/refresh');
         const { accessToken } = data;
 

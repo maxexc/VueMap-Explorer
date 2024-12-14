@@ -42,11 +42,10 @@ const {
   mutationFn: () => getFavoritePlaces()
 })
 
-// const favoritePlaces = computed(() => newData.value?.data ?? favoritePlacesDefault) //  [])
-const favoritePlaces = computed(() => newData.value ?? []) // []) переделал запрос
+const favoritePlaces = computed(() => newData.value ?? [])
 
 const handleMapClick = (event) => {
-  const { lngLat, originalEvent } = event
+  const { lngLat } = event
 
   if (markerClickedToRemove.value) {
     markerClickedToRemove.value = false
@@ -109,40 +108,6 @@ const handleMapLoad = (map = null) => {
   map.getCanvas().style.touchAction = 'manipulation' // allow vertical swipe
 }
 
-// const favoritePlacesDefault = [
-//   {
-//     id: 1,
-//     title: 'Berlin',
-//     description:
-//       'Currently known as the largest and the most populated city of the European Union, Berlin is the capital city of Germany',
-//     img: new URL('@/assets/img/Berlin.jpg', import.meta.url).href,
-//     coordinates: [13.404954, 52.520008]
-//   },
-//   {
-//     id: 2,
-//     title: 'Rome',
-//     description:
-//       'Rome, or the Metropolitan City of Rome, is the capital, the largest and the most important city of Italy',
-//     img: new URL('@/assets/img/Rome.jpg', import.meta.url).href,
-//     coordinates: [12.496366, 41.902782]
-//   },
-//   {
-//     id: 3,
-//     title: 'Venice',
-//     description:
-//       'Venice (Venezia) is an amazingly beautiful old city and the center of the Metropolitan City of Venice',
-//     img: new URL('@/assets/img/marking_point.jpg', import.meta.url).href,
-//     coordinates: [12.327145, 45.438759]
-//   },
-//   {
-//     id: 4,
-//     title: 'Itally',
-//     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, officia?',
-//     img: '',
-//     coordinates: [13.327145, 46.438759]
-//   }
-// ]
-
 const toggle3D = () => {
   is3DEnabled.value = !is3DEnabled.value
 
@@ -201,8 +166,6 @@ const handleAddPlace = async (formData) => {
     coordinates: mapMarkerLnglat.value
   }
 
-  console.log('Modal body: ', body)
-
   await addPlace(body)
 }
 
@@ -227,20 +190,12 @@ const {
     router.replace('/auth')
   },
   onSuccess: () => {
-    // favoritePlaces.value = [...favoritePlacesDefault]
     router.replace('/auth')
   }
 })
 
-const { error: refreshError, mutation: testRefresh } = useMutation({
-  mutationFn: () => authService.refresh(),
-  onError: () => console.error('Error during token refresh:', error),
-  onSuccess: () => console.log('Refresh token completed successfully.')
-})
-
 const removeMarker = () => {
   markerClickedToRemove.value = true
-  console.log('removeMarker', markerClickedToRemove.value)
   mapMarkerLnglat.value = null
 }
 
@@ -248,7 +203,6 @@ onMounted(() => {
   getUser()
   if (!authService.isLoggedIn()) {
     console.warn('User is not authenticated. Redirecting to login page.')
-    // favoritePlaces.value = favoritePlacesDefault
     router.replace('/auth')
     return
   } else {
@@ -272,7 +226,6 @@ onBeforeUnmount(() => {
 </script>
 <template>
   <section class="relative h-[100vh] overflow-auto">
-    <!-- <div :class="isMobile && favoritePlaces.length > 0 ? 'py-[2px]' : 'py-0'"> -->
     <SwiperSlider
       v-if="isMobile"
       :markers="favoritePlaces"
@@ -281,7 +234,6 @@ onBeforeUnmount(() => {
       @marker-selected="changeActiveId"
       :card-component="VerticalSliderCard"
     />
-    <!-- </div> -->
     <main
       class="flex min-h-screen sm:mt-0 flex-col-reverse sm:flex-row"
       :class="isMobile && favoritePlaces.length > 0 ? '-mt-[104px]' : 'mt-0'"

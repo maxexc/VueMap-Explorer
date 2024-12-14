@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView, useRoute } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
 import { computed } from 'vue'
 import ISpinner from './components/ISpinner/ISpinner.vue'
 
@@ -10,17 +10,6 @@ const isMapPage = computed(() => route.name === 'Map')
 </script>
 
 <template>
-  <!-- <section class="fixed top-0 left-1 z-20">
-    <nav class="flex text-textSecondary gap-4">
-      <strong>Current route path:</strong> {{ $route.fullPath }}
-      <RouterLink class="underline" exact-active-class="text-blue-600" :to="'/'"
-        >GreetingPage</RouterLink
-      >
-      <RouterLink class="underline" exact-active-class="text-blue-600" :to="'/map'"
-        >MapPage</RouterLink
-      >
-    </nav>
-  </section> -->
   <main>
     <ISpinner />
     <RouterView />
