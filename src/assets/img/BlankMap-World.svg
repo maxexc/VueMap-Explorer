@@ -4,13 +4,6 @@
 	<style id="style_css_sheet" type="text/css">
 
 /*
- * Below are Cascading Style Sheet (CSS) definitions in use in this file,
- * which allow easily changing how countries are displayed.
- *
- * The styles are applied in the order in which they are defined (and re-defined) here in the preamble.
- */
-
-/*
  * Circles around small countries and territories
  *
  * Change opacity to 1 to display all circles
@@ -24,8 +17,6 @@
 }
 
 /*
- * Smaller circles around subnational territories: Australian external territories, Chinese SARs, Dutch special municipalities, and French DOMs (overseas regions/departments) [but not French COMs (overseas collectivities)]
- *
  * Change opacity to 1 to display all circles
  */
 .subxx

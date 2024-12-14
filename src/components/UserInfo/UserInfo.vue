@@ -20,8 +20,6 @@ const props = defineProps({
     required: true
   }
 })
-
-// v-if="userInfo" 'Tom Cruise'
 </script>
 
 <template>
