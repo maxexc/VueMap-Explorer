@@ -17,12 +17,12 @@ import FullScreenButton from '@/components/IButton/FullScreenButton.vue'
 import { getUserInfo } from '@/api/user'
 import SwiperSlider from '@/components/SwiperSlider/SwiperSlider.vue'
 import VerticalSliderCard from '@/components/SwiperSlider/VerticalSliderCard.vue'
+import { flyTo, initializeMap, set3DMode } from '@/services/mapService'
 
 const router = useRouter()
 
 const mapInstance = ref(null)
 const is3DEnabled = ref(false)
-let zoomListener = null
 const activeId = ref(null)
 const mapMarkerLnglat = ref(null)
 const markerClickedToRemove = ref(false)
@@ -55,76 +55,17 @@ const handleMapClick = (event) => {
   mapMarkerLnglat.value = [lngLat.lng, lngLat.lat]
 }
 
-const apply3DSettings = (map) => {
-  map.setMaxPitch(85)
-  map.setMinPitch(0)
-
-  map.setFog({
-    range: [1, 10],
-    color: 'white',
-    'horizon-blend': 0.03
-  })
-
-  const checkZoomLevel = () => {
-    const zoomLevel = map.getZoom()
-    if (zoomLevel >= 15) {
-      map.setConfigProperty('basemap', 'lightPreset', 'dawn')
-    } else {
-      map.setConfigProperty('basemap', 'lightPreset', 'day')
-    }
-  }
-
-  checkZoomLevel()
-
-  zoomListener = () => checkZoomLevel()
-  map.on('zoom', zoomListener)
-}
-
-const reset3DSettings = (map) => {
-  map.setMaxPitch(60)
-  map.setMinPitch(0)
-
-  if (zoomListener) {
-    map.off('zoom', zoomListener)
-    zoomListener = null
-  }
-}
-
 const handleMapLoad = (map = null) => {
   mapInstance.value = map
 
-  map.on('style.load', () => {
-    map.setFog({
-      range: [1, 10],
-      color: 'white',
-      'horizon-blend': 0.1
-    })
-  })
-
-  if (is3DEnabled.value) {
-    apply3DSettings(map)
-  }
-
-  map.getCanvas().style.touchAction = 'manipulation' // allow vertical swipe
+  initializeMap(map)
 }
 
 const toggle3D = () => {
   is3DEnabled.value = !is3DEnabled.value
 
   if (mapInstance.value) {
-    const newStyle = is3DEnabled.value
-      ? 'mapbox://styles/mapbox/standard'
-      : 'mapbox://styles/mapbox/streets-v11'
-
-    mapInstance.value.setStyle(newStyle)
-
-    mapInstance.value.once('style.load', () => {
-      if (is3DEnabled.value) {
-        apply3DSettings(mapInstance.value)
-      } else {
-        reset3DSettings(mapInstance.value)
-      }
-    })
+    set3DMode(mapInstance.value, is3DEnabled.value)
   }
 }
 
@@ -133,7 +74,7 @@ const changeActiveId = (id) => {
     activeId.value = id
     const place = favoritePlaces.value.find((place) => place.id === id)
     if (place) {
-      mapInstance.value.flyTo({ center: place.coordinates })
+      flyTo(mapInstance.value, place.coordinates)
     }
   }
 }
