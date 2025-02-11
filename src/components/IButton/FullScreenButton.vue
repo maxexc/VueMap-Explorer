@@ -38,8 +38,8 @@ const toggleFullscreen = () => {
   >
     <svg
       v-if="!isFullscreen"
-      width="32"
-      height="32"
+      width="34"
+      height="34"
       fill="#5e5e5e"
       viewBox="-2 -2 36 36"
       stroke="#fff"
@@ -51,8 +51,8 @@ const toggleFullscreen = () => {
     </svg>
     <svg
       v-else
-      width="32"
-      height="32"
+      width="34"
+      height="34"
       fill="none"
       stroke="#5e5e5e"
       stroke-width="1"

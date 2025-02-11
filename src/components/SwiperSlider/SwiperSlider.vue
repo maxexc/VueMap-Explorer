@@ -23,7 +23,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['marker-selected'])
+const emit = defineEmits(['marker-selected', 'edit', 'delete'])
 let swiperInstance = null
 
 const findSlideIndexById = (id) => {

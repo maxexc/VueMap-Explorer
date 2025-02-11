@@ -10,6 +10,7 @@ import ConfirmationModal from '../ConfirmationModal/ConfirmationModal.vue'
 import UserInfo from '../UserInfo/UserInfo.vue'
 import { authService } from '@/api/authService'
 import SwiperSlider from '../SwiperSlider/SwiperSlider.vue'
+import RoutesButton from '../IButton/RoutesButton.vue'
 
 const props = defineProps({
   items: {
@@ -18,7 +19,8 @@ const props = defineProps({
   },
   activeId: {
     required: true,
-    type: [String, Number, null]
+    type: [String, Number, null],
+    defaul: null
   },
   isPlacesLoading: {
     default: false,
@@ -55,10 +57,22 @@ const props = defineProps({
   isMobile: {
     type: Boolean,
     required: true
+  },
+  isRoute: {
+    type: Boolean,
+    default: false
   }
 })
 
-const emit = defineEmits(['place-clicked', 'create', 'updated'])
+const emit = defineEmits([
+  'place-clicked',
+  'create',
+  'updated',
+  'route-request',
+  'edit',
+  'delete',
+  'update:activeId'
+])
 
 const { isOpen: isEditOpen, openModal: openEditModal, closeModal: closeEditModal } = useModal()
 const {
@@ -98,6 +112,7 @@ const selectedItem = computed(() => props.items.find((place) => place.id === pro
 const idItemToDelete = ref(null)
 
 const handleEditPlace = (id) => {
+  emit('update:activeId', id)
   editPointError.value = null
   selectedId.value = id
   openEditModal()
@@ -146,7 +161,7 @@ watch(
   <div
     class="bg-white rounded-lg px-3 sm:px-1 md:px-1 lg:px-6 shadow-md flex flex-col gap-0 mb-[1px]"
   >
-    <div class="flex items-center justify-between gap-2 sm:gap-1 lg:gap-2">
+    <div class="flex items-center justify-between gap-2 sm:gap-[2px] lg:gap-2">
       <UserInfo
         class="flex-grow max-w-[60%] sm:min-w-[51%] lg:min-w-[20%] lg:max-w-[70%]"
         :user-info="userInfo"
@@ -155,8 +170,21 @@ watch(
         :onLogout="onLogout"
         :is-log-out-loading="isLogOutLoading"
       />
+      <RoutesButton
+        class="toggle-route-btn p-[2px] shadow-md rounded-xl ring-1 hover:bg-[#a7fcd1] hover: transition"
+        :isRoute="false"
+        @click="$emit('route-request')"
+        :class="{
+          'bg-[#cdffe6]': !isRoute,
+          'ring-grey': !isRoute,
+          'ring-opacity-10': !isRoute,
+          'ring-opacity-40': isRoute,
+          'bg-[#a7fcd1]': isRoute,
+          'ring-emerald-500': isRoute
+        }"
+      />
       <IButton
-        class="bg-gray-100 min-w-[40%] sm:min-w-min text-white px-3 sm:px-1 lg:px-4 py-[5px] sm:py-[4px] lg:py-[6px] rounded-xl"
+        class="bg-gray-100 min-w-[35%] sm:min-w-min text-white px-3 sm:px-[1px] text-base lg:px-4 py-[5px] sm:py-[2px] lg:py-[6px] rounded-xl"
         variant="mobile"
         @click="emit('create')"
       >
@@ -180,7 +208,7 @@ watch(
       </div>
     </div>
   </div>
-  <div class="px-3 mt-1 sm:mt-0 sm:px-1 lg:px-6 text-black h-full overflow-auto">
+  <div class="px-3 mt-1 sm:mt-0 sm:px-1 lg:px-6 text-black h-full overflow-auto overflow-y-hidden">
     <div
       v-if="isPlacesLoading"
       class="text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
