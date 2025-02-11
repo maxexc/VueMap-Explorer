@@ -30,7 +30,7 @@ watch(() => isRouteBuilding.value, (newVal, oldVal) => {
 export function initDirections(saveRoute) {
     if (!mapInstance.value || directionsInstance.value) return
     directionsInstance.value = new MapboxDirections({
-        accessToken: import.meta.env.VITE_TOKEN_MAPBOX_NEXT,
+        accessToken: import.meta.env.VITE_TOKEN_MAPBOX,
         unit: 'metric',
         profile: 'mapbox/driving',
         geometries: 'geojson',

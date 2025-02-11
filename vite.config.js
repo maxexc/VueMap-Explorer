@@ -18,7 +18,7 @@ export default defineConfig({
   base: BASE_URL,
   plugins: [
     vue(),
-    vueDevTools(),
+    !isProduction && vueDevTools(),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'robots.txt', 'apple-touch-icon.png'],
