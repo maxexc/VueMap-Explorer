@@ -17,7 +17,7 @@ const isMapPage = computed(() => route.name === 'Map')
 
   <footer
     :class="[
-      'fixed bottom-[10px] lg:bottom-1 z-10 left-0 right-0 text-center mt-12 pointer-events-none',
+      'fixed bottom-[16px] lg:bottom-1 z-10 left-0 right-0 text-center mt-12 pointer-events-none',
       isNotFoundPage || isMapPage ? 'text-gray-600' : 'text-white sm:text-gray-600'
     ]"
   >

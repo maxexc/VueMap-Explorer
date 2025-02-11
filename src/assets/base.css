@@ -108,6 +108,132 @@ body {
   height: 100%;
 }
 
-/* .map-container {
-  touch-action: pan-x pan-y;
-} */
+/* logo */
+.mapboxgl-ctrl-bottom-left {
+  scale: 80%;
+  left: -8px !important;
+}
+
+/* compass */
+.mapboxgl-ctrl-group {
+  scale: 90%;
+}
+
+/***    CUSTOME STYLES FOR MAPBOX PLUGIN  Mapbox GL Directions    ***/
+
+/* hide panel mapbox-gl-directions */
+.mapbox-directions-step {
+  display: none !important;
+}
+
+@media (max-width: 639px) {
+  .mapboxgl-ctrl-left {
+    top: unset !important;
+    bottom: -52px !important;
+    left: -26px !important;
+    scale: 80%;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1279px) {
+  .mapboxgl-ctrl-left {
+    position: absolute !important;
+    top: 52px !important;
+    left: -26px !important;
+    scale: 80%;
+  }
+}
+
+.mapboxgl-ctrl-geocoder input[type='text'] {
+  font-size: 16px !important;
+}
+
+.mapbox-directions-profile label {
+  font-size: 16px !important;
+  color: #333333 !important;
+}
+
+@media (min-width: 1280px) {
+  .mapboxgl-ctrl-left {
+    top: 84px !important;
+    left: 4px !important;
+  }
+  .mapboxgl-ctrl-geocoder input[type='text'],
+  .mapbox-directions-profile label {
+    font-size: 14px !important;
+  }
+}
+
+.mapbox-directions-profile {
+  margin: 7px 0 0 0 !important;
+}
+
+.mapboxgl-ctrl-directions {
+  margin: 0 !important;
+}
+
+.mapbox-directions-instructions {
+  overflow-x: hidden !important;
+}
+
+.directions-control-instructions {
+  margin-bottom: -20px;
+}
+
+.mapbox-directions-error {
+  padding: 4px 20px !important;
+}
+
+.mapbox-directions-profile {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+}
+.mapbox-directions-component-keyline {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Injected "Save route" button */
+.my-save-route-btn-class {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  height: 80%;
+  margin: 2px 0;
+  top: 2px;
+  right: 4px;
+  z-index: 10;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 1px 8px;
+  border-radius: 10px;
+  background-color: #a7fcd1;
+  color: #333333;
+  transition: all 0.2s ease-in-out;
+}
+
+.my-save-route-btn-class:hover {
+  color: #232323;
+  align-items: center;
+
+  background-color: #91ffc8 !important;
+  transform: scale(0.85);
+}
+
+.my-addpoint-btn-class {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  top: 28px;
+  right: 41px;
+  z-index: 10;
+  background: #a7fcd1 !important;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.my-addpoint-btn-class:hover {
+  transform: scale(0.85) !important;
+  background: #91ffc8 !important;
+}

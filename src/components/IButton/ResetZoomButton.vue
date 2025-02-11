@@ -30,7 +30,7 @@ const resetZoom = () => {
   <button
     v-button-animation
     @click="resetZoom"
-    class="right-[10px] bottom-[104px] z-10 w-10 h-10 bg-white rounded-[50%] border border-slate-300 shadow-md hover:bg-gray-100 transition transform"
+    class="right-[10px] bottom-[103px] z-10 w-10 h-10 bg-white rounded-[50%] border border-slate-300 shadow-md hover:bg-gray-100 transition transform"
   >
     <div
       style="
