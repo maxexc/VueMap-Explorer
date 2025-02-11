@@ -193,6 +193,12 @@ const handleMapClick = (event) => {
     routeStore.isAddPointMode = false
     console.log('Режим добавления точки отключен')
     showTemporaryWaypointsOnMap(mapInstance.value, directionsInstance.value)
+
+    const destination = directionsInstance.value.getDestination() // point B
+    console.log('destination B point:', destination.geometry.coordinates)
+    setTimeout(() => {
+      directionsInstance.value.setDestination(destination.geometry.coordinates)
+    }, 400)
     return
   }
 
@@ -541,9 +547,13 @@ function fitToCurrentRoute() {
             title="Click to zoom map to the entire route"
           >
             <span
-              class="bg-[#cdffe6] flex items-center gap-[2px] group-hover:bg-[#a7fcd1] transition-all duration-300 ease-in-out py-[1px] sm:py-[2px] px-[3px] lg:px-2 rounded-md"
+              class="bg-[#cdffe6] flex content-center items-center gap-[2px] group-hover:bg-[#a7fcd1] transition-all duration-300 ease-in-out py-[1px] sm:py-[2px] px-[3px] lg:px-2 rounded-md"
             >
-              Route <span class="pb-1">{{ routeStore.routeIcon }}</span> is loaded
+              Route
+              <span class="pb-[2px] flex content-center items-center">{{
+                routeStore.routeIcon
+              }}</span>
+              is loaded
             </span>
           </button>
           <CrossIcon
@@ -598,7 +608,7 @@ function fitToCurrentRoute() {
           <FullScreenButton class="absolute bottom-[151px] right-[13px]" />
           <MapboxGeolocateControl
             position="bottom-left"
-            :trackUserLocation="false"
+            :trackUserLocation="true"
             :showUserLocation="true"
             :fitBoundsOptions="{ maxZoom: 10 }"
             :geolocationOptions="{

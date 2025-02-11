@@ -256,6 +256,6 @@ export function showTemporaryWaypointsOnMap(map, directionsInstance) {
         type: 'FeatureCollection',
         features: waypoints
     });
-    throw new Error('Stop B marker from shifting');
+    // throw new Error('Stop B marker from shifting');
     // undefined[0] // Blocking 'B' from shifting!
 }
