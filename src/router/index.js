@@ -16,6 +16,8 @@ export const BASE_DEV = process.env.NODE_ENV === 'production'
     : '';
 
 console.log('BASE ROUTER: ', BASE_DEV,);
+console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
+
 
 // Hosting determination
 const isGitHub = window.location.hostname === 'maxexc.github.io';
