@@ -17,7 +17,7 @@ export function initializeMap(map) {
             'horizon-blend': 0.1
         })
     })
-    map.getCanvas().style.touchAction = 'manipulation'
+    // map.getCanvas().style.touchAction = 'manipulation'
 }
 
 export function enable3D(map) {
