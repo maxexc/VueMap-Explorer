@@ -482,7 +482,7 @@ function fitToCurrentRoute() {
 console.log('isMobile: ', isMobile.value)
 </script>
 <template>
-  <section class="relative h-[100vh] overflow-auto">
+  <section class="relative h-[100vh] overflow-auto bg-white">
     <SwiperSlider
       v-if="isMobile"
       :markers="favoritePlaces"
@@ -544,7 +544,7 @@ console.log('isMobile: ', isMobile.value)
       </div>
 
       <div
-        class="relative w-full sm:mt-0 h-[74vh] sm:h-[100vh] flex-grow flex items-center justify-center text-6xl pb-[2px]"
+        class="relative bg-white w-full sm:mt-0 h-[74vh] sm:h-[100vh] flex-grow flex items-center justify-center text-6xl pb-[2px]"
       >
         <MapboxMap
           id="map"
