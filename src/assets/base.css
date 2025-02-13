@@ -237,3 +237,7 @@ body {
   transform: scale(0.85) !important;
   background: #91ffc8 !important;
 }
+
+.mapboxgl-ctrl-geocoder {
+  color: #333333 !important;
+}
