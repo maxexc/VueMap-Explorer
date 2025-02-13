@@ -1,7 +1,6 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { storeToRefs } from 'pinia' // import storeToRefs for reactivity from Pinia
 
 import { mapSettings } from '@/map/settings'
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -17,7 +16,6 @@ import VerticalSliderCard from '@/components/SwiperSlider/VerticalSliderCard.vue
 import FavoritePlaces from '@/components/FavoritePlaces/FavoritePlaces.vue'
 import CreateNewPlaceModal from '@/components/CreateNewPlaceModal/CreateNewPlaceModal.vue'
 import MarkerIcon from '@/components/icons/MarkerIcon.vue'
-import CrossIcon from '@/components/icons/CrossIcon.vue'
 import ResetZoomButton from '@/components/IButton/ResetZoomButton.vue'
 import Toggle3DButton from '@/components/IButton/Toggle3DButton.vue'
 import FullScreenButton from '@/components/IButton/FullScreenButton.vue'
@@ -27,6 +25,7 @@ import { useMutation } from '@/composables/useMutation'
 import { authService } from '@/api/authService'
 import { addFavoritePlaces, getFavoritePlaces } from '@/api/favorite-places'
 import { getUserInfo } from '@/api/user'
+import { storeToRefs } from 'pinia'
 import { useRouteStore } from '@/stores/routeStore'
 
 import {
@@ -50,12 +49,13 @@ import {
 
 import { transformDirectionsRoute } from '@/services/routeTransformService'
 import RouteStatusBar from '@/components/RouteStatusBar/RouteStatusBar.vue'
+import { fitToCurrentRoute, removeRoute } from '@/services/routeService'
 
 // -------------------  Pinia Store
 const routeStore = useRouteStore()
 
 const router = useRouter()
-const { currentRoute } = storeToRefs(routeStore) // destruct currentRoute for reactive tracking
+const { isMobile, currentRoute } = storeToRefs(routeStore) // destruct currentRoute for reactive tracking
 
 const is3DEnabled = ref(false)
 const activeId = ref(null)
@@ -154,19 +154,19 @@ onMounted(() => {
   routeStore.loadSavedRoute()
 })
 
-const isMobile = ref(window.innerWidth < 640)
+// const isMobile = ref(window.innerWidth < 640)
 
-const updateIsMobile = () => {
-  isMobile.value = window.innerWidth < 640
-}
+// const updateIsMobile = () => {
+//   isMobile.value = window.innerWidth < 640
+// }
 
-onMounted(() => {
-  window.addEventListener('resize', updateIsMobile)
-})
+// onMounted(() => {
+//   window.addEventListener('resize', updateIsMobile)
+// })
 
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', updateIsMobile)
-})
+// onBeforeUnmount(() => {
+//   window.removeEventListener('resize', updateIsMobile)
+// })
 
 // ------------------- Map
 const handleMapLoad = (map = null) => {
@@ -354,32 +354,6 @@ function restoreDirectionsConfig() {
 }
 
 // ------------------- remove & show
-const removeRoute = () => {
-  if (!mapInstance.value) return
-  const map = mapInstance.value
-
-  if (map.getSource('my-route')) {
-    if (map.getLayer('my-route-line')) {
-      map.removeLayer('my-route-line')
-    }
-    if (map.getLayer('my-route-line-casing')) {
-      map.removeLayer('my-route-line-casing')
-    }
-    map.removeSource('my-route')
-  }
-
-  if (map.getSource('route-points')) {
-    if (map.getLayer('route-points-symbol')) {
-      map.removeLayer('route-points-symbol')
-    }
-    if (map.getLayer('route-points-layer')) {
-      map.removeLayer('route-points-layer')
-    }
-    map.removeSource('route-points')
-  }
-
-  routeStore.clearRoute()
-}
 
 function showRouteOnMap() {
   const map = mapInstance.value
@@ -433,53 +407,6 @@ async function saveGeojsonToFile(geojson) {
     console.error('Error when saving the file:', err)
   }
 }
-
-function fitToCurrentRoute() {
-  if (!currentRoute.value) {
-    console.log('No currentRoute found.')
-    return
-  }
-
-  const geometryObj = currentRoute.value.geometry
-  if (!geometryObj || !geometryObj.geometry || !geometryObj.geometry.coordinates) {
-    console.log('No geometry.coordinates found in currentRoute.value.geometry')
-    return
-  }
-
-  const coords = geometryObj.geometry.coordinates
-  if (!Array.isArray(coords) || coords.length === 0) {
-    console.log('Route has no coordinates array.')
-    return
-  }
-
-  if (!mapInstance.value) {
-    console.log('No map instance available.')
-    return
-  }
-
-  let minLng = Infinity,
-    minLat = Infinity,
-    maxLng = -Infinity,
-    maxLat = -Infinity
-
-  for (const [lng, lat] of coords) {
-    if (lng < minLng) minLng = lng
-    if (lng > maxLng) maxLng = lng
-    if (lat < minLat) minLat = lat
-    if (lat > maxLat) maxLat = lat
-  }
-
-  const bounds = [
-    [minLng, minLat],
-    [maxLng, maxLat]
-  ]
-
-  mapInstance.value.fitBounds(bounds, {
-    padding: 60,
-    duration: 1200
-  })
-}
-console.log('isMobile: ', isMobile.value)
 </script>
 <template>
   <section class="relative h-[100vh] overflow-auto bg-white">
@@ -598,13 +525,5 @@ console.log('isMobile: ', isMobile.value)
         </MapboxMap>
       </div>
     </main>
-    <RouteStatusBar
-      v-if="currentRoute && isMobile"
-      :isMobile="true"
-      :routeIcon="routeStore.routeIcon"
-      :onFitRoute="fitToCurrentRoute"
-      :onRemoveRoute="removeRoute"
-      class="absolute z-10 bottom-0"
-    />
   </section>
 </template>

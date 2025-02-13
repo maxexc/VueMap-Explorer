@@ -4,9 +4,9 @@ import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { router } from './router';
+import App from './App.vue'
 import { authService, TOKEN_KEY } from './api/authService';
 
-import App from './App.vue'
 
 const token = localStorage.getItem(TOKEN_KEY)
 if (token) {
@@ -14,6 +14,17 @@ if (token) {
 }
 
 const app = createApp(App)
+const pinia = createPinia()
+
+app.use(pinia)
+app.use(router)
+
+// ---------------  Important!: We can only get a store after!  app.use(pinia) ---------------
+import { useRouteStore } from '@/stores/routeStore'
+import { initRouteService } from './services/routeService';
+const store = useRouteStore()
+initRouteService(store)
+
 
 // JS for iOS
 app.directive('button-animation', {
@@ -38,7 +49,5 @@ app.directive('button-animation', {
     },
 });
 
-app.use(createPinia())
-app.use(router)
 
 app.mount('#app')

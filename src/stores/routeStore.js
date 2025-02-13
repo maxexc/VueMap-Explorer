@@ -8,11 +8,13 @@ export const useRouteStore = defineStore('route', {
     state: () => ({
         currentRoute: shallowRef(null),
         isAddPointMode: false,
+        isMobile: false,
 
         //      *** TO DO ***
         // userRoutes: [],    routes list, shared routes, shared points, etc.
     }),
     getters: {
+        hasRoute: (state) => !!state.currentRoute,
         routeIcon(state) {
             if (!state.currentRoute) return '';
             const type = state.currentRoute.routeType;
@@ -26,6 +28,10 @@ export const useRouteStore = defineStore('route', {
         },
     },
     actions: {
+        setMobile(flag) {
+            this.isMobile = flag
+        },
+
         setRoute(route) {
             this.currentRoute = route
             localStorage.setItem('savedRoute', JSON.stringify(route))

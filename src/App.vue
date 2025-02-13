@@ -1,9 +1,28 @@
 <script setup>
+import { computed, onBeforeUnmount, onMounted } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { useRouteStore } from '@/stores/routeStore'
+import { storeToRefs } from 'pinia'
 import ISpinner from './components/ISpinner/ISpinner.vue'
+import RouteStatusBar from './components/RouteStatusBar/RouteStatusBar.vue'
+import { fitToCurrentRoute, removeRoute } from './services/routeService'
 
 const route = useRoute()
+const routeStore = useRouteStore()
+const { isMobile, hasRoute, routeIcon } = storeToRefs(routeStore)
+
+function updateIsMobile() {
+  routeStore.setMobile(window.innerWidth < 640)
+}
+
+onMounted(() => {
+  updateIsMobile()
+  window.addEventListener('resize', updateIsMobile)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateIsMobile)
+})
 
 const isNotFoundPage = computed(() => route.name === 'NotFoundView')
 const isMapPage = computed(() => route.name === 'Map')
@@ -21,6 +40,16 @@ const isMapPage = computed(() => route.name === 'Map')
       isNotFoundPage || isMapPage ? 'text-gray-600' : 'text-white sm:text-gray-600'
     ]"
   >
-    <p class="text-sm">&copy; Created by maxexc</p>
+    <p class="text-sm z-10">&copy; Created by maxexc</p>
+    <div class="pointer-events-auto">
+      <RouteStatusBar
+        v-if="hasRoute && isMobile"
+        :isMobile="true"
+        :routeIcon="routeIcon"
+        :onFitRoute="fitToCurrentRoute"
+        :onRemoveRoute="removeRoute"
+        class="fixed z-[-1] bottom-[0px]"
+      />
+    </div>
   </footer>
 </template>

@@ -1,7 +1,6 @@
 import { ref, shallowRef, watch } from 'vue'
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 import { applyDirectionsStyle, removeTemporaryWaypointsLayer } from '@/services/mapService';
-import { useRouteStore } from '@/stores/routeStore';
 
 // -------------------  Main mapbox API layers
 export const mapInstance = shallowRef(null)  // ref(null)
@@ -10,7 +9,11 @@ export const temporaryRoute = shallowRef(null)  // ref(null)
 export const savedDirectionsConfig = shallowRef(null)  // ref(null)
 
 // -------------------  Pinia Store
-const routeStore = useRouteStore()
+let routeStore = null
+
+export function initRouteService(store) {
+    routeStore = store
+}
 
 const isRouteBuilding = ref(false)
 let checkInterval = null
@@ -73,6 +76,7 @@ export function toggleDirections() {
 }
 
 export function enableAddPointMode() {
+    if (!routeStore) return
     routeStore.isAddPointMode = true
     console.log('Режим добавления точки активирован (enableAddPointMode)')
 }
@@ -142,4 +146,82 @@ export function stopDirectionsPanelChecker() {
         clearInterval(checkInterval)
         checkInterval = null
     }
+}
+
+export function fitToCurrentRoute() {
+    if (!routeStore) {
+        console.warn('routeStore not initialized yet')
+        return
+    }
+
+    if (!mapInstance.value || !routeStore.currentRoute) {
+        console.log('No map or route to fit.')
+        return
+    }
+
+    const geometryObj = routeStore.currentRoute.geometry
+    if (!geometryObj || !geometryObj.geometry || !geometryObj.geometry.coordinates) {
+        console.log('No geometry.coordinates found in routeStore.currentRoute.geometry')
+        return
+    }
+
+    const coords = geometryObj.geometry.coordinates
+    if (!Array.isArray(coords) || coords.length === 0) {
+        console.log('Route has no coordinates array.')
+        return
+    }
+
+    let minLng = Infinity,
+        minLat = Infinity,
+        maxLng = -Infinity,
+        maxLat = -Infinity
+
+    for (const [lng, lat] of coords) {
+        if (lng < minLng) minLng = lng
+        if (lng > maxLng) maxLng = lng
+        if (lat < minLat) minLat = lat
+        if (lat > maxLat) maxLat = lat
+    }
+
+    const bounds = [
+        [minLng, minLat],
+        [maxLng, maxLat]
+    ]
+
+    mapInstance.value.fitBounds(bounds, {
+        padding: 60,
+        duration: 1200
+    })
+}
+
+export function removeRoute() {
+    if (!routeStore) {
+        console.warn('routeStore not initialized yet')
+        return
+    }
+
+    if (!mapInstance.value) return
+    const map = mapInstance.value
+
+    if (map.getSource('my-route')) {
+        if (map.getLayer('my-route-line')) {
+            map.removeLayer('my-route-line')
+        }
+        if (map.getLayer('my-route-line-casing')) {
+            map.removeLayer('my-route-line-casing')
+        }
+        map.removeSource('my-route')
+    }
+
+    if (map.getSource('route-points')) {
+        if (map.getLayer('route-points-symbol')) {
+            map.removeLayer('route-points-symbol')
+        }
+        if (map.getLayer('route-points-layer')) {
+            map.removeLayer('route-points-layer')
+        }
+        map.removeSource('route-points')
+    }
+
+    routeStore.clearRoute()
 }
