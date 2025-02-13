@@ -12,7 +12,7 @@ const props = defineProps({
 <template>
   <!-- Обёртка для “Route is loaded” -->
   <div
-    class="flex items-center space-x-1 px-[2px] lg:px-6 my-[3px] sm:mb-1 lg:mb-2"
+    class="safe-bottom flex items-center space-x-1 px-[2px] lg:px-6 my-[3px] sm:mb-1 lg:mb-2"
     :style="isMobile ? 'height:20px' : 'height:35px'"
   >
     <div class="w-[10px] sm:w-3 h-[10px] sm:h-3 rounded-full bg-[#91ffc8] text-xs shadow-md"></div>
@@ -37,3 +37,9 @@ const props = defineProps({
     />
   </div>
 </template>
+
+<style>
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+</style>
