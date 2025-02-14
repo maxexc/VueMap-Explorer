@@ -187,6 +187,8 @@ const handleMapLoad = (map = null) => {
 
 const handleMapClick = (event) => {
   if (routeStore.isAddPointMode && directionsActive.value) {
+    const destination = directionsInstance.value.getDestination() // point B
+
     const wps = directionsInstance.value.getWaypoints()
     const index = wps.length - 1 + 1
     directionsInstance.value.addWaypoint(index, [event.lngLat.lng, event.lngLat.lat])
@@ -195,7 +197,6 @@ const handleMapClick = (event) => {
     console.log('Режим добавления точки отключен')
     showTemporaryWaypointsOnMap(mapInstance.value, directionsInstance.value)
 
-    const destination = directionsInstance.value.getDestination() // point B
     console.log('destination B point:', destination.geometry.coordinates)
     setTimeout(() => {
       directionsInstance.value.setDestination(destination.geometry.coordinates)
@@ -251,7 +252,9 @@ const changeActiveIdWithDirections = (id) => {
   } else if (!destination || !destination.geometry) {
     directionsInstance.value.setDestination(coords)
   } else {
-    directionsInstance.value.addWaypoint(1, coords)
+    const wps = directionsInstance.value.getWaypoints()
+    const index = wps.length - 1 + 1
+    directionsInstance.value.addWaypoint(index, coords)
   }
 }
 
