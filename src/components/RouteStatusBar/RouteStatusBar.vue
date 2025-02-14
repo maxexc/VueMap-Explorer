@@ -5,12 +5,11 @@ const props = defineProps({
   isMobile: { type: Boolean, default: false },
   onFitRoute: { type: Function, required: true },
   onRemoveRoute: { type: Function, required: true },
-  routeIcon: { type: String, default: '📍' } // откуда берём иконку маршрута
+  routeIcon: { type: String, default: '📍' }
 })
 </script>
 
 <template>
-  <!-- Обёртка для “Route is loaded” -->
   <div
     class="safe-bottom flex items-center space-x-1 px-[2px] lg:px-6 my-[3px] sm:mb-1 lg:mb-2"
     :style="isMobile ? 'height:20px' : 'height:35px'"
