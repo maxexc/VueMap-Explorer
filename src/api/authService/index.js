@@ -72,28 +72,31 @@ clientFetch.interceptors.request.use((request) => {
     return request;
 });
 
+
+// need Cookie
+
 clientFetch.interceptors.response.use(
     (response) => response,
     async (error) => {
+
         const errorCode = error.response?.status
+        const reqUrl = error.config?.url || '';
 
-        if (errorCode === 401) {
-            console.warn('401 Unauthorized. Trying to refresh token...');
-            try {
-                await authService.refresh();
-                console.info('Token refreshed successfully.');
-                return clientFetch(error.config);
-            } catch (e) {
-                console.error('Failed to refresh token. Redirecting to login...');
-                authService.clearToken();
-                router.push('/auth/login')
-                return Promise.reject(error);
+        if (errorCode === 401 && !error.config._retry) {
+            error.config._retry = true;
+            if (!(reqUrl.includes('/login') || reqUrl.includes('/register') || reqUrl.includes('/refresh'))) {
+                try {
+                    await authService.refresh();
+                    return clientFetch(error.config);
+                } catch (e) {
+                    authService.clearToken();
+                    router.push('/auth/login');
+                    return Promise.reject(error);
+                }
             }
-        } else if (errorCode === 500) {
-            // router.push('/auth/login')
-            return Promise.reject(error)
+            router.push('/auth/login');
+            return Promise.reject(error);
         }
-
         return Promise.reject(error);
     }
 );
