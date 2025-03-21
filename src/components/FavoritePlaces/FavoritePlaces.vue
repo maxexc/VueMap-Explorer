@@ -163,7 +163,7 @@ watch(
   >
     <div class="flex items-center justify-between gap-2 sm:gap-[2px] lg:gap-2">
       <UserInfo
-        class="flex-grow max-w-[60%] sm:min-w-[51%] lg:min-w-[20%] lg:max-w-[70%]"
+        class="flex-grow max-w-[46%] sm:min-w-[51%] lg:min-w-[20%] lg:max-w-[70%]"
         :user-info="userInfo"
         :is-user-loading="isUserLoading"
         :user-error="userError"
