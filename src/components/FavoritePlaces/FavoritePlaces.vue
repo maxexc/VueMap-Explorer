@@ -208,7 +208,9 @@ watch(
       </div>
     </div>
   </div>
-  <div class="px-3 mt-1 sm:mt-0 sm:px-1 lg:px-6 text-black h-full overflow-auto overflow-y-hidden">
+  <div
+    class="px-3 pt-0 lg:pt-1 mt-1 sm:mt-0 sm:px-1 lg:px-6 text-black h-full overflow-auto overflow-y-hidden"
+  >
     <div
       v-if="isPlacesLoading"
       class="text-[12px] sx:text-base text-primary left-3 md:left-1 sm:left-1 lg:left-6 top-[-5px] sm:top-[14px] lg:top-[14px]"
