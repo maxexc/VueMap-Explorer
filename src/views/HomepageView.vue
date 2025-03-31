@@ -50,6 +50,7 @@ import {
 import { transformDirectionsRoute } from '@/services/routeTransformService'
 import RouteStatusBar from '@/components/RouteStatusBar/RouteStatusBar.vue'
 import { fitToCurrentRoute, removeRoute } from '@/services/routeService'
+import { routesService } from '@/api/routesService'
 
 // -------------------  Pinia Store
 const routeStore = useRouteStore()
@@ -288,6 +289,14 @@ const saveRoute = () => {
 
     //    ***  TO DO  ***
     // (new) - "saveRouteToServer", if user online/auth
+    routesService
+      .createRoute(routeObj)
+      .then((created) => {
+        console.log('Route saved to DB', created)
+      })
+      .catch((err) => {
+        console.error('Failed to save route', err)
+      })
 
     localStorage.setItem('savedRoute', JSON.stringify(routeObj))
 

@@ -29,7 +29,7 @@ const isMapPage = computed(() => route.name === 'Map')
 </script>
 
 <template>
-  <main>
+  <main id="app">
     <ISpinner />
     <RouterView />
   </main>
@@ -53,3 +53,10 @@ const isMapPage = computed(() => route.name === 'Map')
     </div>
   </footer>
 </template>
+
+<style scoped>
+#app {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+</style>

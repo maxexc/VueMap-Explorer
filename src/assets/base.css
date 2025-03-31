@@ -97,6 +97,29 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hack for iOS Safari: */
+@supports (-webkit-touch-callout: none) {
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .h-screen,
+  .min-h-screen {
+    height: -webkit-fill-available !important;
+    min-height: -webkit-fill-available !important;
+  }
+}
+
 /* compass buttom scale */
 .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-compass {
   width: 40px;
