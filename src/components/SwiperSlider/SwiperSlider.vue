@@ -109,6 +109,8 @@ const swiperSettings = computed(() => ({
   loop: true,
   direction: props.isMobile ? 'horizontal' : 'vertical',
   class: props.isMobile ? 'slider-vertical' : 'slider-horisontal',
+  preventClicks: false,
+  preventClicksPropagation: false,
   coverflowEffect: {
     rotate: 0,
     stretch: 0,
