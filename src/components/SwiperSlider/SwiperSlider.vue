@@ -111,6 +111,8 @@ const swiperSettings = computed(() => ({
   class: props.isMobile ? 'slider-vertical' : 'slider-horisontal',
   preventClicks: false,
   preventClicksPropagation: false,
+  touchStartPreventDefault: false,
+  touchMoveStopPropagation: false,
   coverflowEffect: {
     rotate: 0,
     stretch: 0,
@@ -157,6 +159,8 @@ const swiperSettings = computed(() => ({
 .marker-slider {
   z-index: 1;
   background: transparent;
+
+  touch-action: pan-y;
 }
 .slider-horisontal {
   height: calc(100vh - 74px);

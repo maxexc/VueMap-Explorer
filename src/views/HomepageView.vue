@@ -421,10 +421,7 @@ async function saveGeojsonToFile(geojson) {
 }
 </script>
 <template>
-  <section
-    class="relative h-[100vh] overflow-auto bg-white"
-    style="padding-bottom: env(safe-area-inset-bottom)"
-  >
+  <section class="relative section-full-height overflow-auto bg-white">
     <SwiperSlider
       v-if="isMobile"
       :markers="favoritePlaces"
