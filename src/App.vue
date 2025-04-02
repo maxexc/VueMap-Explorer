@@ -57,7 +57,7 @@ const isMapPage = computed(() => route.name === 'Map')
 <style scoped>
 #app {
   padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom, 80 px);
+  padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }
