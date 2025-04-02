@@ -422,7 +422,7 @@ async function saveGeojsonToFile(geojson) {
 </script>
 <template>
   <section
-    class="relative min-h-screen overflow-auto bg-white"
+    class="relative h-[100vh] overflow-auto bg-white"
     style="padding-bottom: env(safe-area-inset-bottom)"
   >
     <SwiperSlider
