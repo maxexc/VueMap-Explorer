@@ -424,13 +424,19 @@ const isIOS = ref(false)
 
 onMounted(() => {
   isIOS.value = /iPhone|iPad|iPod/i.test(navigator.userAgent)
-  alert(`iOS : ${isIOS.value}`)
+  // alert(`iOS : ${isIOS.value}`)
 })
 // class="relative min-h-screen overflow-auto bg-white" class="relative h-[100vh] overflow-auto bg-white"
+{
+  /* <section
+    :class="['relative overflow-auto bg-white', isIOS ? 'section-ios' : 'section-android-desktop']"
+  > */
+}
 </script>
 <template>
   <section
-    :class="['relative overflow-auto bg-white', isIOS ? 'section-ios' : 'section-android-desktop']"
+    class="relative min-h-screen overflow-auto bg-white"
+    style="padding-bottom: env(safe-area-inset-bottom)"
   >
     <SwiperSlider
       v-if="isMobile"
