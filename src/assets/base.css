@@ -274,3 +274,8 @@ body,
 .mapboxgl-ctrl-geocoder {
   color: #333333 !important;
 }
+
+/* Fixing the click bug in Swiper on iOS */
+.marker-slider .swiper-slide-active {
+  transform: translate3d(0, 0, 0) !important;
+}
