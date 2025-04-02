@@ -98,8 +98,7 @@ body {
 }
 
 html,
-body,
-#app {
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -107,20 +106,30 @@ body,
 
 /* Hack for iOS Safari: */
 @supports (-webkit-touch-callout: none) {
+  html,
   body {
-    min-height: 100vh;
+    /* min-height: 100vh; */
     min-height: -webkit-fill-available;
   }
 }
-.ios-safe-bottom {
+
+.section-android-desktop {
+  height: 100vh;
+}
+.section-ios {
+  height: -webkit-fill-available;
+  min-height: -webkit-fill-available;
+}
+
+/* .ios-safe-bottom {
   padding-bottom: env(safe-area-inset-bottom, 80px);
   padding-bottom: constant(safe-area-inset-bottom, 80px);
-}
-@media (orientation: landscape) {
+} */
+/* @media (orientation: landscape) {
   .ios-safe-bottom {
     padding-bottom: env(safe-area-inset-bottom);
   }
-}
+} */
 
 @supports (-webkit-touch-callout: none) {
   .h-screen,
@@ -129,6 +138,10 @@ body,
     min-height: -webkit-fill-available !important;
   }
 }
+
+/* .section-ios {
+  min-height: 100vh;
+} */
 
 /* .section-android-desktop {
   height: 100vh;
