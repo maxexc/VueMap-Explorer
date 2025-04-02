@@ -419,9 +419,19 @@ async function saveGeojsonToFile(geojson) {
     console.error('Error when saving the file:', err)
   }
 }
+
+const isIOS = ref(false)
+
+onMounted(() => {
+  isIOS.value = /iPhone|iPad|iPod/i.test(navigator.userAgent)
+  alert(`iOS : ${isIOS.value}`)
+})
+// class="relative min-h-screen overflow-auto bg-white" class="relative h-[100vh] overflow-auto bg-white"
 </script>
 <template>
-  <section class="relative section-full-height overflow-auto bg-white">
+  <section
+    :class="['relative overflow-auto bg-white', isIOS ? 'section-ios' : 'section-android-desktop']"
+  >
     <SwiperSlider
       v-if="isMobile"
       :markers="favoritePlaces"
