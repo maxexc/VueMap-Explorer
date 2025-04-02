@@ -103,48 +103,61 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  padding-top: env(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top, 80px);
   padding-right: env(safe-area-inset-right);
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom, 80px);
   padding-left: env(safe-area-inset-left);
 }
 
 /* Hack for iOS Safari: */
-@supports (-webkit-touch-callout: none) {
+/* @supports (-webkit-touch-callout: none) {
   body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
   }
-}
+} */
 /* .ios-safe-bottom {
   padding-bottom: env(safe-area-inset-bottom);
   padding-bottom: constant(safe-area-inset-bottom);
 } */
 @media (orientation: landscape) {
   .ios-safe-bottom {
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom, 80px);
   }
 }
 
-.section-full-height {
-  height: 100vh; /* for Android and desktops */
+.section-android-desktop {
+  height: 100vh;
+  /* min-height: 100vh; */
+}
+
+.section-ios {
+  height: -webkit-fill-available; /* для iOS */
+  min-height: -webkit-fill-available;
   min-height: 100vh;
+  padding-bottom: env(safe-area-inset-bottom, 80px); /* home indicator */
 }
 
-@supports (-webkit-touch-callout: none) {
-  /* .h-screen,
-  .min-h-screen {
-    height: -webkit-fill-available !important;
-    min-height: -webkit-fill-available !important;
-  } */
+/* for Android and desktops */
+/* .section-full-height {
+  height: 100vh;
+  min-height: 100vh;
+} */
+
+/* .h-screen,
+.min-h-screen {
+  height: -webkit-fill-available !important;
+  min-height: -webkit-fill-available !important;
+} */
+/* for iOS take -webkit-fill-available,  to avoid overlapping panels */
+/* @supports (-webkit-touch-callout: none) {
   .section-full-height {
-    /* for iOS take -webkit-fill-available,  to avoid overlapping panels */
     height: -webkit-fill-available !important;
     min-height: -webkit-fill-available !important;
 
     padding-bottom: env(safe-area-inset-bottom);
   }
-}
+} */
 
 /* compass buttom scale */
 .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-compass {
