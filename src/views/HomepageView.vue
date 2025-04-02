@@ -435,8 +435,7 @@ onMounted(() => {
 </script>
 <template>
   <section
-    class="relative min-h-screen overflow-auto bg-white"
-    style="padding-bottom: env(safe-area-inset-bottom)"
+    :class="['relative overflow-auto bg-white', isIOS ? 'section-ios' : 'section-android-desktop']"
   >
     <SwiperSlider
       v-if="isMobile"

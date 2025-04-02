@@ -60,5 +60,6 @@ const isMapPage = computed(() => route.name === 'Map')
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left, 1px);
   padding-right: env(safe-area-inset-right, 1px);
+  padding-bottom: constant(safe-area-inset-bottom);
 }
 </style>
