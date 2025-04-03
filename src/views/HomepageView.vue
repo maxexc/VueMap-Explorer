@@ -57,8 +57,6 @@ const routeStore = useRouteStore()
 
 const router = useRouter()
 const { isMobile, currentRoute, isIOS } = storeToRefs(routeStore) // destruct currentRoute for reactive tracking
-console.log('isIOS in HW:', isIOS.value)
-alert(`isIOS in HW: ${isIOS.value}`)
 
 const is3DEnabled = ref(false)
 const activeId = ref(null)
@@ -421,22 +419,13 @@ async function saveGeojsonToFile(geojson) {
     console.error('Error when saving the file:', err)
   }
 }
-
-// const isIOS = ref(false)
-
-// onMounted(() => {
-//   isIOS.value = /iPhone|iPad|iPod/i.test(navigator.userAgent)
-//   // alert(`iOS : ${isIOS.value}`)
-// })
-// class="relative min-h-screen overflow-auto bg-white" class="relative h-[100vh] overflow-auto bg-white"
-
-/* <section
-    :class="['relative overflow-auto bg-white', isIOS ? 'section-ios' : 'section-android-desktop']"
-  > */
 </script>
 <template>
   <section
-    :class="['relative overflow-auto bg-white', isIOS ? 'section-ios' : 'section-android-desktop']"
+    :class="[
+      'relative overflow-auto bg-white',
+      isIOS.value ? 'section-ios' : 'section-android-desktop'
+    ]"
   >
     <SwiperSlider
       v-if="isMobile"
@@ -538,7 +527,7 @@ async function saveGeojsonToFile(geojson) {
           </MapboxMarker>
           <MapboxNavigationControl position="bottom-right" :showZoom="false" :showCompass="true" />
           <ResetZoomButton class="absolute" :mapInstance="mapInstance" :defaultZoom="10" />
-          <Toggle3DButton class="fixed" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
+          <Toggle3DButton class="absolute" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
           <FullScreenButton class="absolute bottom-[151px] right-[13px]" />
           <MapboxGeolocateControl
             position="bottom-left"
