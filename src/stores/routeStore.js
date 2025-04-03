@@ -9,6 +9,7 @@ export const useRouteStore = defineStore('route', {
         currentRoute: shallowRef(null),
         isAddPointMode: false,
         isMobile: false,
+        isIOS: false,
 
         //      *** TO DO ***
         // userRoutes: [],    routes list, shared routes, shared points, etc.
@@ -46,6 +47,14 @@ export const useRouteStore = defineStore('route', {
                 this.currentRoute = JSON.parse(saved)
             }
         },
+        detectPlatform() {
+            const iOSRegex = /iPhone|iPad|iPod/i
+            // Additional iPadOS17 check for iOS to avoid overlapping panels
+            const isAppleTabletOS17 =
+                navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1
+
+            this.isIOS = iOSRegex.test(navigator.userAgent) || isAppleTabletOS17
+        }
 
 
         //      *** TO DO ***

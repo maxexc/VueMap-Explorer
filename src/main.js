@@ -25,6 +25,26 @@ import { initRouteService } from './services/routeService';
 const store = useRouteStore()
 initRouteService(store)
 
+// bug-fix iOS overscaling
+store.detectPlatform()
+const metaViewport = document.querySelector("meta[name='viewport']")
+
+if (metaViewport) {
+    if (store.isIOS) {
+        // iOS: Turn off zoom
+        metaViewport.setAttribute(
+            'content',
+            'width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0'
+        )
+    } else {
+        // not iOS: allow user-scalable
+        metaViewport.setAttribute(
+            'content',
+            'width=device-width, initial-scale=1.0, viewport-fit=cover'
+        )
+        // additionally:  ,initial-scale=1.0, user-scalable=yes, maximum-scale=5.0
+    }
+}
 
 // JS for iOS
 app.directive('button-animation', {

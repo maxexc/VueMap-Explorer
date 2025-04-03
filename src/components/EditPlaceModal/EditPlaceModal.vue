@@ -77,7 +77,7 @@ const handleChangeImg = (url) => {
   <IModal :is-show="isOpen" @close="emit('close')">
     <form
       @submit.prevent="emit('submit', formData)"
-      class="w-full sm:min-w-[570px] lg:min-w-[700px]"
+      class="w-full sx:w-[480px] sm:min-w-[570px] lg:min-w-[700px]"
     >
       <div class="flex gap-2 items-center justify-center sx:justify-normal mb-2 sx:ml-[2px]">
         <MarkerIcon class="w-5" />

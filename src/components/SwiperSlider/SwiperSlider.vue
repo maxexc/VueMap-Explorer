@@ -2,7 +2,9 @@
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/swiper-bundle.css'
 import { ref, watch, computed, onMounted, onBeforeUnmount } from 'vue'
-import { EffectCoverflow, Keyboard, Mousewheel } from 'swiper/modules'
+import { EffectCoverflow, Keyboard, Mousewheel, Navigation } from 'swiper/modules'
+import { useRouteStore } from '../../stores/routeStore'
+import { storeToRefs } from 'pinia'
 
 const props = defineProps({
   markers: {
@@ -100,12 +102,19 @@ const swiperDynamicSettings = computed(() => {
   }
 })
 
+const routeStore = useRouteStore()
+const { isIOS } = storeToRefs(routeStore)
+// isIOS.value = false
+console.log('isIOS: ', isIOS.value)
+
 const swiperSettings = computed(() => ({
-  effect: 'coverflow',
+  // effect: isIOS.value ? 'slide' : 'coverflow',
+  // effect: 'coverflow',
+  effect: !props.isMobile && isIOS.value ? 'slide' : 'coverflow',
   slidesPerView: swiperDynamicSettings.value.slidesPerView,
   grabCursor: true,
   centeredSlides: true,
-  spaceBetween: swiperDynamicSettings.value.spaceBetween,
+  spaceBetween: isIOS.value ? 10 : swiperDynamicSettings.value.spaceBetween,
   loop: true,
   direction: props.isMobile ? 'horizontal' : 'vertical',
   class: props.isMobile ? 'slider-vertical' : 'slider-horisontal',
@@ -116,7 +125,8 @@ const swiperSettings = computed(() => ({
   coverflowEffect: {
     rotate: 0,
     stretch: 0,
-    depth: swiperDynamicSettings.value.depth,
+    depth: isIOS.value ? 90 : swiperDynamicSettings.value.depth,
+    // depth: swiperDynamicSettings.value.depth,
     modifier: swiperDynamicSettings.value.modifier,
     slideShadows: false
   }
@@ -126,7 +136,7 @@ const swiperSettings = computed(() => ({
 <template>
   <Swiper
     v-bind="swiperSettings"
-    :modules="[Mousewheel, EffectCoverflow, Keyboard]"
+    :modules="[Mousewheel, Navigation, EffectCoverflow, Keyboard]"
     class="marker-slider"
     :mousewheel="{
       forceToAxis: true,
@@ -139,7 +149,12 @@ const swiperSettings = computed(() => ({
       }
     "
   >
-    <SwiperSlide v-for="marker in markers" :key="marker.id" @click="onCardClick(marker.id)">
+    <SwiperSlide
+      v-for="marker in markers"
+      :key="marker.id"
+      @click="onCardClick(marker.id)"
+      :class="{ 'px-[2px]': !isMobile }"
+    >
       <component
         :is="cardComponent"
         :id="marker.id"
