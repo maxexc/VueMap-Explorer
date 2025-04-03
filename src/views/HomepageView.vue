@@ -524,7 +524,11 @@ async function saveGeojsonToFile(geojson) {
           </MapboxMarker>
           <MapboxNavigationControl position="bottom-right" :showZoom="false" :showCompass="true" />
           <ResetZoomButton class="absolute" :mapInstance="mapInstance" :defaultZoom="10" />
-          <Toggle3DButton class="absolute" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
+          <Toggle3DButton
+            :class="routeStore.isIOS ? 'fixed' : 'absolute'"
+            :is3DEnabled="is3DEnabled"
+            @toggle3D="toggle3D"
+          />
           <FullScreenButton class="absolute bottom-[151px] right-[13px]" />
           <MapboxGeolocateControl
             position="bottom-left"
