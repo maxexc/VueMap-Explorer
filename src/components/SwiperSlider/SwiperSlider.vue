@@ -122,10 +122,11 @@ const swiperSettings = computed(() => ({
   preventClicksPropagation: false,
   touchStartPreventDefault: false,
   touchMoveStopPropagation: false,
+  // slidesPerView: isIOS.value ? 2.7 : swiperDynamicSettings.value.slidesPerView,
   coverflowEffect: {
     rotate: 0,
     stretch: 0,
-    depth: isIOS.value ? 90 : swiperDynamicSettings.value.depth,
+    depth: isIOS.value ? 30 : swiperDynamicSettings.value.depth,
     // depth: swiperDynamicSettings.value.depth,
     modifier: swiperDynamicSettings.value.modifier,
     slideShadows: false

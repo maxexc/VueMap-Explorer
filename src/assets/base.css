@@ -326,6 +326,10 @@ min-height: -webkit-fill-available; */
   transform: translate3d(0, 0, 0) !important;
 }
 
+/* .marker-slider .swiper-slide-prev {
+  transform: translate3d(0, 0, 0) !important;
+} */
+
 /* .marker-slider .swiper-slide {
   transform: translate3d(0, 0, 0) !important;
 } */
