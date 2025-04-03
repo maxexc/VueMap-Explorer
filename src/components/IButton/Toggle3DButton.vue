@@ -14,7 +14,7 @@ const toggle3D = () => {
   <button
     v-button-animation
     @click="toggle3D"
-    class="z-10 top-[97px] right-[10px] bg-transparent rounded border-none cursor-pointer flex flex-col items-center gap-2 hover:bg-white"
+    class="z-10 top-[104px] right-[10px] bg-transparent rounded border-none cursor-pointer flex flex-col items-center gap-2 hover:bg-white"
   >
     <div
       class="icon"
