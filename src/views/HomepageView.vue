@@ -195,7 +195,7 @@ const handleMapClick = (event) => {
     directionsInstance.value.addWaypoint(index, [event.lngLat.lng, event.lngLat.lat])
 
     routeStore.isAddPointMode = false
-    console.log('Режим добавления точки отключен')
+    console.log('Add point mode is deactivated')
     showTemporaryWaypointsOnMap(mapInstance.value, directionsInstance.value)
 
     console.log('destination B point:', destination.geometry.coordinates)
@@ -349,7 +349,7 @@ function saveDirectionsConfig() {
 function restoreDirectionsConfig() {
   const map = mapInstance.value
   if (!savedDirectionsConfig.value) {
-    console.warn('[restoreDirectionsConfig] Нет сохранённой конфигурации')
+    console.warn('[restoreDirectionsConfig] No saved configuration')
     return
   }
   const currentStyle = map.getStyle()
@@ -393,7 +393,7 @@ function showRouteOnMap() {
 async function saveGeojsonToFile(geojson) {
   // Check API support
   if (!window.showSaveFilePicker) {
-    console.error('File System Access API не поддерживается этим браузером.')
+    console.error('File System Access API is not supported by this browser.')
     return
   }
 
@@ -477,6 +477,7 @@ async function saveGeojsonToFile(geojson) {
         </div>
         <RouteStatusBar
           v-if="currentRoute && !isMobile"
+          class="fixed bottom-1 z-10"
           :isMobile="false"
           :routeIcon="routeStore.routeIcon"
           :onFitRoute="fitToCurrentRoute"
@@ -524,11 +525,7 @@ async function saveGeojsonToFile(geojson) {
           </MapboxMarker>
           <MapboxNavigationControl position="bottom-right" :showZoom="false" :showCompass="true" />
           <ResetZoomButton class="absolute" :mapInstance="mapInstance" :defaultZoom="10" />
-          <Toggle3DButton
-            :class="routeStore.isIOS ? 'fixed' : 'absolute'"
-            :is3DEnabled="is3DEnabled"
-            @toggle3D="toggle3D"
-          />
+          <Toggle3DButton class="absolute" :is3DEnabled="is3DEnabled" @toggle3D="toggle3D" />
           <FullScreenButton class="absolute bottom-[151px] right-[13px]" />
           <MapboxGeolocateControl
             position="bottom-left"

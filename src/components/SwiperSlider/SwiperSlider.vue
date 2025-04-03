@@ -6,6 +6,9 @@ import { EffectCoverflow, Keyboard, Mousewheel, Navigation } from 'swiper/module
 import { useRouteStore } from '../../stores/routeStore'
 import { storeToRefs } from 'pinia'
 
+const routeStore = useRouteStore()
+const { isIOS } = storeToRefs(routeStore)
+
 const props = defineProps({
   markers: {
     type: Array,
@@ -102,11 +105,6 @@ const swiperDynamicSettings = computed(() => {
   }
 })
 
-const routeStore = useRouteStore()
-const { isIOS } = storeToRefs(routeStore)
-// isIOS.value = false
-console.log('isIOS: ', isIOS.value)
-
 const swiperSettings = computed(() => ({
   // effect: isIOS.value ? 'slide' : 'coverflow',
   // effect: 'coverflow',
@@ -122,12 +120,10 @@ const swiperSettings = computed(() => ({
   preventClicksPropagation: false,
   touchStartPreventDefault: false,
   touchMoveStopPropagation: false,
-  // slidesPerView: isIOS.value ? 2.7 : swiperDynamicSettings.value.slidesPerView,
   coverflowEffect: {
     rotate: 0,
     stretch: 0,
     depth: isIOS.value ? 0 : swiperDynamicSettings.value.depth,
-    // depth: swiperDynamicSettings.value.depth,
     modifier: swiperDynamicSettings.value.modifier,
     slideShadows: false
   }

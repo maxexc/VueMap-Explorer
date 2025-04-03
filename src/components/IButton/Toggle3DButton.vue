@@ -1,4 +1,8 @@
 <script setup>
+import { useRouteStore } from '@/stores/routeStore'
+
+const routeStore = useRouteStore()
+
 defineProps({
   is3DEnabled: Boolean
 })
@@ -14,7 +18,8 @@ const toggle3D = () => {
   <button
     v-button-animation
     @click="toggle3D"
-    class="z-10 top-[104px] right-[10px] bg-transparent rounded border-none cursor-pointer flex flex-col items-center gap-2 hover:bg-white"
+    class="z-10 right-[10px] bg-transparent rounded border-none cursor-pointer flex flex-col items-center gap-2 hover:bg-white"
+    :class="routeStore.isIOS ? 'top-[calc(env(safe-area-inset-top)+104px)]' : 'top-[90px]'"
   >
     <div
       class="icon"
