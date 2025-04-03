@@ -126,7 +126,7 @@ const swiperSettings = computed(() => ({
   coverflowEffect: {
     rotate: 0,
     stretch: 0,
-    depth: isIOS.value ? 30 : swiperDynamicSettings.value.depth,
+    depth: isIOS.value ? 0 : swiperDynamicSettings.value.depth,
     // depth: swiperDynamicSettings.value.depth,
     modifier: swiperDynamicSettings.value.modifier,
     slideShadows: false
