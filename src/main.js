@@ -31,11 +31,28 @@ const metaViewport = document.querySelector("meta[name='viewport']")
 
 if (metaViewport) {
     if (store.isIOS) {
-        // iOS: Turn off zoom
-        metaViewport.setAttribute(
-            'content',
-            'width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0'
-        )
+
+        const userAgent = navigator.userAgent
+        const iPadDetect = /iPad/i.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+
+        if (iPadDetect) {
+            // iPad
+            metaViewport.setAttribute(
+                'content',
+                'width=device-width, initial-scale=1.01, viewport-fit=cover, user-scalable=no, maximum-scale=1.0'
+            )
+        } else {
+            // iPhone
+            metaViewport.setAttribute(
+                'content',
+                'width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0'
+            )
+        }
+        // // iOS: Turn off zoom
+        // metaViewport.setAttribute(
+        //     'content',
+        //     'width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0'
+        // )
     } else {
         // not iOS: allow user-scalable
         metaViewport.setAttribute(
