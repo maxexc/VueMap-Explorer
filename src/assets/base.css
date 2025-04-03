@@ -325,3 +325,7 @@ min-height: -webkit-fill-available; */
 .marker-slider .swiper-slide-active {
   transform: translate3d(0, 0, 0) !important;
 }
+
+/* .marker-slider .swiper-slide {
+  transform: translate3d(0, 0, 0) !important;
+} */
