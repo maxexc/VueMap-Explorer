@@ -39,7 +39,7 @@ if (metaViewport) {
             // iPad
             metaViewport.setAttribute(
                 'content',
-                'width=device-width, initial-scale=1.01, viewport-fit=cover, user-scalable=no, maximum-scale=1.0'
+                'width=device-width, initial-scale=0.999, viewport-fit=cover, user-scalable=no, maximum-scale=1.0'
             )
         } else {
             // iPhone
