@@ -422,10 +422,7 @@ async function saveGeojsonToFile(geojson) {
 </script>
 <template>
   <section
-    :class="[
-      'relative overflow-auto bg-white',
-      isIOS.value ? 'section-ios' : 'section-android-desktop'
-    ]"
+    :class="['relative overflow-auto bg-white', isIOS ? 'section-ios' : 'section-android-desktop']"
   >
     <SwiperSlider
       v-if="isMobile"
