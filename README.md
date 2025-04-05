@@ -65,7 +65,8 @@ cases, Postman or cURL might be more responsive for heavy payloads.
   Powered by [Mapbox GL](https://www.mapbox.com/). Easily add, edit, or remove markers and see 3D transitions for routes.
 
 - **Mobile First and Adaptive UI**:
-  Tailored for phones and tablets – the app also runs great on desktops/laptops for advanced tasks. Designed based on real-world user experiences on mobile/tablet devices.
+  Tailored for phones and tablets – the app also runs great on desktops/laptops for advanced tasks.
+  Designed based on real-world user experiences on mobile/tablet devices.
 
 - **Responsive & iOS-Optimized**:  
   Special care for iPhone/iPad (safe-area insets, orientation fix, etc.). PWA with black-translucent status bar.
