@@ -19,7 +19,7 @@ const toggle3D = () => {
     v-button-animation
     @click="toggle3D"
     class="z-10 right-[10px] bg-transparent rounded border-none cursor-pointer flex flex-col items-center gap-2 hover:bg-white"
-    :class="routeStore.isIOS ? 'button-3d-ios' : 'button-3d-default'"
+    :class="routeStore.isIOS ? 'top-[170px]' : 'top-[90px]'"
   >
     <div
       class="icon"
@@ -95,12 +95,5 @@ span {
 
 .button-on span {
   color: #f3743d;
-}
-
-.button-3d-ios {
-  top: calc(env(safe-area-inset-top) + 104px);
-}
-.button-3d-default {
-  top: 90px;
 }
 </style>
