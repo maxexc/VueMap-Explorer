@@ -78,7 +78,7 @@ export function toggleDirections() {
 export function enableAddPointMode() {
     if (!routeStore) return
     routeStore.isAddPointMode = true
-    console.log('Режим добавления точки активирован (enableAddPointMode)')
+    console.log('Add Point mode is activated (enableAddPointMode)')
 }
 
 export function injectRouteButtons(saveRoute) {

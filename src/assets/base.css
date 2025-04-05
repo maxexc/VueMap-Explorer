@@ -121,16 +121,6 @@ body {
   min-height: -webkit-fill-available;
 }
 
-/* .ios-safe-bottom {
-  padding-bottom: env(safe-area-inset-bottom, 80px);
-  padding-bottom: constant(safe-area-inset-bottom, 80px);
-} */
-/* @media (orientation: landscape) {
-  .ios-safe-bottom {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-} */
-
 @supports (-webkit-touch-callout: none) {
   .h-screen,
   .min-h-screen {
@@ -138,43 +128,6 @@ body {
     min-height: -webkit-fill-available !important;
   }
 }
-
-/* .section-ios {
-  min-height: 100vh;
-} */
-
-/* .section-android-desktop {
-  height: 100vh;
-} */
-/* min-height: 100vh; */
-
-/* height: -webkit-fill-available; 
-min-height: -webkit-fill-available; */
-/* .section-ios {
-  min-height: 100vh;
-  padding-bottom: env(safe-area-inset-bottom);
-} */
-
-/* for Android and desktops */
-/* .section-full-height {
-  height: 100vh;
-  min-height: 100vh;
-} */
-
-/* .h-screen,
-.min-h-screen {
-  height: -webkit-fill-available !important;
-  min-height: -webkit-fill-available !important;
-} */
-/* for iOS take -webkit-fill-available,  to avoid overlapping panels */
-/* @supports (-webkit-touch-callout: none) {
-  .section-full-height {
-    height: -webkit-fill-available !important;
-    min-height: -webkit-fill-available !important;
-
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-} */
 
 /* compass buttom scale */
 .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-compass {

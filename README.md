@@ -1,7 +1,7 @@
 # VueMap-Explorer
 
 Interactive 3D map platform
-**Designed for professional, production-level use** – from small personal trips to large-scale route management.
+**Designed for professional, production-level use** – from small personal trips to large-scale route management, with an **intuitive design** and **Mobile-First** approach.
 
 > **An advanced Vue 3 + Mapbox application for exploring, annotating, and sharing geospatial data**  
 > Complete with 3D routes, Swiper-based UIs, iOS optimizations, PWA offline capabilities, and a Node/Express backend with Swagger.
@@ -63,6 +63,9 @@ cases, Postman or cURL might be more responsive for heavy payloads.
 
 - **3D Routes & Custom Markers**:  
   Powered by [Mapbox GL](https://www.mapbox.com/). Easily add, edit, or remove markers and see 3D transitions for routes.
+
+- **Mobile First and Adaptive UI**:
+  Tailored for phones and tablets – the app also runs great on desktops/laptops for advanced tasks. Designed based on real-world user experiences on mobile/tablet devices.
 
 - **Responsive & iOS-Optimized**:  
   Special care for iPhone/iPad (safe-area insets, orientation fix, etc.). PWA with black-translucent status bar.

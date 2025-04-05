@@ -73,6 +73,7 @@ const swiperDynamicSettings = computed(() => {
   let spaceBetween = 20
   let depth = props.isMobile ? 150 : 30
   let modifier = 2.5
+  let effect = 'coverflow'
 
   if (!props.isMobile) {
     if (windowHeight.value <= 380) {
@@ -89,11 +90,13 @@ const swiperDynamicSettings = computed(() => {
       slidesPerView = 6.5
       depth = 7
       modifier = 3.5
+      effect = 'slide'
     } else {
       slidesPerView = 9
       depth = 7
       modifier = 2
       spaceBetween = 10
+      effect = 'slide'
     }
   }
 
@@ -101,14 +104,13 @@ const swiperDynamicSettings = computed(() => {
     slidesPerView,
     spaceBetween,
     depth,
-    modifier
+    modifier,
+    effect
   }
 })
 
 const swiperSettings = computed(() => ({
-  // effect: isIOS.value ? 'slide' : 'coverflow',
-  // effect: 'coverflow',
-  effect: !props.isMobile && isIOS.value ? 'slide' : 'coverflow',
+  effect: !props.isMobile && isIOS.value ? 'slide' : swiperDynamicSettings.value.effect,
   slidesPerView: swiperDynamicSettings.value.slidesPerView,
   grabCursor: true,
   centeredSlides: true,
