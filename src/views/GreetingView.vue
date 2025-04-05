@@ -24,13 +24,15 @@ onMounted(() => {
         </transition>
         <transition name="fade-slide" appear>
           <h1 class="font-bold m-auto w-fit text-2xl h-440:text-4xl mb-4 h-440:mb-7 text-accent">
-            IT traveler
+            VueMap platform
           </h1>
         </transition>
         <transition name="fade" appear>
           <p class="leading-6 mb-6 h-440:mb-11 h-440:text-lg text-textSecondary">
-            A simple and easy-to-use web application that lets you mark your favorite places, as
-            well as those you'd love to visit. So don't wait — give it a try!
+            An advanced yet intuitive 3D mapping platform designed for everything from small
+            personal trips to large-scale route management.
+            <br />
+            Easily mark, share, and manage your routes and points with a user-friendly interface.
           </p>
         </transition>
         <transition name="fade-slide" appear>
