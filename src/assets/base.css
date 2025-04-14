@@ -115,7 +115,7 @@ body {
 
 .section-android-desktop {
   height: 100vh;
-  overflow: hidden;
+  overflow: auto;
 }
 .section-ios {
   height: -webkit-fill-available;
