@@ -98,10 +98,12 @@ span {
 }
 
 .button-3d-ios {
+  position: fixed !important;
   top: calc(env(safe-area-inset-top) + 104px) !important;
   right: calc(env(safe-area-inset-right) + 10px) !important;
 }
 .button-3d-default {
+  position: absolute !important;
   top: 90px !important;
   right: 10px !important;
 }
